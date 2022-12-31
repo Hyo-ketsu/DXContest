@@ -35,7 +35,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\DXGame\BlendState.cpp" />
+    <ClCompile Include="..\Source\DXGame\CameraBase.cpp" />
+    <ClCompile Include="..\Source\DXGame\Collsion.cpp" />
+    <ClCompile Include="..\Source\DXGame\ConstantBuffer.cpp" />
+    <ClCompile Include="..\Source\DXGame\DirectX.cpp" />
+    <ClCompile Include="..\Source\DXGame\Game3D.cpp" />
+    <ClCompile Include="..\Source\DXGame\Geometory.cpp" />
+    <ClCompile Include="..\Source\DXGame\Input.cpp" />
     <ClCompile Include="..\Source\DXGame\Main.cpp" />
+    <ClCompile Include="..\Source\DXGame\MeshBuffer.cpp" />
+    <ClCompile Include="..\Source\DXGame\Model.cpp" />
+    <ClCompile Include="..\Source\DXGame\Model_Contents.cpp" />
+    <ClCompile Include="..\Source\DXGame\SamplerState.cpp" />
+    <ClCompile Include="..\Source\DXGame\Shader.cpp" />
+    <ClCompile Include="..\Source\DXGame\Sprite.cpp" />
+    <ClCompile Include="..\Source\DXGame\Startup.cpp" />
     <ClCompile Include="..\Source\DXGame\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Develop_Release|Win32'">Create</PrecompiledHeader>
@@ -46,9 +61,30 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game_Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Timer.cpp" />
+    <ClCompile Include="..\Source\DXGame\WinUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\DXGame\BlendState.h" />
+    <ClInclude Include="..\Source\DXGame\CameraBase.h" />
+    <ClInclude Include="..\Source\DXGame\Collsion.h" />
+    <ClInclude Include="..\Source\DXGame\ConstantBuffer.h" />
+    <ClInclude Include="..\Source\DXGame\DirectX.h" />
+    <ClInclude Include="..\Source\DXGame\Game3D.h" />
+    <ClInclude Include="..\Source\DXGame\Geometory.h" />
+    <ClInclude Include="..\Source\DXGame\Input.h" />
+    <ClInclude Include="..\Source\DXGame\Main.h" />
+    <ClInclude Include="..\Source\DXGame\MeshBuffer.h" />
+    <ClInclude Include="..\Source\DXGame\Model.h" />
+    <ClInclude Include="..\Source\DXGame\SamplerState.h" />
+    <ClInclude Include="..\Source\DXGame\Shader.h" />
+    <ClInclude Include="..\Source\DXGame\Sprite.h" />
     <ClInclude Include="..\Source\DXGame\stdafx.h" />
+    <ClInclude Include="..\Source\DXGame\Timer.h" />
+    <ClInclude Include="..\Source\DXGame\WinUtil.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="..\Source\DXGame\ModelVS.hlsl" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
