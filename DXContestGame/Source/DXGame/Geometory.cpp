@@ -165,7 +165,7 @@ void CreateGeometoryBox()
         20,21,22,22,21,23,  // +Y–Ê
     };
 
-    MeshBuffer::Description desc = {};
+    MeshBufferDescription desc = {};
     desc.pVtx       = vtx;
     desc.vtxCount   = 4 * 6;
     desc.vtxSize    = sizeof(vtx[0]);

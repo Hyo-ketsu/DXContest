@@ -1,30 +1,25 @@
-struct VS_IN
-{
+struct VS_IN {
 	float3 pos : POSITION;
 	float3 normal : NORMAL;
 	float2 uv : TEXCOORD;
 	float4 weight : WEIGHT;
 	uint4 index : INDEX;
 };
-struct VS_OUT
-{
+struct VS_OUT {
 	float4 pos : SV_POSITION;
 	float2 uv : TEXCOORD0;
 };
 
-cbuffer WVP : register(b0)
-{
+cbuffer WVP : register(b0) {
 	float4x4 world;
 	float4x4 view;
 	float4x4 proj;
 };
-cbuffer Anime : register(b1)
-{
+cbuffer Anime : register(b1) {
 	float4x4 bones[200];
 };
 
-VS_OUT main(VS_IN vin)
-{
+VS_OUT main(VS_IN vin) {
 	VS_OUT vout;
 	vout.pos = float4(vin.pos, 1.0f);
 	float4x4 mat =

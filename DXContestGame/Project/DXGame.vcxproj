@@ -37,13 +37,17 @@
   <ItemGroup>
     <ClCompile Include="..\Source\DXGame\BlendState.cpp" />
     <ClCompile Include="..\Source\DXGame\CameraBase.cpp" />
+    <ClCompile Include="..\Source\DXGame\ClassName.cpp" />
     <ClCompile Include="..\Source\DXGame\Collsion.cpp" />
+    <ClCompile Include="..\Source\DXGame\Component.cpp" />
     <ClCompile Include="..\Source\DXGame\ConstantBuffer.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectX.cpp" />
     <ClCompile Include="..\Source\DXGame\FilePath.cpp" />
     <ClCompile Include="..\Source\DXGame\FileStorage.cpp" />
     <ClCompile Include="..\Source\DXGame\Game3D.cpp" />
+    <ClCompile Include="..\Source\DXGame\GameApplication.cpp" />
     <ClCompile Include="..\Source\DXGame\GameObject.cpp" />
+    <ClCompile Include="..\Source\DXGame\GameObjectUpdater.cpp" />
     <ClCompile Include="..\Source\DXGame\Geometory.cpp" />
     <ClCompile Include="..\Source\DXGame\Input.cpp" />
     <ClCompile Include="..\Source\DXGame\Main.cpp" />
@@ -54,6 +58,7 @@
     <ClCompile Include="..\Source\DXGame\Scene.cpp" />
     <ClCompile Include="..\Source\DXGame\SceneLoader.cpp" />
     <ClCompile Include="..\Source\DXGame\Shader.cpp" />
+    <ClCompile Include="..\Source\DXGame\Singleton.cpp" />
     <ClCompile Include="..\Source\DXGame\Sprite.cpp" />
     <ClCompile Include="..\Source\DXGame\Startup.cpp" />
     <ClCompile Include="..\Source\DXGame\stdafx.cpp">
@@ -66,6 +71,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game_Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="..\Source\DXGame\SystemDefines.cpp" />
     <ClCompile Include="..\Source\DXGame\Timer.cpp" />
     <ClCompile Include="..\Source\DXGame\Transform.cpp" />
     <ClCompile Include="..\Source\DXGame\Utilty.cpp" />
@@ -74,13 +80,17 @@
   <ItemGroup>
     <ClInclude Include="..\Source\DXGame\BlendState.h" />
     <ClInclude Include="..\Source\DXGame\CameraBase.h" />
+    <ClInclude Include="..\Source\DXGame\ClassName.h" />
     <ClInclude Include="..\Source\DXGame\Collsion.h" />
+    <ClInclude Include="..\Source\DXGame\Component.h" />
     <ClInclude Include="..\Source\DXGame\ConstantBuffer.h" />
     <ClInclude Include="..\Source\DXGame\DirectX.h" />
     <ClInclude Include="..\Source\DXGame\FilePath.h" />
     <ClInclude Include="..\Source\DXGame\FileStorage.h" />
     <ClInclude Include="..\Source\DXGame\Game3D.h" />
+    <ClInclude Include="..\Source\DXGame\GameApplication.h" />
     <ClInclude Include="..\Source\DXGame\GameObject.h" />
+    <ClInclude Include="..\Source\DXGame\GameObjectUpdater.h" />
     <ClInclude Include="..\Source\DXGame\Geometory.h" />
     <ClInclude Include="..\Source\DXGame\Input.h" />
     <ClInclude Include="..\Source\DXGame\Main.h" />
@@ -90,15 +100,34 @@
     <ClInclude Include="..\Source\DXGame\Scene.h" />
     <ClInclude Include="..\Source\DXGame\SceneLoader.h" />
     <ClInclude Include="..\Source\DXGame\Shader.h" />
+    <ClInclude Include="..\Source\DXGame\Singleton.h" />
     <ClInclude Include="..\Source\DXGame\Sprite.h" />
     <ClInclude Include="..\Source\DXGame\stdafx.h" />
+    <ClInclude Include="..\Source\DXGame\SystemDefines.h" />
     <ClInclude Include="..\Source\DXGame\Timer.h" />
     <ClInclude Include="..\Source\DXGame\Transform.h" />
     <ClInclude Include="..\Source\DXGame\Utilty.h" />
     <ClInclude Include="..\Source\DXGame\WinUtil.h" />
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="..\Source\DXGame\ModelVS.hlsl" />
+    <FxCompile Include="..\Source\DXGame\ModelVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop_Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop_Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Game_Debug|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Game_Debug|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Game_Release|Win32'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Game_Release|Win32'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Develop_Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Develop_Release|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Game_Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Game_Debug|x64'">4.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">4.0</ShaderModel>
+    </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
@@ -254,6 +283,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -271,6 +301,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -288,6 +319,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -305,6 +337,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -324,6 +357,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -345,6 +379,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -364,6 +399,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Develop_Release|x64'">
@@ -378,6 +414,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/.pch</PrecompiledHeaderOutputFile>
       <ForcedIncludeFiles>DXGame/stdafx.h</ForcedIncludeFiles>
+      <PrecompiledHeaderFile>DXGame/stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -81,7 +81,8 @@ const HRESULT MeshBuffer::CreateVertexBuffer(void)
 	subResource.pSysMem = m_desc.vtx;
 
 	//--- 頂点バッファの作成
-	return GetDevice()->CreateBuffer(&bufDesc, &subResource, &m_vtxBuf);
+    auto meshBuffer = m_vtxBuf.get();
+	return GetDevice()->CreateBuffer(&bufDesc, &subResource, &meshBuffer);
 }
 // インデックスバッファーを作成する
 const HRESULT MeshBuffer::CreateIndexBuffer(void)
@@ -98,5 +99,6 @@ const HRESULT MeshBuffer::CreateIndexBuffer(void)
 	subResource.pSysMem = m_desc.idx;
 
 	// インデックスバッファ生成
-	return GetDevice()->CreateBuffer(&bufDesc, &subResource, &m_idxBuf);
+    auto indexBuffer = m_idxBuf.get();
+	return GetDevice()->CreateBuffer(&bufDesc, &subResource, &indexBuffer);
 }
