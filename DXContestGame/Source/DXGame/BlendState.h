@@ -10,7 +10,7 @@ public:
     // コンストラクタ
 	BlendState(void);
     // デストラクタ
-	~BlendState();
+	~BlendState(void);
 
 
     // ブレンドステートの作成

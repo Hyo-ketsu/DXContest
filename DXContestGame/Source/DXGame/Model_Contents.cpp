@@ -75,11 +75,11 @@ bool Model::Load(std::string file, float scale, bool flip)
         m_pMeshes[i].materialID = pScene->mMeshes[i]->mMaterialIndex;
 
         //----- メッシュを元に頂点バッファの作成
-        MeshBuffer::Description desc = {};
-        desc.pVtx = m_pMeshes[i].pVertices;
+        MeshBufferDescription desc = {};
+        desc.vtx = m_pMeshes[i].pVertices;
         desc.vtxSize = sizeof(Vertex);
         desc.vtxCount = m_pMeshes[i].vertexNum;
-        desc.pIdx = m_pMeshes[i].pIndices;
+        desc.idx = m_pMeshes[i].pIndices;
         desc.idxSize = sizeof(unsigned int);
         desc.idxCount = m_pMeshes[i].indexNum;
         desc.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

@@ -32,7 +32,7 @@ public:
 	void BindPS(const UINT slot);
 
 private:
-	std::unique_ptr<ID3D11Buffer> m_constantBuffer; // 定数バッファを格納しておく
+	ID3D11Buffer* m_constantBuffer; // 定数バッファを格納しておく
 };
 
 #endif // __CONSTANT_BUFFER_H__

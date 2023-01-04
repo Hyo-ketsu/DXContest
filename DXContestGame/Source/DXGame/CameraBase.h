@@ -1,32 +1,46 @@
 #ifndef ____CAMERABASE_H____
 #define ____CAMERABASE_H____
 
+#include <DXGame/ClassName.h>
+#include <DXGame/Component.h>
 
-// カメラの基礎となるクラス
-class CameraBase {
+
+// カメラコンポーネント
+class CameraBase : public Component {
 public:
     // コンストラクタ
-    CameraBase(void);
-
+    // @ Arg1 : 所属ゲームオブジェクト
+    // @ Arg2 : メインカメラに設定するか（デフォルト：false）
+    CameraBase(GameObject* gameObject, const bool isMainCamera = false);
     // デストラクタ
-    virtual ~CameraBase(void) {}
-    virtual void Update(void) = 0;
+    virtual ~CameraBase(void) override;
+
+
+    // メインカメラゲッター
+    const bool GetMainCamera(void) const { return m_isMainCamera; }
+    // メインカメラセッター
+    void SetMainCamera(const bool in) { m_isMainCamera = in; }
+
+
+    // 注視点ゲッター
+    DirectX::XMFLOAT3 GetLook(void) const { return m_look; }
+
 
     // ビュー行列の取得
-    DirectX::XMFLOAT4X4 GetViewMatrix(void);
-
+    // @ Ret  : ビュー行列
+    const DirectX::XMFLOAT4X4 GetViewMatrix(void) const;
     // プロジェクション行列の取得
-    DirectX::XMFLOAT4X4 GetProjectionMatrix(void);
-    
-    // 位置の取得
-    DirectX::XMFLOAT3 GetPos(void) { return m_pos; }
-
-    // 注視点の取得
-    DirectX::XMFLOAT3 GetLook(void) { return m_look; }
+    // @ Ret  : プロジェクション行列
+    const DirectX::XMFLOAT4X4 GetProjectionMatrix(void) const;
 
 protected:
-    DirectX::XMFLOAT3 m_pos, m_look, m_up;  // ビュー行列の設定に必要な変数
-    float m_fovy, m_aspect, m_near, m_far;  // プロジェクション行列の設定に必要な変数
+    bool              m_isMainCamera;   // メインカメラとして設定されているか
+    DirectX::XMFLOAT3 m_look;   // 注視点
+    DirectX::XMFLOAT3 m_up;     // 
+    float             m_fovy;   // 視野角
+    float             m_aspect; // 画面比率
+    float             m_near;   // 最短描画距離
+    float             m_far;    // 最長描画距離
 };
 
 

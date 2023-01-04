@@ -1,7 +1,7 @@
 #ifndef __TEXTURE_H__
 #define __TEXTURE_H__
 
-#include "DirectXTex.h"
+#include <DXGame/DirectXTex/DirectXTex.h>
 
 HRESULT InitTexture(ID3D11Device* pDevice);
 void UninitTexture();

@@ -166,10 +166,10 @@ void CreateGeometoryBox()
     };
 
     MeshBufferDescription desc = {};
-    desc.pVtx       = vtx;
+    desc.vtx       = vtx;
     desc.vtxCount   = 4 * 6;
     desc.vtxSize    = sizeof(vtx[0]);
-    desc.pIdx       = idx;
+    desc.idx       = idx;
     desc.idxCount   = 6 * 6;
     desc.idxSize    = sizeof(idx[0]);
     desc.topology   = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;

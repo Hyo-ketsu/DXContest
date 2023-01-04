@@ -9,6 +9,8 @@ public:
     // コンストラクタ
     // @ Arg1 : 所属ゲームオブジェクト
     Component(GameObject* gameObject);
+    // デストラクタ
+    virtual ~Component(void) {}
 
 
     // アクティブゲッター
@@ -34,7 +36,7 @@ public:
     // 描画処理
     virtual void Draw(void) {}
 
-private:
+protected:
     bool        m_isActive;     // 現在有効か
     bool        m_isInit;       // 初期化はされているか
     GameObject* m_gameObject;   // このコンポーネントが所属しているゲームオブジェクト

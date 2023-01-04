@@ -1,14 +1,5 @@
-#include "Texture.h"
+#include <DXGame/DirectXTex/Texture.h>
 
-//--- マクロ定義
-// visual studio バージョン
-#if _MSC_VER >= 1930
-#define VS_VER "vs2022"
-#elif _MSC_VER >= 1920
-#define VS_VER "vs2019"
-#elif _MSC_VER >= 1910
-#define VS_VER "vs2017"
-#endif
 // プラットフォーム
 #if _WIN64
 #define PLATFORM "x64"
@@ -17,32 +8,32 @@
 #endif
 // 構成
 #ifdef _DEBUG
-#define CONFIG "D"
+#define CONFIG "Debug"
 #else
-#define CONFIG ""
+#if 1
+#define CONFIG "Release"
+#else
+#define CONFIG "Debug"
+#endif
 #endif
 // ライブラリ情報
-#define DXTEX_LIB "DirectXTex_" VS_VER "_" PLATFORM CONFIG ".lib"
-#define DXTEX_LIB_PATH "DirectXTex/lib/" DXTEX_LIB
+#define DXTEX_LIB_PATH "DirectXTex/" PLATFORM "/" CONFIG "/DirectXTex.lib"
 
-//--- ライブラリリンク
+//----- ライブラリリンク
 #pragma comment(lib, DXTEX_LIB_PATH)
 
 
 ID3D11Device* g_pTextureDevice;
 
-HRESULT InitTexture(ID3D11Device* pDevice)
-{
+HRESULT InitTexture(ID3D11Device* pDevice) {
 	g_pTextureDevice = pDevice;
 	return S_OK;
 }
-void UninitTexture()
-{
+void UninitTexture() {
 	g_pTextureDevice = nullptr;
 }
 
-HRESULT LoadTextureFromFile(const char* fileName, ID3D11ShaderResourceView** ppTex)
-{
+HRESULT LoadTextureFromFile(const char* fileName, ID3D11ShaderResourceView** ppTex) {
 	HRESULT hr = E_FAIL;
 	
 	//--- 文字変換
@@ -66,7 +57,6 @@ HRESULT LoadTextureFromFile(const char* fileName, ID3D11ShaderResourceView** ppT
 	return hr;
 }
 
-HRESULT CreateRenderTarget(float width, float height, ID3D11ShaderResourceView** ppTex, ID3D11RenderTargetView** ppRenderTarget)
-{
+HRESULT CreateRenderTarget(float width, float height, ID3D11ShaderResourceView** ppTex, ID3D11RenderTargetView** ppRenderTarget) {
 	return S_OK;
 }

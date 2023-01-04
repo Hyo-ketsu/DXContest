@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\Game">
+      <UniqueIdentifier>{84230f82-9390-4ef4-a608-bb4cc9e37ae3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Game">
+      <UniqueIdentifier>{c51ce1b8-1da2-4e5c-89b6-b3e8a172752f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\DirectXTex">
+      <UniqueIdentifier>{40495a9e-bbb8-48c9-bec3-7f6e177385b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\DirectXTex">
+      <UniqueIdentifier>{fa8c2456-b8b3-4b54-8fff-4b3dfc5942c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\DXGame\BlendState.cpp">
@@ -90,9 +102,6 @@
     <ClCompile Include="..\Source\DXGame\Sprite.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DXGame\Startup.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\DXGame\stdafx.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -110,6 +119,18 @@
     </ClCompile>
     <ClCompile Include="..\Source\DXGame\WinUtil.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\ModelComponent.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Stage1.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\CameraSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\DirectXTex\Texture.cpp">
+      <Filter>ソース ファイル\DirectXTex</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -147,9 +168,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\Timer.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\DXGame\Main.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\MeshBuffer.h">
@@ -202,6 +220,21 @@
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\DirectX.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Stage1.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\ModelComponent.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\CameraSystem.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\DirectXTex\Texture.h">
+      <Filter>ヘッダー ファイル\DirectXTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\DirectXTex\DirectXTex.h">
+      <Filter>ヘッダー ファイル\DirectXTex</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

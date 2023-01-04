@@ -1,70 +1,107 @@
-#include <DXGame/Main.h>
-#include <DirectXTex/Texture.h>
+#include <DXGame/DirectXTex/Texture.h>
 #include <DXGame/DirectX.h>
 #include <DXGame/WinUtil.h>
 #include <DXGame/Input.h>
 #include <DXGame/Game3D.h>
 #include <DXGame/Geometory.h>
 #include <DXGame/Sprite.h>
+#include <DXGame/GameApplication.h>
+#include <DXGame/SystemDefines.h>
+#include <DXGame/WinUtil.h>
+#include <DXGame/Timer.h>
+#include <DXGame/SceneLoader.h>
+#include <DXGame/Stage1.h>
+#include <DXGame/GameApplication.h>
+
 
 //--- 定数定義
-const unsigned int SCREEN_WIDTH = 1280;
-const unsigned int SCREEN_HEIGHT = 720;
+const char* APP_TITLE = "DX2D";
 
-//-- グローバル変数
-Game3D* g_pGame;
+void Init(void);
+void Uninit(void);
+void Update(void);
+void Draw(void);
 
-// 度数（゜）をラジアンに変換する式
-const float GetRad(const float rad) {
-    return rad * 3.14f / 180;
+
+// エントリポイント
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+
+    //----- ウィンドウの初期化
+    GameApplication::Get()->SetWindowSizeX(SCREEN_X);
+    GameApplication::Get()->SetWindowSizeY(SCREEN_Y);
+    if (FAILED(InitWindow(APP_TITLE, GameApplication::Get()->GetWindowSizeX(), GameApplication::Get()->GetWindowSizeY()))) {
+        Error("window initialize faield");
+    }
+
+    //----- DirectX等の初期化
+    Init();
+
+    //----- 初期シーン設定
+    SceneLoader::Get()->MoveScene<Stage1>();
+
+    //----- 変数宣言
+    Timer timer;
+    AppState state = APP_STATE_MESSAGE;
+
+    //----- ゲームループ
+    while (1) {
+        //----- ゲームの終了
+        if (state == APP_STATE_QUIT)              break; // ウィンドウが閉ざられる等したか
+        if (GameApplication::Get()->GetGameEnd()) break; // ゲームが終了しているか
+
+        //----- ウィンドウメッセージ取得
+        state = UpdateWindow();
+
+        //----- 時間更新
+        Timer::UpdateTime();
+
+        //----- ゲームループ
+        // 1フレーム（1/60秒）経っている、かつウィンドウが更新できる（閉じられたり等されていない）か
+        if (timer.IsFpsCheck() && state == APP_STATE_WAIT) {
+            SceneLoader::Get()->Update();
+            SceneLoader::Get()->Draw();
+        }
+    }
+
+    //----- 終了処理
+    Uninit();
+    UninitWindow();
+    return 0;
 }
 
-unsigned int GetAppWidth(void) {
-	return SCREEN_WIDTH;
-}
-unsigned int GetAppHeight(void) {
-	return SCREEN_HEIGHT;
-}
+
+
 
 void Init(void) {
-	if (FAILED(InitDX(GetHWND(), SCREEN_WIDTH, SCREEN_HEIGHT, false)))
-	{
+	if (FAILED(InitDX(GetHWND(), GameApplication::Get()->GetWindowSizeX(), GameApplication::Get()->GetWindowSizeY(), false))) {
 		Error("directx initialize failed.");
 	}
-	if (FAILED(InitTexture(GetDevice())))
-	{
+	if (FAILED(InitTexture(GetDevice()))) {
 		Error("texture initialize failed.");
 	}
-	if (FAILED(InitInput()))
-	{
+	if (FAILED(InitInput())) {
 		Error("input initialize failed.");
 	}
-	if (FAILED(InitGeometory()))
-	{
+	if (FAILED(InitGeometory())) {
 		Error("geometory initialize failed.");
 	}
 
     Sprite::Init();
-
-	g_pGame = new Game3D();
+    Timer::InitTime();
+    SceneLoader::Get()->DeleteScene();
 }
-void Uninit()
-{
-	delete g_pGame;
+void Uninit(void) {
+    Timer::UninitTime();
     Sprite::Uninit();
 	UninitGeometory();
 	UninitInput();
 	UninitTexture();
 	UninitDX();
 }
-void Update(float deltaTime)
-{
+void Update(void) {
 	UpdateInput();
-	g_pGame->Update();
 }
-void Draw()
-{
+void Draw(void) {
 	BeginDrawDX();
-	g_pGame->Draw();
 	EndDrawDX();
 }

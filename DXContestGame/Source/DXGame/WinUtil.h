@@ -11,8 +11,8 @@ enum AppState
 };
 
 //----- プロトタイプ宣言
-HRESULT InitWindow(LPCSTR appName, LONG width, LONG height);
-void    UninitWindow(void);
+HRESULT  InitWindow(LPCSTR appName, LONG width, LONG height);
+void     UninitWindow(void);
 AppState UpdateWindow(void);
 HWND GetHWND(void);
 void Error(const char* mes);

@@ -11,29 +11,26 @@
 class SceneLoader : public Singleton<SceneLoader> {
 public:
     // デストラクタ
-    ~SceneLoader(void);
+    ~SceneLoader(void) override;
+
+
+    // 現在シーンを取得する
+    SceneBase* const GetScene(void) const;
 
 
     // シーンを移動する
     // @ Temp : 移動したいシーン
     template <typename MoveScene>
     void MoveScene(void);
+    // シーンを削除する
+    // @ Memo : 全てのシーンを削除します
+    void DeleteScene(void);
 
 
-    // 現在シーンを取得する
-    SceneBase* GetScene(void);
-
-
-    // ゲームアップデーター初期化
-    void InitGameUpdater(void);
-    // ゲームアップデーター終了
-    void UninitGameUpdater(void);
-
-
-    // ゲームアップデーターを取得する
-    // @ Memo : 未初期化時、例外を投げます
-    // @ Ret  : ゲームアップデーターへの参照
-    GameUpdater& GetGameUpdaterRef(void);
+    // 更新処理を行う
+    void Update(void);
+    // 描画処理を行う
+    void Draw(void);
 
 private:
     // コンストラクタ
@@ -43,9 +40,7 @@ private:
     // フレンド宣言
     friend class Singleton<SceneLoader>;
 
-
-    std::unique_ptr<GameUpdater> m_gameUpdater;     // ゲームアップデーター
-    std::unique_ptr<SceneBase>   m_currentScene;    // 現在のシーン
+    std::unique_ptr<SceneBase>   m_scene;    // 現在のシーン
 };
 
 
@@ -54,10 +49,10 @@ private:
 template <typename MoveScene>
 void SceneLoader::MoveScene(void) {
     //----- アソート
-    static_assert(std::is_same_v<SceneBase, T>, "Template error! Not a class that inherits SceneBase!");    // シーンから継承されているかのアソート
+    static_assert(std::is_base_of_v<SceneBase, MoveScene>, "Template error! Not a class that inherits SceneBase!");    // シーンから継承されているかのアソート
 
     //----- 移動
-    m_currentScene = std::make_unique<MoveScene>();
+    m_scene = std::make_unique<MoveScene>();
 }
 
 

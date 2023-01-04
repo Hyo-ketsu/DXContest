@@ -4,7 +4,7 @@
 
 // コンストラクタ
 GameUpdater::GameUpdater(void) { 
-    m_gameObject.resize(256);   // 取り敢えず256確保する
+    m_gameObject.reserve(256);   // 取り敢えず256確保する
 }
 // デストラクタ
 GameUpdater::~GameUpdater(void) { 

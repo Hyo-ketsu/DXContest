@@ -13,7 +13,7 @@ HRESULT Shader::Load(const char* fileName) {
 
 	// ファイルを読み込む
 	FILE* fp;
-	fp = fopen(fileName, "rb");
+	fopen_s(&fp, fileName, "rb");
 	if (!fp) { return hr; }
 
 	// ファイルのサイズを調べる

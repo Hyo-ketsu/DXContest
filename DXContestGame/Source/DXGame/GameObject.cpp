@@ -2,18 +2,21 @@
 #include <DXGame/Component.h>
 #include <DXGame/SystemDefines.h>
 #include <DXGame/SceneLoader.h>
+#include <DXGame/Scene.h>
 
 
 // コンストラクタ
-GameObject::GameObject(void)
+GameObject::GameObject(SceneBase* scene, const Transform& transform)
     : m_isActive(true)
     , m_isCreatePrefab(false)
-    , m_name(DEFAULT_NAME_GAMEOBJECT) {
-    SceneLoader::Get()->GetGameUpdaterRef().AddGameObject(this);
+    , m_name(DEFAULT_NAME_GAMEOBJECT)
+    , m_transform(transform)
+    , m_scene(scene) {
+    m_scene->GetUpdater()->AddGameObject(this);
 }
 // デストラクタ
 GameObject::~GameObject(void) {
-    SceneLoader::Get()->GetGameUpdaterRef().DeleteGameObject(this);
+    m_scene->GetUpdater()->DeleteGameObject(this);
 }
 
 

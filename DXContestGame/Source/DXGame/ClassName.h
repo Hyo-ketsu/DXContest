@@ -2,6 +2,8 @@
 #define ____CLASSNAME_H____
 
 
+class SceneBase;
+class Model;
 class GameObject;
 class Component;
 class GameUpdater;

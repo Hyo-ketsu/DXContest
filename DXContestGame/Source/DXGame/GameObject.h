@@ -2,14 +2,16 @@
 #define ____GAMEOBJECT_H____
 
 #include <DXGame/ClassName.h>
+#include <DXGame/Transform.h>
 
 
 // ゲームオブジェクト
 class GameObject {
 public:
     // コンストラクタ
-    // @ Arg1 : 座標
-    GameObject(void);
+    // @ Arg1 : 所属シーン
+    // @ Arg2 : 座標（デフォルト：座標回転は 0,拡縮は 1）
+    GameObject(SceneBase* scene, const Transform& transform = Transform());
     // デストラクタ
     ~GameObject(void);
 
@@ -24,6 +26,12 @@ public:
     const std::string& GetName(void) const { return m_name; }
     // 名前セッター
     void SetName(const std::string& in) { m_name = in; }
+
+
+    // 座標ゲッター
+    const Transform& GetTransform(void) const { return m_transform; }
+    // 座標セッター
+    void SetTransform(const Transform& in) { m_transform = in; }
 
 
     // プレハブ生成可否ゲッター
@@ -68,9 +76,11 @@ protected:
     virtual void Prefab(void) {}
 
 private:
-    bool m_isActive;        // 現在有効になっているか
-    bool m_isCreatePrefab;  // プレハブが生成されたか
-    std::string m_name;     // 名前
+    bool m_isActive;         // 現在有効になっているか
+    bool m_isCreatePrefab;   // プレハブが生成されたか
+    std::string m_name;      // 名前
+    Transform   m_transform; // 座標
+    SceneBase*  m_scene;     // 所属シーン
     std::vector<std::unique_ptr<Component>> m_component;    // 保持コンポーネント
 };
 

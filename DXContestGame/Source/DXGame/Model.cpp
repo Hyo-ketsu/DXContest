@@ -1,5 +1,5 @@
 #include <DXGame/Model.h>
-#include <DirectXTex/Texture.h>
+#include <DXGame/DirectXTex/Texture.h>
 
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
