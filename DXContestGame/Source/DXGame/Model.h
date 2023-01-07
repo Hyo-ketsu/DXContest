@@ -87,6 +87,13 @@ public:
 	};
 	// マテリアル
 	struct Material {
+        Material(void) {}
+        Material(const Material& r) {
+            diffuse  = r.diffuse;
+            ambient  = r.ambient;
+            specular = r.specular;
+            pTexture = r.pTexture;
+        }
 		DirectX::XMFLOAT4			diffuse;	// 拡散光
 		DirectX::XMFLOAT4			ambient;	// 環境光
 		DirectX::XMFLOAT4			specular;	// 鏡面反射光
@@ -99,6 +106,8 @@ public:
 	};
 	// メッシュ情報
 	struct Mesh {
+        Mesh(void) {}
+        Mesh(const Mesh& r);
 		Vertex*			pVertices;	// 頂点情報
 		unsigned int	vertexNum;	// 頂点数
 		unsigned int*	pIndices;	// インデックス情報
@@ -112,6 +121,7 @@ public:
 	//===== Model.cpp
 	Model();
 	~Model();
+    Model(const Model& r);
 	void SetVertexShader(VertexShader* vs);
 	void SetPixelShader(PixelShader* ps);
 	const Mesh* GetMesh(unsigned int index);

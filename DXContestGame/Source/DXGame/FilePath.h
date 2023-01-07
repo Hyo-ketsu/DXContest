@@ -8,7 +8,7 @@ namespace FilePath {
     const std::string SOLUTION_FILE_PATH = "";
 #endif // _DEVELOP
 #ifdef _GAME
-    const std::string SOLUTION_FILE_PATH = "../../";
+    const std::string SOLUTION_FILE_PATH = "../";
 #endif // _GAME
     const std::string TEXTURE_PATH = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Texture/");
     const std::string MODEL_PATH   = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Model/");

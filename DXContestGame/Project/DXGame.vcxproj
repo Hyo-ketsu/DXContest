@@ -36,18 +36,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\DXGame\BlendState.cpp" />
+    <ClCompile Include="..\Source\DXGame\Block.cpp" />
+    <ClCompile Include="..\Source\DXGame\Bullet.cpp" />
     <ClCompile Include="..\Source\DXGame\CameraBase.cpp" />
     <ClCompile Include="..\Source\DXGame\CameraSystem.cpp" />
     <ClCompile Include="..\Source\DXGame\ClassName.cpp" />
     <ClCompile Include="..\Source\DXGame\Collsion.cpp" />
+    <ClCompile Include="..\Source\DXGame\CollsionSystem.cpp" />
     <ClCompile Include="..\Source\DXGame\Component.cpp" />
     <ClCompile Include="..\Source\DXGame\ConstantBuffer.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectX.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectXTex\Texture.cpp" />
+    <ClCompile Include="..\Source\DXGame\Enemy.cpp" />
     <ClCompile Include="..\Source\DXGame\FilePath.cpp" />
     <ClCompile Include="..\Source\DXGame\FileStorage.cpp" />
     <ClCompile Include="..\Source\DXGame\Game3D.cpp" />
     <ClCompile Include="..\Source\DXGame\GameApplication.cpp" />
+    <ClCompile Include="..\Source\DXGame\GameCamera.cpp" />
     <ClCompile Include="..\Source\DXGame\GameObject.cpp" />
     <ClCompile Include="..\Source\DXGame\GameObjectUpdater.cpp" />
     <ClCompile Include="..\Source\DXGame\Geometory.cpp" />
@@ -57,13 +62,16 @@
     <ClCompile Include="..\Source\DXGame\Model.cpp" />
     <ClCompile Include="..\Source\DXGame\ModelComponent.cpp" />
     <ClCompile Include="..\Source\DXGame\Model_Contents.cpp" />
+    <ClCompile Include="..\Source\DXGame\Player.cpp" />
     <ClCompile Include="..\Source\DXGame\SamplerState.cpp" />
     <ClCompile Include="..\Source\DXGame\Scene.cpp" />
     <ClCompile Include="..\Source\DXGame\SceneLoader.cpp" />
+    <ClCompile Include="..\Source\DXGame\Score.cpp" />
     <ClCompile Include="..\Source\DXGame\Shader.cpp" />
     <ClCompile Include="..\Source\DXGame\Singleton.cpp" />
     <ClCompile Include="..\Source\DXGame\Sprite.cpp" />
     <ClCompile Include="..\Source\DXGame\Stage1.cpp" />
+    <ClCompile Include="..\Source\DXGame\StageCreater.cpp" />
     <ClCompile Include="..\Source\DXGame\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Develop_Release|Win32'">Create</PrecompiledHeader>
@@ -77,24 +85,29 @@
     <ClCompile Include="..\Source\DXGame\SystemDefines.cpp" />
     <ClCompile Include="..\Source\DXGame\Timer.cpp" />
     <ClCompile Include="..\Source\DXGame\Transform.cpp" />
-    <ClCompile Include="..\Source\DXGame\Utilty.cpp" />
+    <ClCompile Include="..\Source\DXGame\Utility.cpp" />
     <ClCompile Include="..\Source\DXGame\WinUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\DXGame\BlendState.h" />
+    <ClInclude Include="..\Source\DXGame\Block.h" />
+    <ClInclude Include="..\Source\DXGame\Bullet.h" />
     <ClInclude Include="..\Source\DXGame\CameraBase.h" />
     <ClInclude Include="..\Source\DXGame\CameraSystem.h" />
     <ClInclude Include="..\Source\DXGame\ClassName.h" />
     <ClInclude Include="..\Source\DXGame\Collsion.h" />
+    <ClInclude Include="..\Source\DXGame\CollsionSystem.h" />
     <ClInclude Include="..\Source\DXGame\Component.h" />
     <ClInclude Include="..\Source\DXGame\ConstantBuffer.h" />
     <ClInclude Include="..\Source\DXGame\DirectX.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\DirectXTex.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\Texture.h" />
+    <ClInclude Include="..\Source\DXGame\Enemy.h" />
     <ClInclude Include="..\Source\DXGame\FilePath.h" />
     <ClInclude Include="..\Source\DXGame\FileStorage.h" />
     <ClInclude Include="..\Source\DXGame\Game3D.h" />
     <ClInclude Include="..\Source\DXGame\GameApplication.h" />
+    <ClInclude Include="..\Source\DXGame\GameCamera.h" />
     <ClInclude Include="..\Source\DXGame\GameObject.h" />
     <ClInclude Include="..\Source\DXGame\GameObjectUpdater.h" />
     <ClInclude Include="..\Source\DXGame\Geometory.h" />
@@ -102,18 +115,21 @@
     <ClInclude Include="..\Source\DXGame\MeshBuffer.h" />
     <ClInclude Include="..\Source\DXGame\Model.h" />
     <ClInclude Include="..\Source\DXGame\ModelComponent.h" />
+    <ClInclude Include="..\Source\DXGame\Player.h" />
     <ClInclude Include="..\Source\DXGame\SamplerState.h" />
     <ClInclude Include="..\Source\DXGame\Scene.h" />
     <ClInclude Include="..\Source\DXGame\SceneLoader.h" />
+    <ClInclude Include="..\Source\DXGame\Score.h" />
     <ClInclude Include="..\Source\DXGame\Shader.h" />
     <ClInclude Include="..\Source\DXGame\Singleton.h" />
     <ClInclude Include="..\Source\DXGame\Sprite.h" />
     <ClInclude Include="..\Source\DXGame\Stage1.h" />
+    <ClInclude Include="..\Source\DXGame\StageCreater.h" />
     <ClInclude Include="..\Source\DXGame\stdafx.h" />
     <ClInclude Include="..\Source\DXGame\SystemDefines.h" />
     <ClInclude Include="..\Source\DXGame\Timer.h" />
     <ClInclude Include="..\Source\DXGame\Transform.h" />
-    <ClInclude Include="..\Source\DXGame\Utilty.h" />
+    <ClInclude Include="..\Source\DXGame\Utility.h" />
     <ClInclude Include="..\Source\DXGame\WinUtil.h" />
   </ItemGroup>
   <ItemGroup>
@@ -134,14 +150,6 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Game_Debug|x64'">4.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">4.0</ShaderModel>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|Win32'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Develop_Release|Win32'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Game_Debug|Win32'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Game_Release|Win32'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|x64'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Develop_Release|x64'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Game_Debug|x64'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
-      <ObjectFileOutput Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">$(PeojectDir)../Assets/Shader/(Filename).cso</ObjectFileOutput>
     </FxCompile>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -299,7 +307,7 @@
       <AdditionalDependencies>assimp-vc141-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir) *.dll /E /COPY:DT
@@ -327,7 +335,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <AdditionalDependencies>assimp-vc141-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir)../Binary/$(Configuration)/$(ProjectName) *.dll /E /COPY:DT
@@ -357,7 +365,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <AdditionalDependencies>assimp-vc141-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir) *.dll /E /COPY:DT
@@ -385,7 +393,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <AdditionalDependencies>assimp-vc141-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir)../Binary/$(Configuration)/$(ProjectName) *.dll /E /COPY:DT
@@ -419,7 +427,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <AdditionalDependencies>assimp-vc141-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir) *.dll /E /COPY:DT
@@ -451,7 +459,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <AdditionalDependencies>assimp-vc141-mtd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir) *.dll /E /COPY:DT
@@ -476,7 +484,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <TreatSpecificWarningsAsErrors>4834</TreatSpecificWarningsAsErrors>
     </ClCompile>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir)../Binary/$(Configuration)/$(ProjectName) *.dll /E /COPY:DT
@@ -503,7 +511,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <TreatSpecificWarningsAsErrors>4834</TreatSpecificWarningsAsErrors>
     </ClCompile>
     <FxCompile>
-      <ObjectFileOutput>$(ProjectDir)../Aeests/Shader/(Filename).cso</ObjectFileOutput>
+      <ObjectFileOutput>$(ProjectDir)../Assets/Shader/%(Filename).cso</ObjectFileOutput>
     </FxCompile>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)../DLL/ $(ProjectDir)../Binary/$(Configuration)/$(ProjectName) *.dll /E /COPY:DT

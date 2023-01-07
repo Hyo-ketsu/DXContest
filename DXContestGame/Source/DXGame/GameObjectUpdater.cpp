@@ -8,6 +8,10 @@ GameUpdater::GameUpdater(void) {
 }
 // デストラクタ
 GameUpdater::~GameUpdater(void) { 
+    for (auto& it : m_gameObject) {
+        if (it == nullptr) continue;
+        it->DeleteGameObject();
+    }
 }
 
 
@@ -40,6 +44,7 @@ void GameUpdater::Draw(void) {
 // ゲームオブジェクトを追加する
 void GameUpdater::AddGameObject(GameObject* gameObject) { 
     m_gameObject.push_back(std::unique_ptr<std::remove_reference<decltype(*m_gameObject.front().get())>::type>(gameObject));
+    gameObject->CreatePrefab();
 }
 // ゲームオブジェクトを削除する
 const bool GameUpdater::DeleteGameObject(GameObject* gameObject) {

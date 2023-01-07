@@ -6,13 +6,13 @@
 
 bool Model::Load(std::string file, float scale, bool flip)
 {
-    //assimpの読み込み時の設定   
+    //----- assimpの読み込み時の設定   
     Assimp::Importer impporter;
     int flag = 0;
     flag |= aiProcess_Triangulate;
     flag |= aiProcess_JoinIdenticalVertices;
     flag |= aiProcess_FlipUVs;
-    if (!(file.empty())) {
+    if (flip) {
         flag |= aiProcess_MakeLeftHanded;
     }
 
@@ -22,7 +22,7 @@ bool Model::Load(std::string file, float scale, bool flip)
         return false;
     } 
 
-    // アニメーション用の設定
+    //----- アニメーション用の設定
     m_modelScale = scale;
     m_isModelFlip = flip;
     MakeNodes(pScene);
@@ -31,10 +31,11 @@ bool Model::Load(std::string file, float scale, bool flip)
     m_meshNum = pScene->mNumMeshes;
     m_pMeshes = new Mesh[m_meshNum];
 
+    //----- メッシュを元に頂点のデータを確保
+    const aiVector3D zero(0.0f, 0.0f, 0.0f);
+
     //----- メッシュごとに頂点データを、インデックスデータを読み取り
     for (unsigned int i = 0; i < m_meshNum; ++i) {
-        //----- メッシュを元に頂点のデータを確保
-        aiVector3D zero(0.0f, 0.0f, 0.0f);
         m_pMeshes[i].vertexNum = pScene->mMeshes[i]->mNumVertices;
         m_pMeshes[i].pVertices = new Model::Vertex[m_pMeshes[i].vertexNum];
 

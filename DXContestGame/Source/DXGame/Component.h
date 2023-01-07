@@ -2,6 +2,7 @@
 #define ____COMPONENT_H____
 
 #include <DXGame/ClassName.h>
+#include <DXGame/Collsion.h>
 
 
 class Component {
@@ -29,12 +30,18 @@ public:
 
     // 初期化処理
     virtual void Start(void) = 0;
+    // ゲームオブジェクト用初期化処理
+    void GameObjectStart(void);
     // 更新処理
     virtual void Update(void) {}
     // 後更新処理
     virtual void LateUpdate(void) {}
     // 描画処理
     virtual void Draw(void) {}
+    // 衝突開始処理
+    virtual void CollsionBegin(void) {}
+    // 衝突終了処理
+    virtual void CollsionEnd(void) {}
 
 protected:
     bool        m_isActive;     // 現在有効か

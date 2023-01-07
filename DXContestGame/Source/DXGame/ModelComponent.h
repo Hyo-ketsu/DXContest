@@ -10,8 +10,11 @@
 class ModelComponent : public Component {
 public:
     // コンストラクタ
-    // @ Arg1 : 読み込むファイル名
-    ModelComponent(const std::string& fileName);
+    // @ Arg1 : 所属ゲームオブジェクト
+    // @ Arg2 : 読み込むファイル名
+    // @ Arg3 : モデルのスケール（デフォルト：1.0f）
+    // @ Arg4 : 座標系の反転を行うか（デフォルト：false）
+    ModelComponent(GameObject* gameObject, const std::string& fileName, const float scale = 1.0f, const float flip = false);
 
 
     // 初期化処理

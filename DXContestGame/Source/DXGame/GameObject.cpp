@@ -12,11 +12,9 @@ GameObject::GameObject(SceneBase* scene, const Transform& transform)
     , m_name(DEFAULT_NAME_GAMEOBJECT)
     , m_transform(transform)
     , m_scene(scene) {
-    m_scene->GetUpdater()->AddGameObject(this);
 }
 // デストラクタ
 GameObject::~GameObject(void) {
-    m_scene->GetUpdater()->DeleteGameObject(this);
 }
 
 
@@ -25,7 +23,7 @@ void GameObject::Start(void) {
     //----- 初期化処理をすべてのコンポーネントに行う
     for (auto& it : m_component) {
         if (it->GetInit() == false) {   // 初期化が行われていなければアクティブ関係なしに初期化処理を行う
-            it->Start();
+            it->GameObjectStart();
         }
     }
 }
@@ -61,7 +59,7 @@ void GameObject::Draw(void) {
     //----- 描画処理をすべてのコンポーネントに行う
     for (auto& it : m_component) {
         if (it->GetInit() && it->GetActive()) { // アクティブかつ初期化が行われていれば描画処理を行う
-            it->LateUpdate();
+            it->Draw();
         }
     }
 }
@@ -79,6 +77,12 @@ const bool GameObject::CreatePrefab(void) {
 
     //----- 既に生成されている
     return false;
+}
+
+
+// ゲームオブジェクト消去
+void GameObject::DeleteGameObject(void) {
+    m_scene->GetUpdater()->DeleteGameObject(this);
 }
 
 

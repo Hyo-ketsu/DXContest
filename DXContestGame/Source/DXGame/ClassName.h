@@ -2,6 +2,7 @@
 #define ____CLASSNAME_H____
 
 
+class Collsion;
 class SceneBase;
 class Model;
 class GameObject;

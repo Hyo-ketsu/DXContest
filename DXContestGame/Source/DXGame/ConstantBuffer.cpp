@@ -13,6 +13,10 @@ ConstantBuffer::~ConstantBuffer(void) {
         m_constantBuffer = nullptr;
 	}
 }
+// コピーコンストラクタ
+ConstantBuffer::ConstantBuffer(const ConstantBuffer& r) {
+    *m_constantBuffer = *r.m_constantBuffer;
+}
 
 
 // 定数バッファを作成する

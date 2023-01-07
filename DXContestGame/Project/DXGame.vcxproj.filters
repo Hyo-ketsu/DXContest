@@ -114,9 +114,6 @@
     <ClCompile Include="..\Source\DXGame\Transform.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DXGame\Utilty.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\DXGame\WinUtil.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -132,11 +129,35 @@
     <ClCompile Include="..\Source\DXGame\DirectXTex\Texture.cpp">
       <Filter>ソース ファイル\DirectXTex</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\DXGame\CollsionSystem.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\StageCreater.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Score.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Enemy.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Bullet.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Block.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Player.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Utility.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\GameCamera.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Source\DXGame\Utilty.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\DXGame\WinUtil.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -235,6 +256,33 @@
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\DirectXTex\DirectXTex.h">
       <Filter>ヘッダー ファイル\DirectXTex</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\CollsionSystem.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Bullet.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Block.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Enemy.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Player.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Score.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\StageCreater.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Utility.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\GameCamera.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

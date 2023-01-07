@@ -3,6 +3,8 @@
 
 #include <DXGame/ClassName.h>
 #include <DXGame/Transform.h>
+#include <DXGame/Component.h>
+#include <DXGame/Collsion.h>
 
 
 // ゲームオブジェクト
@@ -13,7 +15,7 @@ public:
     // @ Arg2 : 座標（デフォルト：座標回転は 0,拡縮は 1）
     GameObject(SceneBase* scene, const Transform& transform = Transform());
     // デストラクタ
-    ~GameObject(void);
+    virtual ~GameObject(void);
 
 
     // アクティブゲッター
@@ -32,6 +34,14 @@ public:
     const Transform& GetTransform(void) const { return m_transform; }
     // 座標セッター
     void SetTransform(const Transform& in) { m_transform = in; }
+
+
+    // 当たり判定リストゲッター
+    const CollsionHitDataVector& GetCollsionData(void) const { return m_collsionData; }
+    // 当たり判定リストゲッター
+    CollsionHitDataVector* const GetCollsionDataPointer(void) { return &m_collsionData; }
+    // 当たり判定リストセッター
+    void SetCollsionData(const CollsionHitDataVector& in) { m_collsionData = in; }
 
 
     // プレハブ生成可否ゲッター
@@ -55,6 +65,10 @@ public:
     // プレハブを生成する
     // @ Ret  : 生成したか（未生成であれば true,生成済みであれば false）
     const bool CreatePrefab(void);
+
+
+    // ゲームオブジェクト消去
+    void DeleteGameObject(void);
 
 
     // コンポーネントを追加する
@@ -82,9 +96,9 @@ private:
     Transform   m_transform; // 座標
     SceneBase*  m_scene;     // 所属シーン
     std::vector<std::unique_ptr<Component>> m_component;    // 保持コンポーネント
+    std::vector<std::unique_ptr<Collsion>>  m_collsion;     // 保持当たり判定
+    CollsionHitDataVector                   m_collsionData; // 当たり判定情報の保持
 };
-
-
 
 
 // コンポーネントを追加する
@@ -92,9 +106,7 @@ private:
 template <typename TComponent>
 void GameObject::AddComponent(void) {
     //----- Templateがコンポーネントを継承していなかったらアソート
-    static_assert(std::is_same_v<Component, TComponent>, "Template error! Not a class that inherits Component!");
-    //----- デフォルトコンストラクタが構築できなかったらアソート
-    static_assert(std::is_constructible_v<Component,GameObject>, "Template error! Unable to build constructor");
+    static_assert(std::is_base_of_v<Component, TComponent>, "Template error! Not a class that inherits Component!");
 
     //----- 追加
     m_component.push_back(std::unique_ptr<TComponent>(new TComponent(this)));

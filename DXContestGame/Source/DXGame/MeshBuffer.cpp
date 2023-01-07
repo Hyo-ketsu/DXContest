@@ -21,6 +21,12 @@ MeshBuffer::~MeshBuffer(void) {
 		m_idxBuf->Release();
 	}
 }
+// コピーコンストラクタ
+MeshBuffer::MeshBuffer(const MeshBuffer& r) {
+    m_desc = r.m_desc;
+    CreateVertexBuffer();
+    CreateIndexBuffer();
+}
 // メッシュバッファーに書き込む
 void MeshBuffer::Write(void* pVtx) {
 	if (!m_desc.isWrite) { return; }
@@ -81,8 +87,10 @@ const HRESULT MeshBuffer::CreateVertexBuffer(void)
 	subResource.pSysMem = m_desc.vtx;
 
 	//--- 頂点バッファの作成
-    auto meshBuffer = m_vtxBuf.get();
-	return GetDevice()->CreateBuffer(&bufDesc, &subResource, &meshBuffer);
+    ID3D11Buffer* meshBuffer;
+	auto hr = GetDevice()->CreateBuffer(&bufDesc, &subResource, &meshBuffer);
+    m_vtxBuf = std::unique_ptr<ID3D11Buffer>(meshBuffer);
+    return hr;
 }
 // インデックスバッファーを作成する
 const HRESULT MeshBuffer::CreateIndexBuffer(void)
@@ -99,6 +107,8 @@ const HRESULT MeshBuffer::CreateIndexBuffer(void)
 	subResource.pSysMem = m_desc.idx;
 
 	// インデックスバッファ生成
-    auto indexBuffer = m_idxBuf.get();
-	return GetDevice()->CreateBuffer(&bufDesc, &subResource, &indexBuffer);
+    ID3D11Buffer* indexBuffer;
+    auto hr = GetDevice()->CreateBuffer(&bufDesc, &subResource, &indexBuffer);
+    m_idxBuf = std::unique_ptr<ID3D11Buffer>(indexBuffer);
+    return hr;
 }

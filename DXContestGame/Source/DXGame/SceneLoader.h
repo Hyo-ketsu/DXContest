@@ -53,6 +53,9 @@ void SceneLoader::MoveScene(void) {
 
     //----- ˆÚ“®
     m_scene = std::make_unique<MoveScene>();
+
+    //----- ‰Šú‰»
+    m_scene->InitScene();
 }
 
 

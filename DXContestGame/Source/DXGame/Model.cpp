@@ -10,6 +10,31 @@ VertexShader* Model::m_pDefVS = nullptr;
 PixelShader* Model::m_pDefPS  = nullptr;
 unsigned int Model::m_shaderRef = 0;
 
+Model::Mesh::Mesh(const Mesh& r) {
+    pVertices  = new Vertex(*r.pVertices);
+    vertexNum  = r.vertexNum;
+    indexNum   = r.indexNum;
+    pIndices   = new unsigned int[indexNum];
+    for (int i = 0; i < indexNum; i++){
+        pIndices[i] = r.pIndices[i];
+    }
+    materialID = r.materialID;
+    boneNum    = r.boneNum;
+    pBones     = new Bone[boneNum];
+    for (int i = 0; i < boneNum; i++) {
+        pBones[i] = r.pBones[i];
+    }
+    //MeshBufferDescription desc = {};
+    //desc.vtx = pVertices;
+    //desc.vtxSize = sizeof(Vertex);
+    //desc.vtxCount = vertexNum;
+    //desc.idx = pIndices;
+    //desc.idxSize = sizeof(unsigned int);
+    //desc.idxCount = indexNum;
+    //desc.topology = D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+    pMesh      = new MeshBuffer(*r.pMesh);
+}
+
 //--- プロトタイプ宣言
 void MakeModelDefaultShader(VertexShader** vs, PixelShader** ps);
 
@@ -19,10 +44,8 @@ Model::Model()
 	, m_pMaterials(nullptr), m_materialNum(0)
 	, m_playNo(ANIME_NONE), m_blendNo(ANIME_NONE)
 	, m_blendTime(0.0f), m_blendTotalTime(0.0f)
-	, m_parametric{ANIME_NONE, ANIME_NONE}, m_parametricBlend(0.0f)
-{
-	if (m_shaderRef == 0)
-	{
+	, m_parametric{ANIME_NONE, ANIME_NONE}, m_parametricBlend(0.0f) {
+	if (m_shaderRef == 0) {
 		MakeModelDefaultShader(&m_pDefVS, &m_pDefPS);
 	}
 	m_pVS = m_pDefVS;
@@ -31,13 +54,10 @@ Model::Model()
 
 	m_pBones = new ConstantBuffer;
 	m_pBones->Create(sizeof(DirectX::XMFLOAT4X4) * MAX_BONE);
-
 }
-Model::~Model()
-{
+Model::~Model() {
 	delete m_pBones;
-	for (unsigned int i = 0; i < m_meshNum; ++i)
-	{
+	for (unsigned int i = 0; i < m_meshNum; ++i) {
 		if(m_pMeshes[i].pBones)
 			delete[] m_pMeshes[i].pBones;
 		delete[] m_pMeshes[i].pVertices;
@@ -47,48 +67,70 @@ Model::~Model()
 	if (m_pMeshes) {
 		delete[] m_pMeshes;
 	}
-	for (unsigned int i = 0; i < m_materialNum; ++i)
-	{
-		if (m_pMaterials[i].pTexture)
+	for (unsigned int i = 0; i < m_materialNum; ++i) {
+        if (m_pMaterials[i].pTexture) {
 			m_pMaterials[i].pTexture->Release();
+            m_pMaterials[i].pTexture = nullptr;
+        }
 	}
 	if (m_pMaterials) {
 		delete[] m_pMaterials;
 	}
 
 	--m_shaderRef;
-	if (m_shaderRef <= 0)
-	{
+	if (m_shaderRef <= 0) {
 		delete m_pDefPS;
 		delete m_pDefVS;
 	}
 }
+Model::Model(const Model& r) {
+    m_modelScale      = r.m_modelScale;
+    m_isModelFlip     = r.m_isModelFlip;
+    m_nodes           = r.m_nodes;
+    m_boneMapping     = r.m_boneMapping;
+    m_meshNum         = r.m_meshNum;
+    m_pMeshes         = new Model::Mesh[m_meshNum];
+    for (int i = 0; i < m_meshNum; i++) {
+        m_pMeshes[i] = Model::Mesh(r.m_pMeshes[i]);
+    }
+    m_materialNum     = r.m_materialNum;
+    m_pMaterials      = new Model::Material[m_materialNum];
+    for (int i = 0; i < m_materialNum; i++) {
+        m_pMaterials[i] = Model::Material(r.m_pMaterials[i]);
+    }
+    m_pVS             = new VertexShader(*r.m_pVS);
+    m_pPS             = new PixelShader(*r.m_pPS);
+    m_pBones          = new ConstantBuffer;
+    m_pBones->Create(sizeof(DirectX::XMFLOAT4X4) * MAX_BONE);
+    m_animes          = r.m_animes;
+    m_playNo          = r.m_playNo;
+    m_blendNo         = r.m_blendNo;
+    m_blendTime       = r.m_blendTime;
+    m_blendTotalTime  = r.m_blendTotalTime;
+    m_parametric[2]   = r.m_parametric[2];
+    m_parametricBlend = r.m_parametricBlend;
+    //m_animeTransform[MAX_ANIME_TRANSFORM] = r.m_animeTransform[MAX_ANIME_TRANSFORM];
+}
 
-void Model::SetVertexShader(VertexShader* vs)
-{
+void Model::SetVertexShader(VertexShader* vs) {
 	m_pVS = vs;
 }
-void Model::SetPixelShader(PixelShader* ps)
-{
+void Model::SetPixelShader(PixelShader* ps) {
 	m_pPS = ps;
 }
-const Model::Mesh* Model::GetMesh(unsigned int index)
-{
-	if (index >= GetMeshNum())
-	{
+const Model::Mesh* Model::GetMesh(unsigned int index) {
+	if (index >= GetMeshNum()) {
 		return &m_pMeshes[index];
 	}
 	return nullptr;
 }
-uint32_t Model::GetMeshNum()
-{
+uint32_t Model::GetMeshNum() {
 	return m_meshNum;
 }
 
 
 
-Model::AnimeNo Model::AddAnimation(const char* file)
-{
+Model::AnimeNo Model::AddAnimation(const char* file) {
 	// assimpの設定
 	Assimp::Importer importer;
 	int flag = 0;
@@ -101,8 +143,7 @@ Model::AnimeNo Model::AddAnimation(const char* file)
 	}
 
 	// アニメーションチェック
-	if (!pScene->HasAnimations())
-	{
+	if (!pScene->HasAnimations()) {
 		return ANIME_NONE;
 	}
 
@@ -115,14 +156,12 @@ Model::AnimeNo Model::AddAnimation(const char* file)
 	anime.totalTime = pAnime->mDuration / pAnime->mTicksPerSecond;
 	anime.channels.resize(pAnime->mNumChannels);
 	std::vector<Channel>::iterator channelIt = anime.channels.begin();
-	while (channelIt != anime.channels.end())
-	{
+	while (channelIt != anime.channels.end()) {
 		// チャンネル(ボーン)別にデータを設定
 		int channelIdx = channelIt - anime.channels.begin();
 		aiNodeAnim* pChannel = pAnime->mChannels[channelIdx];
 		Mapping::iterator mappingIt = m_boneMapping.find(pChannel->mNodeName.data);
-		if (mappingIt == m_boneMapping.end())
-		{
+		if (mappingIt == m_boneMapping.end()) {
 			channelIt->index = INDEX_NONE;
 			channelIt++;
 			continue;
@@ -132,24 +171,21 @@ Model::AnimeNo Model::AddAnimation(const char* file)
 		channelIt->index = mappingIt->second;
 		// 移動
 		channelIt->pos.resize(pChannel->mNumPositionKeys);
-		for (int i = 0; i < channelIt->pos.size(); ++i)
-		{
+		for (int i = 0; i < channelIt->pos.size(); ++i) {
 			aiVector3D val = pChannel->mPositionKeys[i].mValue;
 			channelIt->pos[i].value = DirectX::XMFLOAT3(val.x * m_modelScale, val.y * m_modelScale, val.z * m_modelScale);
 			channelIt->pos[i].time = pChannel->mPositionKeys[i].mTime / pAnime->mTicksPerSecond;
 		}
 		// 回転
 		channelIt->quat.resize(pChannel->mNumRotationKeys);
-		for (int i = 0; i < channelIt->quat.size(); ++i)
-		{
+		for (int i = 0; i < channelIt->quat.size(); ++i) {
 			aiQuaternion val = pChannel->mRotationKeys[i].mValue;
 			channelIt->quat[i].value = DirectX::XMFLOAT4(val.x, val.y, val.z, val.w);
 			channelIt->quat[i].time = pChannel->mRotationKeys[i].mTime / pAnime->mTicksPerSecond;
 		}
 		// 拡縮
 		channelIt->scale.resize(pChannel->mNumScalingKeys);
-		for (int i = 0; i < channelIt->scale.size(); ++i)
-		{
+		for (int i = 0; i < channelIt->scale.size(); ++i) {
 			aiVector3D val = pChannel->mScalingKeys[i].mValue;
 			channelIt->scale[i].value = DirectX::XMFLOAT3(val.x, val.y, val.z);
 			channelIt->scale[i].time = pChannel->mScalingKeys[i].mTime / pAnime->mTicksPerSecond;
@@ -161,21 +197,17 @@ Model::AnimeNo Model::AddAnimation(const char* file)
 	return true;
 }
 
-void Model::Step(float tick)
-{
+void Model::Step(float tick) {
 	if (m_playNo == ANIME_NONE) { return; }
 
-	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC)
-	{
+	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC) {
 		CalcAnime(ANIME_TRANSFORM_PARAMETRIC0, m_parametric[0]);
 		CalcAnime(ANIME_TRANSFORM_PARAMETRIC1, m_parametric[1]);
 	}
-	if (m_playNo != ANIME_NONE && m_playNo != ANIME_PARAMETRIC)
-	{
+	if (m_playNo != ANIME_NONE && m_playNo != ANIME_PARAMETRIC) {
 		CalcAnime(ANIME_TRANSFORM_MAIN, m_playNo);
 	}
-	if (m_blendNo != ANIME_NONE && m_blendNo != ANIME_PARAMETRIC)
-	{
+	if (m_blendNo != ANIME_NONE && m_blendNo != ANIME_PARAMETRIC) {
 		CalcAnime(ANIME_TRANSFORM_BLEND, m_blendNo);
 	}
 
@@ -183,36 +215,30 @@ void Model::Step(float tick)
 
 	// アニメーション時間更新
 	UpdateAnime(m_playNo, tick);
-	if (m_blendNo != ANIME_NONE)
-	{
+	if (m_blendNo != ANIME_NONE) {
 		UpdateAnime(m_blendNo, tick);
 		m_blendTime += tick;
-		if (m_blendTotalTime <= m_blendTime)
-		{
+		if (m_blendTotalTime <= m_blendTime) {
 			m_blendTime = 0.0f;
 			m_blendTotalTime = 0.0f;
 			m_playNo = m_blendNo;
 			m_blendNo = ANIME_NONE;
 		}
 	}
-	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC)
-	{
+	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC) {
 		UpdateAnime(m_parametric[0], tick);
 		UpdateAnime(m_parametric[1], tick);
 	}
 }
 
-void Model::Play(AnimeNo no, bool loop)
-{
+void Model::Play(AnimeNo no, bool loop) {
 	if (!AnimeNoCheck(no)) { return; }
 	if (m_playNo == no) { return; }
-	if (no != ANIME_PARAMETRIC)
-	{
+	if (no != ANIME_PARAMETRIC) {
 		InitAnime(no);
 		m_animes[no].isLoop = loop;
 	}
-	else
-	{
+	else {
 		InitAnime(m_parametric[0]);
 		InitAnime(m_parametric[1]);
 		m_animes[m_parametric[0]].isLoop = loop;
@@ -220,16 +246,13 @@ void Model::Play(AnimeNo no, bool loop)
 	}
 	m_playNo = no;
 }
-void Model::PlayBlend(AnimeNo no, float blendTime, bool loop)
-{
+void Model::PlayBlend(AnimeNo no, float blendTime, bool loop) {
 	if (!AnimeNoCheck(no)) { return; }
-	if (no != ANIME_PARAMETRIC)
-	{
+	if (no != ANIME_PARAMETRIC) {
 		InitAnime(no);
 		m_animes[no].isLoop = loop;
 	}
-	else
-	{
+	else {
 		InitAnime(m_parametric[0]);
 		InitAnime(m_parametric[1]);
 		m_animes[m_parametric[0]].isLoop = loop;
@@ -239,8 +262,7 @@ void Model::PlayBlend(AnimeNo no, float blendTime, bool loop)
 	m_blendTotalTime = blendTime;
 	m_blendNo = no;
 }
-void Model::SetParametric(AnimeNo no1, AnimeNo no2)
-{
+void Model::SetParametric(AnimeNo no1, AnimeNo no2) {
 	if (!AnimeNoCheck(no1)) { return; }
 	if (!AnimeNoCheck(no2)) { return; }
 	m_parametric[0] = no1;
@@ -265,32 +287,26 @@ bool Model::IsPlay(AnimeNo no)
 
 	if (m_playNo == no) { return true; }
 	if (m_blendNo == no) { return true; }
-	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC)
-	{
+	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC) {
 		if (m_parametric[0] == no) { return true; }
 		if (m_parametric[1] == no) { return true; }
 	}
 	return false;
 }
-Model::AnimeNo Model::GetPlayNo()
-{
+Model::AnimeNo Model::GetPlayNo() {
 	return m_playNo;
 }
-Model::AnimeNo Model::GetBlendNo()
-{
+Model::AnimeNo Model::GetBlendNo() {
 	return m_blendNo;
 }
-float Model::GetRemainingTime(AnimeNo no)
-{
+float Model::GetRemainingTime(AnimeNo no) {
 	if (!AnimeNoCheck(no)) { return 0.0f; }
 	return max(m_animes[no].totalTime - m_animes[no].time, 0.0f);
 }
 
-void Model::MakeNodes(const void* pScene)
-{
+void Model::MakeNodes(const void* pScene) {
 	std::function<NodeIndex(aiNode*, NodeIndex)> AssimpNodeConvert =
-		[&AssimpNodeConvert, this](aiNode* pNode, NodeIndex parent)
-	{
+		[&AssimpNodeConvert, this](aiNode* pNode, NodeIndex parent) {
 		// Assimpのノードを変換
 		Node node;
 		node.name = pNode->mName.data;
@@ -312,8 +328,7 @@ void Model::MakeNodes(const void* pScene)
 		m_boneMapping.insert(MappingKey(node.name, index));
 
 		// 子要素に関しても変換
-		for (int i = 0; i < pNode->mNumChildren; ++i)
-		{
+		for (int i = 0; i < pNode->mNumChildren; ++i) {
 			m_nodes[index].children[i] = AssimpNodeConvert(pNode->mChildren[i], index);
 		}
 		return index;
@@ -322,34 +337,28 @@ void Model::MakeNodes(const void* pScene)
 	// ノード作成
 	m_nodes.clear();
 	m_boneMapping.clear();
-	AssimpNodeConvert(reinterpret_cast<const aiScene*>(pScene)->mRootNode, -1);
+	AssimpNodeConvert(static_cast<const aiScene*>(pScene)->mRootNode, -1);
 	// ノード数に基づいて、アニメーションデータ作成
-	for (int i = 0; i < MAX_ANIME_TRANSFORM; ++i)
-	{
+	for (int i = 0; i < MAX_ANIME_TRANSFORM; ++i) {
 		m_animeTransform[i].resize(m_nodes.size());
-		for (NodeTransforms::iterator it = m_animeTransform[i].begin(); it != m_animeTransform[i].end(); ++it)
-		{
+		for (NodeTransforms::iterator it = m_animeTransform[i].begin(); it != m_animeTransform[i].end(); ++it) {
 			it->translate = DirectX::XMFLOAT3(0.0f, 0.0f, 0.0f);
 			it->quaternion = DirectX::XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f);
 			it->scale = DirectX::XMFLOAT3(1.0f, 1.0f, 1.0f);
 		}
 	}
 }
-void Model::MakeBoneWeight(const void* scene, int i)
-{
+void Model::MakeBoneWeight(const void* scene, int i) {
 	const aiScene* pScene = reinterpret_cast<const aiScene*>(scene);
 
 	// メッシュに対応するボーン番号
-	if (pScene->mMeshes[i]->HasBones())
-	{
+	if (pScene->mMeshes[i]->HasBones()) {
 		m_pMeshes[i].boneNum = pScene->mMeshes[i]->mNumBones;
 		m_pMeshes[i].pBones = new Bone[m_pMeshes[i].boneNum];
-		for (unsigned int j = 0; j < m_pMeshes[i].boneNum; ++j)
-		{
+		for (unsigned int j = 0; j < m_pMeshes[i].boneNum; ++j) {
 			std::string name = pScene->mMeshes[i]->mBones[j]->mName.data;
 			auto it = m_boneMapping.find(name);
-			if (it != m_boneMapping.end())
-			{
+			if (it != m_boneMapping.end()) {
 				m_pMeshes[i].pBones[j].index = it->second;
 				aiMatrix4x4 mat = pScene->mMeshes[i]->mBones[j]->mOffsetMatrix;
 				m_pMeshes[i].pBones[j].invOffset = DirectX::XMFLOAT4X4(
@@ -361,13 +370,10 @@ void Model::MakeBoneWeight(const void* scene, int i)
 
 				// ウェイト
 				unsigned int weightNum = pScene->mMeshes[i]->mBones[j]->mNumWeights;
-				for (int k = 0; k < weightNum; ++k)
-				{
+				for (int k = 0; k < weightNum; ++k) {
 					aiVertexWeight weight = pScene->mMeshes[i]->mBones[j]->mWeights[k];
-					for (int l = 0; l < 4; ++l)
-					{
-						if (m_pMeshes[i].pVertices[weight.mVertexId].weight[l] <= 0.0f)
-						{
+					for (int l = 0; l < 4; ++l) {
+						if (m_pMeshes[i].pVertices[weight.mVertexId].weight[l] <= 0.0f) {
 							m_pMeshes[i].pVertices[weight.mVertexId].index[l] = j;
 							m_pMeshes[i].pVertices[weight.mVertexId].weight[l] = weight.mWeight;
 							break;
@@ -375,83 +381,71 @@ void Model::MakeBoneWeight(const void* scene, int i)
 					}
 				}
 			}
-			else
-			{
+			else {
 				m_pMeshes[i].pBones[j].index = -1;
 			}
 		}
 	}
-	else
-	{
+	else {
 		std::map<std::string, int>::iterator it = m_boneMapping.find(pScene->mMeshes[i]->mName.data);
-		if (it != m_boneMapping.end())
-		{
+		if (it != m_boneMapping.end()) {
 			// メッシュでない親ノードを探索
-			std::function<int(int)> FindNodeFunc = [&FindNodeFunc, this, pScene](int index)
-			{
+			std::function<int(int)> FindNodeFunc = [&FindNodeFunc, this, pScene](int index) {
 				std::string name = m_nodes[index].name;
 				for (int i = 0; i < pScene->mNumMeshes; ++i)
-					if (name == pScene->mMeshes[i]->mName.data)
-					{
+					if (name == pScene->mMeshes[i]->mName.data) {
 						return FindNodeFunc(m_nodes[index].parent);
 					}
 				return index;
 			};
 			// ノードまでの行列を計算
 			std::function<DirectX::XMMATRIX(int, DirectX::XMMATRIX)> CalcNodeFunc =
-				[&CalcNodeFunc, this](int index, DirectX::XMMATRIX mat)
-			{
+				[&CalcNodeFunc, this](int index, DirectX::XMMATRIX mat) {
 				if (index == -1) return mat;
 				mat = mat * DirectX::XMLoadFloat4x4(&m_nodes[index].offset);
 				return CalcNodeFunc(m_nodes[index].parent, mat);
 			};
 
-			m_pMeshes[i].boneNum = 1;
-			m_pMeshes[i].pBones = new Bone[1];
-			m_pMeshes[i].pBones->index = FindNodeFunc(m_nodes[it->second].parent);
-			DirectX::XMStoreFloat4x4(&m_pMeshes[i].pBones->invOffset, DirectX::XMMatrixInverse(nullptr,
-				CalcNodeFunc(m_pMeshes[i].pBones->index, DirectX::XMMatrixIdentity())
-			));
-			for (unsigned int j = 0; j < m_pMeshes[i].vertexNum; ++j)
-			{
+			m_pMeshes[i].boneNum = 0;
+			//m_pMeshes[i].boneNum = 1;
+			//m_pMeshes[i].pBones = new Bone[1];
+			//m_pMeshes[i].pBones->index = FindNodeFunc(m_nodes[it->second].parent);
+			//DirectX::XMStoreFloat4x4(&m_pMeshes[i].pBones->invOffset, DirectX::XMMatrixInverse(nullptr,
+			//	CalcNodeFunc(m_pMeshes[i].pBones->index, DirectX::XMMatrixIdentity())
+			//));
+			for (unsigned int j = 0; j < m_pMeshes[i].vertexNum; ++j) {
 				m_pMeshes[i].pVertices[j].weight[0] = 1.0f;
 			}
 		}
-		else
-		{
+		else {
 			m_pMeshes[i].boneNum = 0;
 			m_pMeshes[i].pBones = nullptr;
 		}
 	}
 }
-void Model::UpdateBoneMatrix(int i)
-{
+void Model::UpdateBoneMatrix(int i) {
 	DirectX::XMFLOAT4X4 boneMat[MAX_BONE];
 	int j;
-	for (j = 0; j < m_pMeshes[i].boneNum && j < MAX_BONE; ++j)
-	{
+	for (j = 0; j < m_pMeshes[i].boneNum && j < MAX_BONE; ++j) {
 		DirectX::XMStoreFloat4x4(&boneMat[j],
 			DirectX::XMMatrixTranspose(
 				DirectX::XMLoadFloat4x4(&m_pMeshes[i].pBones[j].invOffset) *
 				m_nodes[m_pMeshes[i].pBones[j].index].mat
 			));
 	}
-	for (; j < MAX_BONE; ++j)
-	{
+	for (; j < MAX_BONE; ++j) {
 		DirectX::XMStoreFloat4x4(&boneMat[j], DirectX::XMMatrixIdentity());
 	}
 	m_pBones->Write(boneMat);
 	m_pBones->BindVS(1);
 }
-bool Model::AnimeNoCheck(AnimeNo no)
-{
+bool Model::AnimeNoCheck(AnimeNo no) {
 	if (no == ANIME_PARAMETRIC)
 		return m_parametric[0] != ANIME_NONE && m_parametric[1] != ANIME_NONE;
 	else
 		return 0 <= no && no < m_animes.size();
 }
-void Model::InitAnime(AnimeNo no)
-{
+void Model::InitAnime(AnimeNo no) {
 	if (no == ANIME_NONE || no == ANIME_PARAMETRIC) { return; }
 
 	Animation& anime = m_animes[no];
@@ -459,8 +453,7 @@ void Model::InitAnime(AnimeNo no)
 	anime.speed = 1.0f;
 	anime.isLoop = false;
 }
-void Model::UpdateAnime(AnimeNo no, float tick)
-{
+void Model::UpdateAnime(AnimeNo no, float tick) {
 	if (no == ANIME_PARAMETRIC) { return; }
 	Animation& anime = m_animes[no];
 	anime.time += anime.speed * tick;
@@ -468,13 +461,11 @@ void Model::UpdateAnime(AnimeNo no, float tick)
 		while (anime.time >= anime.totalTime)
 			anime.time -= anime.totalTime;
 }
-void Model::CalcBones(NodeIndex index, DirectX::XMMATRIX parent)
-{
+void Model::CalcBones(NodeIndex index, DirectX::XMMATRIX parent) {
 	//--- アニメーションごとのパラメータを合成
 	Transform transform;
 	// パラメトリックブレンド
-	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC)
-	{
+	if (m_playNo == ANIME_PARAMETRIC || m_blendNo == ANIME_PARAMETRIC) {
 		Transform& parametric0 = m_animeTransform[ANIME_TRANSFORM_PARAMETRIC0][index];
 		Transform& parametric1 = m_animeTransform[ANIME_TRANSFORM_PARAMETRIC1][index];
 		transform.translate = Lerp(parametric0.translate, parametric1.translate, m_parametricBlend);
@@ -486,8 +477,7 @@ void Model::CalcBones(NodeIndex index, DirectX::XMMATRIX parent)
 			m_animeTransform[ANIME_TRANSFORM_BLEND][index] = transform;
 	}
 	// モーションブレンド
-	if (m_blendNo != ANIME_NONE)
-	{
+	if (m_blendNo != ANIME_NONE) {
 		Transform& anime0 = m_animeTransform[ANIME_TRANSFORM_MAIN][index];
 		Transform& anime1 = m_animeTransform[ANIME_TRANSFORM_BLEND][index];
 		float rate = m_blendTime / m_blendTotalTime;
@@ -495,8 +485,7 @@ void Model::CalcBones(NodeIndex index, DirectX::XMMATRIX parent)
 		transform.quaternion = Lerp(anime0.quaternion, anime1.quaternion, rate);
 		transform.scale = Lerp(anime0.scale, anime1.scale, rate);
 	}
-	else
-	{
+	else {
 		transform = m_animeTransform[ANIME_TRANSFORM_MAIN][index];
 	}
 
@@ -511,8 +500,7 @@ void Model::CalcBones(NodeIndex index, DirectX::XMMATRIX parent)
 
 	// 子要素の姿勢を更新
 	Children::iterator it = node.children.begin();
-	while (it != node.children.end())
-	{
+	while (it != node.children.end()) {
 		CalcBones(*it, node.mat);
 		++it;
 	}
@@ -521,11 +509,9 @@ void Model::CalcAnime(AnimeTransformKind kind, AnimeNo no)
 {
 	Animation& anime = m_animes[no];
 	Channels::iterator channelIt = anime.channels.begin();
-	while (channelIt != anime.channels.end())
-	{
+	while (channelIt != anime.channels.end()) {
 		// 一致するボーンがなければスキップ
-		if (channelIt->index == INDEX_NONE)
-		{
+		if (channelIt->index == INDEX_NONE) {
 			++channelIt;
 			continue;
 		}
@@ -534,12 +520,9 @@ void Model::CalcAnime(AnimeTransformKind kind, AnimeNo no)
 		DirectX::XMFLOAT3 pos;
 		if (anime.time <= channelIt->pos[0].time) { pos = channelIt->pos[0].value; }
 		else if (channelIt->pos.back().time <= anime.time) { pos = channelIt->pos.back().value; }
-		else
-		{
-			for (int i = 0; i < channelIt->pos.size() - 1; ++i)
-			{
-				if (channelIt->pos[i].time < anime.time && anime.time <= channelIt->pos[i + 1].time)
-				{
+		else {
+			for (int i = 0; i < channelIt->pos.size() - 1; ++i) {
+				if (channelIt->pos[i].time < anime.time && anime.time <= channelIt->pos[i + 1].time) {
 					float timeLen = channelIt->pos[i + 1].time - channelIt->pos[i].time;
 					float rate = (anime.time - channelIt->pos[i].time) / timeLen;
 					pos = Lerp(channelIt->pos[i].value, channelIt->pos[i + 1].value, rate);
@@ -551,12 +534,9 @@ void Model::CalcAnime(AnimeTransformKind kind, AnimeNo no)
 		DirectX::XMFLOAT4 quat;
 		if (anime.time <= channelIt->quat[0].time) { quat = channelIt->quat[0].value; }
 		else if (channelIt->quat.back().time <= anime.time) { quat = channelIt->quat.back().value; }
-		else
-		{
-			for (int i = 0; i < channelIt->quat.size() - 1; ++i)
-			{
-				if (channelIt->quat[i].time < anime.time && anime.time <= channelIt->quat[i + 1].time)
-				{
+		else {
+			for (int i = 0; i < channelIt->quat.size() - 1; ++i) {
+				if (channelIt->quat[i].time < anime.time && anime.time <= channelIt->quat[i + 1].time) {
 					float timeLen = channelIt->quat[i + 1].time - channelIt->quat[i].time;
 					float rate = (anime.time - channelIt->quat[i].time) / timeLen;
 					quat = Lerp(channelIt->quat[i].value, channelIt->quat[i + 1].value, rate);
@@ -568,12 +548,9 @@ void Model::CalcAnime(AnimeTransformKind kind, AnimeNo no)
 		DirectX::XMFLOAT3 scale;
 		if (anime.time <= channelIt->scale[0].time) { scale = channelIt->scale[0].value; }
 		else if (channelIt->scale.back().time <= anime.time) { scale = channelIt->scale.back().value; }
-		else
-		{
-			for (int i = 0; i < channelIt->scale.size() - 1; ++i)
-			{
-				if (channelIt->scale[i].time < anime.time && anime.time <= channelIt->scale[i + 1].time)
-				{
+		else {
+			for (int i = 0; i < channelIt->scale.size() - 1; ++i) {
+				if (channelIt->scale[i].time < anime.time && anime.time <= channelIt->scale[i + 1].time) {
 					float timeLen = channelIt->scale[i + 1].time - channelIt->scale[i].time;
 					float rate = (anime.time - channelIt->scale[i].time) / timeLen;
 					scale = Lerp(channelIt->scale[i].value, channelIt->scale[i + 1].value, rate);
@@ -589,8 +566,7 @@ void Model::CalcAnime(AnimeTransformKind kind, AnimeNo no)
 	}	
 }
 
-DirectX::XMFLOAT3 Model::Lerp(DirectX::XMFLOAT3& a, DirectX::XMFLOAT3& b, float rate)
-{
+DirectX::XMFLOAT3 Model::Lerp(DirectX::XMFLOAT3& a, DirectX::XMFLOAT3& b, float rate) {
 	DirectX::XMFLOAT3 out;
 	DirectX::XMVECTOR vA = DirectX::XMLoadFloat3(&a);
 	DirectX::XMVECTOR vB = DirectX::XMLoadFloat3(&b);
@@ -599,8 +575,7 @@ DirectX::XMFLOAT3 Model::Lerp(DirectX::XMFLOAT3& a, DirectX::XMFLOAT3& b, float 
 	));
 	return out;
 }
-DirectX::XMFLOAT4 Model::Lerp(DirectX::XMFLOAT4& a, DirectX::XMFLOAT4& b, float rate)
-{
+DirectX::XMFLOAT4 Model::Lerp(DirectX::XMFLOAT4& a, DirectX::XMFLOAT4& b, float rate) {
 	DirectX::XMFLOAT4 out;
 	DirectX::XMVECTOR vA = DirectX::XMLoadFloat4(&a);
 	DirectX::XMVECTOR vB = DirectX::XMLoadFloat4(&b);
@@ -610,8 +585,7 @@ DirectX::XMFLOAT4 Model::Lerp(DirectX::XMFLOAT4& a, DirectX::XMFLOAT4& b, float 
 	return out;
 }
 
-void MakeModelDefaultShader(VertexShader** vs, PixelShader** ps)
-{
+void MakeModelDefaultShader(VertexShader** vs, PixelShader** ps) {
 	const char* ModelVS = R"EOT(
 struct VS_IN {
 	float3 pos : POSITION0;

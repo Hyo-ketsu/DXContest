@@ -11,6 +11,8 @@ public:
 	ConstantBuffer(void);
     // デストラクタ
 	~ConstantBuffer(void);
+    // コピーコンストラクタ
+    ConstantBuffer(const ConstantBuffer& r);
 
 
     // 定数バッファを作成する

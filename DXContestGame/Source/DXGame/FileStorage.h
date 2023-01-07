@@ -26,7 +26,7 @@ public:
     // @ Arg1 : 読み込むファイル
     // @ Arg2 : モデルのスケール（デフォルト：1.0f）
     // @ Arg3 : 座標系の反転を行うか（デフォルト：false）
-    Model LoadModel(const std::string& fileName, const float scale = 1.0f, const bool flip = false);
+    Model* LoadModel(const std::string& fileName, const float scale = 1.0f, const bool flip = false);
 
 
 private:
@@ -34,8 +34,11 @@ private:
     FileStorage(void);
 
 
+    // friendクラス宣言
+    friend class Singleton<FileStorage>;
+
     std::unordered_map<std::string, ID3D11ShaderResourceView *const> m_texture; // テクスチャーを保持しておく連想配列
-    std::unordered_map<std::string, const Model>                     m_model;   // モデルを保持しておく連想配列
+    //std::unordered_map<std::string, std::unique_ptr<const Model>>    m_model;   // モデルを保持しておく連想配列
 };
 
 

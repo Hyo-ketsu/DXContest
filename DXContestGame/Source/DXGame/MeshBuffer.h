@@ -24,6 +24,8 @@ public:
 	MeshBuffer(const MeshBufferDescription& desc);
     // デストラクタ
 	~MeshBuffer(void);
+    // コピーコンストラクタ
+    MeshBuffer(const MeshBuffer& r);
 
 
     // メッシュバッファーに書き込む
