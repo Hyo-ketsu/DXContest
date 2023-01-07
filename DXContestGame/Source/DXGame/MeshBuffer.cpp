@@ -14,11 +14,13 @@ MeshBuffer::MeshBuffer(const MeshBufferDescription& desc)
 }
 // デストラクタ
 MeshBuffer::~MeshBuffer(void) {
-	if (m_vtxBuf) {
+	if (m_vtxBuf != nullptr) {
 		m_vtxBuf->Release();
+        m_vtxBuf = nullptr;
 	}
-	if (m_idxBuf) {
+	if (m_idxBuf != nullptr) {
 		m_idxBuf->Release();
+        m_idxBuf = nullptr;
 	}
 }
 // コピーコンストラクタ
@@ -33,22 +35,21 @@ void MeshBuffer::Write(void* pVtx) {
 
 	D3D11_MAPPED_SUBRESOURCE mapResource;
 
-	if (FAILED(GetContext()->Map(m_vtxBuf.get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &mapResource))) {
+	if (FAILED(GetContext()->Map(m_vtxBuf, 0, D3D11_MAP_WRITE_DISCARD, 0, &mapResource))) {
 		return;
 	}
 
 	rsize_t size = m_desc.vtxCount * m_desc.vtxSize;
 	memcpy_s(mapResource.pData, size, pVtx, size);
-    GetContext()->Unmap(m_vtxBuf.get(), 0);
+    GetContext()->Unmap(m_vtxBuf, 0);
 }
 // 描画する
 void MeshBuffer::Draw(void) {
     //----- 変数宣言
 	UINT offset = 0;
-    auto vtxBuffer = m_vtxBuf.get();
 
     GetContext()->IASetPrimitiveTopology(m_desc.topology);
-    GetContext()->IASetVertexBuffers(0, 1, &vtxBuffer, &m_desc.vtxSize, &offset);
+    GetContext()->IASetVertexBuffers(0, 1, &m_vtxBuf, &m_desc.vtxSize, &offset);
 
 	if (m_idxBuf) {
 		DXGI_FORMAT format;
@@ -59,7 +60,7 @@ void MeshBuffer::Draw(void) {
 		case 2: format = DXGI_FORMAT_R16_UINT; break;
 		case 4: format = DXGI_FORMAT_R32_UINT; break;
 		}
-        GetContext()->IASetIndexBuffer(m_idxBuf.get(), format, 0);
+        GetContext()->IASetIndexBuffer(m_idxBuf, format, 0);
         GetContext()->DrawIndexed(m_desc.idxCount, 0, 0);
 	}
 	else {
@@ -87,9 +88,7 @@ const HRESULT MeshBuffer::CreateVertexBuffer(void)
 	subResource.pSysMem = m_desc.vtx;
 
 	//--- 頂点バッファの作成
-    ID3D11Buffer* meshBuffer;
-	auto hr = GetDevice()->CreateBuffer(&bufDesc, &subResource, &meshBuffer);
-    m_vtxBuf = std::unique_ptr<ID3D11Buffer>(meshBuffer);
+	auto hr = GetDevice()->CreateBuffer(&bufDesc, &subResource, &m_vtxBuf);
     return hr;
 }
 // インデックスバッファーを作成する
@@ -107,8 +106,6 @@ const HRESULT MeshBuffer::CreateIndexBuffer(void)
 	subResource.pSysMem = m_desc.idx;
 
 	// インデックスバッファ生成
-    ID3D11Buffer* indexBuffer;
-    auto hr = GetDevice()->CreateBuffer(&bufDesc, &subResource, &indexBuffer);
-    m_idxBuf = std::unique_ptr<ID3D11Buffer>(indexBuffer);
+    auto hr = GetDevice()->CreateBuffer(&bufDesc, &subResource, &m_idxBuf);
     return hr;
 }

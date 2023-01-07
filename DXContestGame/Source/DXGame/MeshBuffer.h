@@ -44,8 +44,8 @@ private:
 	const HRESULT CreateIndexBuffer(void);
 
 
-	std::unique_ptr<ID3D11Buffer> m_vtxBuf;
-	std::unique_ptr<ID3D11Buffer> m_idxBuf;
+	ID3D11Buffer* m_vtxBuf;
+	ID3D11Buffer* m_idxBuf;
 	MeshBufferDescription m_desc;
 };
 

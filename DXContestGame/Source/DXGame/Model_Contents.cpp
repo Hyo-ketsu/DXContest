@@ -1,18 +1,20 @@
-#include "Model.h"
-#include "DirectXTex/Texture.h"
+#include <DXGame/Model.h>
+#include <DXGame/DirectXTex/Texture.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 
-bool Model::Load(std::string file, float scale, bool flip)
+
+bool Model::Load(const char* file, float scale, bool flip)
 {
-    //----- assimpの読み込み時の設定   
+    //assimpの読み込み時の設定   
     Assimp::Importer impporter;
     int flag = 0;
     flag |= aiProcess_Triangulate;
+    flag |= aiProcess_PreTransformVertices;
     flag |= aiProcess_JoinIdenticalVertices;
     flag |= aiProcess_FlipUVs;
-    if (flip) {
+    if (file) {
         flag |= aiProcess_MakeLeftHanded;
     }
 
@@ -20,22 +22,16 @@ bool Model::Load(std::string file, float scale, bool flip)
     const aiScene* pScene = impporter.ReadFile(file, flag);
     if (!pScene) {
         return false;
-    } 
-
-    //----- アニメーション用の設定
-    m_modelScale = scale;
-    m_isModelFlip = flip;
-    MakeNodes(pScene);
+    }
 
     //----- 読み込んだデータをもとに元のメッシュのデータを確保
     m_meshNum = pScene->mNumMeshes;
     m_pMeshes = new Mesh[m_meshNum];
 
-    //----- メッシュを元に頂点のデータを確保
-    const aiVector3D zero(0.0f, 0.0f, 0.0f);
-
     //----- メッシュごとに頂点データを、インデックスデータを読み取り
     for (unsigned int i = 0; i < m_meshNum; ++i) {
+        //----- メッシュを元に頂点のデータを確保
+        aiVector3D zero(0.0f, 0.0f, 0.0f);
         m_pMeshes[i].vertexNum = pScene->mMeshes[i]->mNumVertices;
         m_pMeshes[i].pVertices = new Model::Vertex[m_pMeshes[i].vertexNum];
 
@@ -48,15 +44,9 @@ bool Model::Load(std::string file, float scale, bool flip)
             //----- 値を設定
             m_pMeshes[i].pVertices[j] = {
                 DirectX::XMFLOAT3(pos.x * scale, pos.y * scale, pos.z * scale),
-                DirectX::XMFLOAT3(0,0,0),
-                DirectX::XMFLOAT2(uv.x,uv.y),
-                {0.0f, 0.0f, 0.0f, 0.0f},
-                {0, 0, 0, 0}
+                DirectX::XMFLOAT2(uv.x,uv.y)
             };
         }
-
-        // アニメーション用の設定
-        MakeBoneWeight(pScene, i);
 
         //----- メッシュをもとにインデックスのデータを確保
         //      ※ face はポリゴンの数を表す（1 ポリゴンで 3 インデックス）
@@ -109,36 +99,23 @@ bool Model::Load(std::string file, float scale, bool flip)
                 file += path.C_Str();
                 hr = LoadTextureFromFile(file.c_str(), &m_pMaterials[i].pTexture);
             }
-            //----- パスを分解して探索
-            if (FAILED(hr)) {
-                std::string flie = path.C_Str();
-                for (auto fileIt = file.begin(); fileIt != file.end(); fileIt++) {
-                    if (*fileIt == '/') {
-                        *fileIt = '\\';
-                    }
-                    file = file.substr(file.find_last_of('\\') + 1);
-                    file = dir + file;
-                    hr = LoadTextureFromFile(file.c_str(), &m_pMaterials[i].pTexture);
-                }
-            }
             if (FAILED(hr)) { return false; }
         }
         else {
             m_pMaterials[i].pTexture = nullptr;
         }
     }
-    
+
     return true;
 }
 
 void Model::Draw()
 {
-	m_pVS->Bind();
-	m_pPS->Bind();
-	for (unsigned int i = 0; i < m_meshNum; ++i)
-	{
-        UpdateBoneMatrix(i);
-		SetTexturePS(m_pMaterials[m_pMeshes[i].materialID].pTexture, 0);
-		m_pMeshes[i].pMesh->Draw();
-	}
+    m_pVS->Bind();
+    m_pPS->Bind();
+    for (unsigned int i = 0; i < m_meshNum; ++i)
+    {
+        SetTexturePS(m_pMaterials[m_pMeshes[i].materialID].pTexture, 0);
+        m_pMeshes[i].pMesh->Draw();
+    }
 }

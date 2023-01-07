@@ -46,7 +46,7 @@ Model* FileStorage::LoadModel(const std::string& fileName, const float scale, co
     //}
 
     Model* model = new Model();
-    model->Load(std::string(FilePath::MODEL_PATH + fileName), scale, flip);
+    model->Load(std::string(FilePath::MODEL_PATH + fileName).c_str(), scale, flip);
     return model;
 }
 

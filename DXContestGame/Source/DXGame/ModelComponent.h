@@ -14,7 +14,7 @@ public:
     // @ Arg2 : 読み込むファイル名
     // @ Arg3 : モデルのスケール（デフォルト：1.0f）
     // @ Arg4 : 座標系の反転を行うか（デフォルト：false）
-    ModelComponent(GameObject* gameObject, const std::string& fileName, const float scale = 1.0f, const float flip = false);
+    ModelComponent(GameObject* gameObject, const std::string& fileName, const float scale = 1.0f, const bool flip = false);
 
 
     // 初期化処理
@@ -26,6 +26,7 @@ public:
 private:
     std::unique_ptr<Model>          m_model;    // モデル
     std::unique_ptr<ConstantBuffer> m_wvp;      // コンスタントバッファー
+    std::unique_ptr<VertexShader>   m_vs;       // 頂点シェーダー
 };
 
 

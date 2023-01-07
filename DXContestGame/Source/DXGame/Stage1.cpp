@@ -4,6 +4,6 @@
 
 
 void Stage1::InitScene(void) {
-    CreatePrefab<Block>();
-    CreatePrefab<GameCamera>(Transform(DirectX::XMFLOAT3(0.f,-3.f,-10.f)));
+    CreatePrefab<Block>(Transform(DirectX::XMFLOAT3(0.f, 0.f, 0.f),DirectX::XMFLOAT3(10.f,10.f,10.f)));
+    CreatePrefab<GameCamera>(Transform(DirectX::XMFLOAT3(0.f,5.f,15.f)));
 }
