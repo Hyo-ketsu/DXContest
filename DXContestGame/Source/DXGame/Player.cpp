@@ -6,7 +6,7 @@
 
 
 const float PLAYER_AUTO_MOVE_SPEED = 0.25;  // 前方への移動速度
-const float PLAYER_MOVE_SPEED      = 0.5f;  // プレイヤーの左右への移動速度
+const float PLAYER_MOVE_SPEED      = 0.05f;  // プレイヤーの左右への移動速度
 const float PLAYER_MOVE_MAX        = 2.0f;  // 左右移動上限
 const std::string PLAYER_FILENAME = "Unitychan/unitychan.fbx";  // 読み込みファイル名
 
@@ -25,7 +25,7 @@ void PlayerControl::Update(void) {
     // 右移動
     if (IsKeyPress('D') || IsKeyPress(VK_RIGHT)) {
         auto pos = m_gameObject->GetTransform();
-        pos.pos.x -= PLAYER_MOVE_SPEED;
+        pos.pos.x += PLAYER_MOVE_SPEED;
         m_gameObject->SetTransform(pos);
     }
 
@@ -37,7 +37,7 @@ void PlayerControl::Update(void) {
         m_gameObject->SetTransform(pos);
     }
     // 右補正
-    if (m_gameObject->GetTransform().pos.x <   PLAYER_MOVE_MAX ) {
+    if (m_gameObject->GetTransform().pos.x >   PLAYER_MOVE_MAX ) {
         auto pos = m_gameObject->GetTransform();
         pos.pos.x =   PLAYER_MOVE_MAX ;
         m_gameObject->SetTransform(pos);
@@ -46,7 +46,7 @@ void PlayerControl::Update(void) {
     //----- 前進
     {
         auto pos = m_gameObject->GetTransform();
-        pos.pos.z += PLAYER_AUTO_MOVE_SPEED;
+        //pos.pos.z += PLAYER_AUTO_MOVE_SPEED;
         m_gameObject->SetTransform(pos);
     }
 

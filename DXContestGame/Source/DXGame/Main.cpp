@@ -55,6 +55,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         //----- 時間更新
         Timer::UpdateTime();
 
+        //----- キー更新
+        UpdateInput();
+
         //----- ゲームループ
         // 1フレーム（1/60秒）経っている、かつウィンドウが更新できる（閉じられたり等されていない）か
         if (timer.IsFpsCheck() && state == APP_STATE_WAIT) {

@@ -11,12 +11,10 @@ bool Model::Load(std::string file, float scale, bool flip)
     Assimp::Importer impporter;
     int flag = 0;
     flag |= aiProcess_Triangulate;
-    flag |= aiProcess_PreTransformVertices;
+    //flag |= aiProcess_PreTransformVertices;
     flag |= aiProcess_JoinIdenticalVertices;
     flag |= aiProcess_FlipUVs;
-    if (!(file.empty())) {
-        flag |= aiProcess_MakeLeftHanded;
-    }
+    if (flip) flag |= aiProcess_MakeLeftHanded;
 
     //----- assimpÇ≈ì«Ç›çûÇ›
     const aiScene* pScene = impporter.ReadFile(file, flag);
@@ -44,7 +42,7 @@ bool Model::Load(std::string file, float scale, bool flip)
             //----- ílÇê›íË
             m_pMeshes[i].pVertices[j] = {
                 DirectX::XMFLOAT3(pos.x * scale, pos.y * scale, pos.z * scale),
-                DirectX::XMFLOAT2(uv.x,uv.y)
+                DirectX::XMFLOAT2(uv.x,uv.y),
             };
         }
 
