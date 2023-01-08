@@ -3,6 +3,7 @@
 
 #include <DXGame/CameraBase.h>
 #include <DXGame/GameObject.h>
+#include <DXGame/Player.h>
 
 
 class GameCameraCamera : public CameraBase {
@@ -10,9 +11,13 @@ public:
     using CameraBase::CameraBase;
     void Start(void) override;
     void Update(void) override;
+
+private:
+    Player* m_player;   // 追従対象のプレイヤー
 };
 
 
+// プレイヤー追従カメラ
 class GameCamera : public GameObject {
 public:
     using GameObject::GameObject;

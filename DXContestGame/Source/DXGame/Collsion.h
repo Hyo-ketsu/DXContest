@@ -8,16 +8,15 @@
     
 // 当たり判定が衝突した際の情報を格納する
 struct CollsionHitData {
-    bool isProvFrameHit;    // 前フレームは当たっていたか
     Collsion* hitCollsion;  // 衝突対象の当たり判定
 };
 
 
 // CollsionHitDataの動的配列用
 struct CollsionHitDataVector {
-    // 情報を取得する
-    // @ Arg1 : 全フレームに衝突した情報か
-    std::vector<CollsionHitData> GetDate(const bool isProvFrameHit);
+    //// 情報を取得する
+    //// @ Arg1 : 全フレームに衝突した情報か
+    //std::vector<CollsionHitData> GetDate(const bool isProvFrameHit);
 
 
     std::vector<CollsionHitData> list;  // 衝突情報
@@ -81,40 +80,5 @@ private:
     DirectX::XMFLOAT3 m_pos;    // 相対的座標
     DirectX::XMFLOAT3 m_size;   // 拡縮
 };
-
-
-//class Collision {
-//public:
-//    //----- 当たり判定を行う形状
-//    struct Plane {
-//        DirectX::XMFLOAT3 normal;
-//        DirectX::XMFLOAT3 pos;
-//    };
-//
-//    //----- 当たり判定を行う形状
-//    struct Triangle {
-//        DirectX::XMFLOAT3 p[3]; // 三角形の座標
-//    };
-//
-//    struct Ray {
-//        DirectX::XMFLOAT3 start;
-//        DirectX::XMFLOAT3 direction;
-//        float length;
-//    };
-//
-//    //----- 当たり判定の結果
-//    struct Result {
-//        bool hit;
-//        DirectX::XMFLOAT3 point;
-//    };
-//
-//public:
-//    //----- 形状ごとの当たり判定を実装
-//    static Result CheckRayPlane(Ray ray, Plane plane);
-//
-//    //----- 形状ごとの当たり判定を実装
-//    static Result CheckPointTraiangle(DirectX::XMFLOAT3 point, Triangle triangle);
-//};
-
 
 #endif // !____COLLSION_H____

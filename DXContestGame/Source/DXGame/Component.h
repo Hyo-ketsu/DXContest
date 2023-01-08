@@ -38,10 +38,8 @@ public:
     virtual void LateUpdate(void) {}
     // 描画処理
     virtual void Draw(void) {}
-    // 衝突開始処理
-    virtual void CollsionBegin(void) {}
-    // 衝突終了処理
-    virtual void CollsionEnd(void) {}
+    // 衝突処理
+    virtual void Collsion(void) {}
 
 protected:
     bool        m_isActive;     // 現在有効か

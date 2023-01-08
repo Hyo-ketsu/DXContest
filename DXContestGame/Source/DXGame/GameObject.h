@@ -118,14 +118,14 @@ void GameObject::AddComponent(void) {
 template <typename TComponent>
 TComponent* GameObject::GetComponent(void) {
     //----- Templateがコンポーネントを継承していなかったらアソート
-    static_assert(std::is_same_v<Component, TComponent>, "Template error! Not a class that inherits Component!");
+    static_assert(std::is_base_of_v<Component, TComponent>, "Template error! Not a class that inherits Component!");
 
     //----- 取得
     for (auto& it : m_component) {
         //----- ダウンキャストできるか
-        if (dynamic_cast<TComponent>(it.get()) != nullptr) {
+        if (dynamic_cast<TComponent*>(it.get()) != nullptr) {
             //----- 可能。指定された型として返却する
-            return dynamic_cast<TComponent>(it.get());
+            return dynamic_cast<TComponent*>(it.get());
         }
     }
 

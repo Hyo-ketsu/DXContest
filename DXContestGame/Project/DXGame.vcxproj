@@ -53,9 +53,11 @@
     <ClCompile Include="..\Source\DXGame\Game3D.cpp" />
     <ClCompile Include="..\Source\DXGame\GameApplication.cpp" />
     <ClCompile Include="..\Source\DXGame\GameCamera.cpp" />
+    <ClCompile Include="..\Source\DXGame\GameDefine.cpp" />
     <ClCompile Include="..\Source\DXGame\GameObject.cpp" />
     <ClCompile Include="..\Source\DXGame\GameObjectUpdater.cpp" />
     <ClCompile Include="..\Source\DXGame\Geometory.cpp" />
+    <ClCompile Include="..\Source\DXGame\HP.cpp" />
     <ClCompile Include="..\Source\DXGame\Input.cpp" />
     <ClCompile Include="..\Source\DXGame\Main.cpp" />
     <ClCompile Include="..\Source\DXGame\MeshBuffer.cpp" />
@@ -108,9 +110,11 @@
     <ClInclude Include="..\Source\DXGame\Game3D.h" />
     <ClInclude Include="..\Source\DXGame\GameApplication.h" />
     <ClInclude Include="..\Source\DXGame\GameCamera.h" />
+    <ClInclude Include="..\Source\DXGame\GameDefine.h" />
     <ClInclude Include="..\Source\DXGame\GameObject.h" />
     <ClInclude Include="..\Source\DXGame\GameObjectUpdater.h" />
     <ClInclude Include="..\Source\DXGame\Geometory.h" />
+    <ClInclude Include="..\Source\DXGame\HP.h" />
     <ClInclude Include="..\Source\DXGame\Input.h" />
     <ClInclude Include="..\Source\DXGame\MeshBuffer.h" />
     <ClInclude Include="..\Source\DXGame\Model.h" />

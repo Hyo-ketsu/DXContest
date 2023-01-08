@@ -10,14 +10,6 @@ public:
 
     void Start(void) override;
     void Update(void) override;
-
-
-    // ‘Ì—ÍƒQƒbƒ^[
-
-
-private:
-    int m_hp;   // Œ»İ‘Ì—Í
-
 };
 
 
