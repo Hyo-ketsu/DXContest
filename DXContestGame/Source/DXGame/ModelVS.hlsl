@@ -15,23 +15,13 @@ cbuffer WVP : register(b0) {
 	float4x4 view;
 	float4x4 proj;
 };
-cbuffer Anime : register(b1) {
-	float4x4 bones[200];
-};
 
 VS_OUT main(VS_IN vin) {
-	VS_OUT vout;
-	vout.pos = float4(vin.pos, 1.0f);
-	float4x4 mat =
-		bones[vin.index.x] * vin.weight.x +
-		bones[vin.index.y] * vin.weight.y +
-		bones[vin.index.z] * vin.weight.z +
-		bones[vin.index.w] * vin.weight.w;
-	vout.pos = mul(vout.pos, mat);
-
-	vout.pos = mul(vout.pos, world);
-	vout.pos = mul(vout.pos, view);
-	vout.pos = mul(vout.pos, proj);
-	vout.uv = vin.uv;
-	return vout;
+    VS_OUT vout;
+    vout.pos = float4(vin.pos, 1.0f);
+    vout.pos = mul(vout.pos, world);    // ローカル座標からワールド座標へ変換
+    vout.pos = mul(vout.pos, view);     // ワールド座標からビュー座標へ変換
+    vout.pos = mul(vout.pos, proj);     // ビュー座標からプロジェクション座標へ変換
+    vout.uv = vin.uv;
+    return vout;
 }

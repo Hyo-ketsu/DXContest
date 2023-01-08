@@ -5,7 +5,7 @@
 #include <assimp/postprocess.h>
 
 
-bool Model::Load(const char* file, float scale, bool flip)
+bool Model::Load(std::string file, float scale, bool flip)
 {
     //assimpÇÃì«Ç›çûÇ›éûÇÃê›íË   
     Assimp::Importer impporter;
@@ -14,7 +14,7 @@ bool Model::Load(const char* file, float scale, bool flip)
     flag |= aiProcess_PreTransformVertices;
     flag |= aiProcess_JoinIdenticalVertices;
     flag |= aiProcess_FlipUVs;
-    if (file) {
+    if (!(file.empty())) {
         flag |= aiProcess_MakeLeftHanded;
     }
 
@@ -98,6 +98,18 @@ bool Model::Load(const char* file, float scale, bool flip)
                 std::string file = dir;
                 file += path.C_Str();
                 hr = LoadTextureFromFile(file.c_str(), &m_pMaterials[i].pTexture);
+            }
+            //----- ÉpÉXÇï™âÇµÇƒíTçı
+            if (FAILED(hr)) {
+                std::string flie = path.C_Str();
+                for (auto fileIt = file.begin(); fileIt != file.end(); fileIt++) {
+                    if (*fileIt == '/') {
+                        *fileIt = '\\';
+                    }
+                    file = file.substr(file.find_last_of('\\') + 1);
+                    file = dir + file;
+                    hr = LoadTextureFromFile(file.c_str(), &m_pMaterials[i].pTexture);
+                }
             }
             if (FAILED(hr)) { return false; }
         }
