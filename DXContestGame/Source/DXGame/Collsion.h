@@ -69,7 +69,7 @@ public:
     // —^‚¦‚ç‚ê‚½“–‚½‚è”»’è‚ÆÕ“Ë”»’è‚ğs‚¤
     // @ Memo : Õ“Ëî•ñ‚È‚Ç‚ÍiÕ“Ë‚µ‚Ä‚¢‚ê‚ÎjŠÖ”“à‚Å’¼Ú’Ç‰Á‚µ‚Ü‚·
     // @ Arg1 : ‘ÎÛ‚Ì“–‚½‚è”»’è
-    void CollsionHitCheck(const Collsion& collsion);
+    void CollsionHitCheck(Collsion* const collsion);
 
 
 private:

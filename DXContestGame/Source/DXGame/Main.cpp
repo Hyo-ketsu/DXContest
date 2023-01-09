@@ -2,7 +2,6 @@
 #include <DXGame/DirectX.h>
 #include <DXGame/WinUtil.h>
 #include <DXGame/Input.h>
-#include <DXGame/Game3D.h>
 #include <DXGame/Geometory.h>
 #include <DXGame/Sprite.h>
 #include <DXGame/GameApplication.h>
@@ -52,11 +51,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         //----- ウィンドウメッセージ取得
         state = UpdateWindow();
 
-        //----- 時間更新
-        Timer::UpdateTime();
-
-        //----- キー更新
-        UpdateInput();
+        //----- 更新
+        Update();
 
         //----- ゲームループ
         // 1フレーム（1/60秒）経っている、かつウィンドウが更新できる（閉じられたり等されていない）か
@@ -103,8 +99,5 @@ void Uninit(void) {
 }
 void Update(void) {
 	UpdateInput();
-}
-void Draw(void) {
-	BeginDrawDX();
-	EndDrawDX();
+    Timer::UpdateTime();
 }

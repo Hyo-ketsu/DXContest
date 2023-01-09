@@ -33,7 +33,7 @@ public:
     // 座標ゲッター
     const Transform& GetTransform(void) const { return m_transform; }
     // 座標セッター
-    void SetTransform(const Transform& in) { m_transform = in; }
+    void SetTransform(const Transform in) { m_transform = in; }
 
 
     // 当たり判定リストゲッター
@@ -48,6 +48,10 @@ public:
     const bool GetCreatePrefab(void) const { return m_isCreatePrefab; }
 
 
+    // シーンゲッター
+    SceneBase* const GetScene(void) const { return m_scene; }
+
+
     // コンポーネントの初期化処理を行う
     // @ Memo : 他ゲーム処理(Update等)と違いアクティブ如何によらず初期化処理を行います
     void Start(void);
@@ -60,6 +64,9 @@ public:
     // コンポーネントの描画処理を行う
     // @ Memo : アクティブステータスによってゲームオブジェクト単位・コンポーネント単位で行うか決定されます
     void Draw(void);
+    // コンポーネントの当たり判定処理を行う
+    // @ Memo : アクティブステータスによってゲームオブジェクト単位・コンポーネント単位で行うか決定されます
+    void CollsionUpdate(void);
 
 
     // プレハブを生成する
@@ -72,18 +79,36 @@ public:
 
 
     // コンポーネントを追加する
+    // @ Ret  : 追加したコンポーネント
     // @ Arg1 : 追加するコンポーネント
-    void AddComponent(Component* component);
+    Component* AddComponent(Component* component);
     // コンポーネントを追加する
+    // @ Ret  : 追加したコンポーネント
     // @ Temp : 追加するコンポーネントの型
     template <typename TComponent>
-    void AddComponent(void);
+    TComponent* AddComponent(void);
+    // 当たり判定を追加する
+    // @ Ret  : 追加した当たり判定
+    // @ Arg1 : 引き戻しを行うか
+    // @ Arg2 : 拡縮（デフォルト：全て1）
+    // @ Arg3 : 相対座標（デフォルト：全て0）
+    Collsion* AddCollsion(const bool isHitMove, const DirectX::XMFLOAT3& size = DirectX::XMFLOAT3(1, 1, 1), const DirectX::XMFLOAT3& pos = DirectX::XMFLOAT3(0, 0, 0));
 
 
     // コンポーネントを取得する
     // @ Temp : 取得するコンポーネントの型
     template <typename TComponent>
     TComponent* GetComponent(void);
+
+
+    // 当たり判定を取る
+    // @ Arg1 : 当たり判定を取る対象のゲームオブジェクト
+    void UpdateCollsion(GameObject* const gameObject);
+    // 当たり判定が存在するか
+    // @ Ret  : 存在するか
+    const bool GetCollsionEnable(void) const;
+    // 当たり判定リストの消去
+    void ResetCollsionData(void);
 
 protected:
     // プレハブを生成する
@@ -104,12 +129,15 @@ private:
 // コンポーネントを追加する
 // @ Temp : 追加するコンポーネントの型
 template <typename TComponent>
-void GameObject::AddComponent(void) {
+TComponent* GameObject::AddComponent(void) {
     //----- Templateがコンポーネントを継承していなかったらアソート
     static_assert(std::is_base_of_v<Component, TComponent>, "Template error! Not a class that inherits Component!");
 
     //----- 追加
     m_component.push_back(std::unique_ptr<TComponent>(new TComponent(this)));
+
+    //----- 返却
+    return dynamic_cast<TComponent*>(m_component.back().get());
 }
 
 

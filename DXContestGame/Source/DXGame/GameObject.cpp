@@ -63,6 +63,18 @@ void GameObject::Draw(void) {
         }
     }
 }
+// コンポーネントの当たり判定処理を行う
+void GameObject::CollsionUpdate(void) {
+    //----- ゲームオブジェクト自身が有効でなければ処理自体をスキップする
+    if (m_isActive == false) return;
+
+    //----- 描画処理をすべてのコンポーネントに行う
+    for (auto& it : m_component) {
+        if (it->GetInit() && it->GetActive()) { // アクティブかつ初期化が行われていれば描画処理を行う
+            it->Collsion();
+        }
+    }
+}
 
 
 // プレハブを生成する
@@ -87,7 +99,32 @@ void GameObject::DeleteGameObject(void) {
 
 
 // コンポーネントを追加する
-void GameObject::AddComponent(Component* component)
+Component* GameObject::AddComponent(Component* component)
 {
     m_component.push_back(std::unique_ptr<Component>(component));
+    return m_component.back().get();
+}
+// 当たり判定を追加する
+Collsion* GameObject::AddCollsion(const bool isHitMove, const DirectX::XMFLOAT3& size, const DirectX::XMFLOAT3& pos) {
+    m_collsion.push_back(std::unique_ptr<Collsion>(new Collsion(this, isHitMove, size, pos)));
+    return m_collsion.back().get();
+}
+
+
+// 当たり判定を取る
+void GameObject::UpdateCollsion(GameObject* const gameObject) {
+    //----- 自身と対象のCollsionで当たり判定を取る
+    for (auto& it : m_collsion) {
+        for (auto& targetIt : gameObject->m_collsion) {
+            it->CollsionHitCheck(targetIt.get());
+        }
+    }
+}
+// 当たり判定が存在するか
+const bool GameObject::GetCollsionEnable(void) const {
+    return m_collsion.empty();
+}
+// 当たり判定リストの消去
+void GameObject::ResetCollsionData(void) {
+    m_collsionData.list.clear();
 }

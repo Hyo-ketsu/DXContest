@@ -36,7 +36,12 @@ public:
 
 
 private:
+    // 削除インデックスに登録されているゲームオブジェクトの消去
+    void DeleteGameObject(void);
+
+
     std::vector<std::unique_ptr<GameObject>> m_gameObject;  // 保持しているゲームオブジェクト
+    std::vector<unsigned int>                m_deleteIndex; // ゲームオブジェクトの削除インデックス
 };
 
 

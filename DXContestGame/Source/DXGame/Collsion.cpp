@@ -2,11 +2,12 @@
 #include <DXGame/CollsionSystem.h>
 #include <DXGame/GameObject.h>
 #include <float.h>
+#include <array>
 
 
 // どこの面か
-enum class HitCollsionDirection {
-    X,
+enum HitCollsionDirection {
+    X = 0,
     Y,
     Z,
 };
@@ -29,71 +30,73 @@ Collsion::~Collsion(void) {
 
 
 // 与えられた当たり判定と衝突判定を行う
-void Collsion::CollsionHitCheck(const Collsion& collsion) {
+void Collsion::CollsionHitCheck(Collsion* const collsion) {
     //----- 衝突判定を行うか判定
-    if (this->GetActive()    == false) return;
-    if (collsion.GetActive() == false) return;
-    if (this->GetGameObject()->GetActive()    == false) return;
-    if (collsion.GetGameObject()->GetActive() == false) return;
-    if (this->GetTag() == collsion.GetTag())            return;
+    if (this->GetActive()    == false)  return;
+    if (collsion->GetActive() == false) return;
+    if (this->GetGameObject()->GetActive()    == false)  return;
+    if (collsion->GetGameObject()->GetActive() == false) return;
+    if (this == collsion)                                return;
+    if (this->GetTag() == collsion->GetTag())            return;
 
     //----- 変数宣言
     DirectX::XMFLOAT3 thisTransform;    // 自身の座標
     DirectX::XMFLOAT3 targetTransform;  // 衝突相手の座標
-    std::vector<HitCollsionDirection> hitDirection; // 当たった方向を表す
+    std::array<bool,3> hitDirection; // 当たった方向を表す
+    hitDirection.fill(false);
 
     //----- 初期化
     thisTransform.x = m_pos.x + m_gameObject->GetTransform().pos.x;
     thisTransform.y = m_pos.y + m_gameObject->GetTransform().pos.y;
     thisTransform.z = m_pos.z + m_gameObject->GetTransform().pos.z;
-    targetTransform.x = collsion.m_pos.x + collsion.GetGameObject()->GetTransform().pos.x;
-    targetTransform.y = collsion.m_pos.y + collsion.GetGameObject()->GetTransform().pos.y;
-    targetTransform.z = collsion.m_pos.z + collsion.GetGameObject()->GetTransform().pos.z;
+    targetTransform.x = collsion->m_pos.x + collsion->GetGameObject()->GetTransform().pos.x;
+    targetTransform.y = collsion->m_pos.y + collsion->GetGameObject()->GetTransform().pos.y;
+    targetTransform.z = collsion->m_pos.z + collsion->GetGameObject()->GetTransform().pos.z;
 
     //----- 判定
     //----- 対象 +X 面判定
-    if (thisTransform.x - m_size.x / 2 < targetTransform.x + collsion.m_size.x / 2 &&
-        thisTransform.x + m_size.x / 2 > targetTransform.x + collsion.m_size.x / 2)
+    if (thisTransform.x - m_size.x / 2 < targetTransform.x + collsion->m_size.x / 2 &&
+        thisTransform.x + m_size.x / 2 > targetTransform.x + collsion->m_size.x / 2)
     {
-        hitDirection.push_back(HitCollsionDirection::X);
+        hitDirection.at(HitCollsionDirection::X) = true;
     }
     //----- 対象 -X 面判定
-    if (thisTransform.x - m_size.x / 2 < targetTransform.x - collsion.m_size.x / 2 &&
-        thisTransform.x + m_size.x / 2 > targetTransform.x - collsion.m_size.x / 2)
+    if (thisTransform.x - m_size.x / 2 < targetTransform.x - collsion->m_size.x / 2 &&
+        thisTransform.x + m_size.x / 2 > targetTransform.x - collsion->m_size.x / 2)
     {
-        hitDirection.push_back(HitCollsionDirection::X);
+        hitDirection.at(HitCollsionDirection::X) = true;
     }
     //----- 対象 +Y 面判定
-    if (thisTransform.y - m_size.y / 2 < targetTransform.y + collsion.m_size.y / 2 &&
-        thisTransform.y + m_size.y / 2 > targetTransform.y + collsion.m_size.y / 2)
+    if (thisTransform.y - m_size.y / 2 < targetTransform.y + collsion->m_size.y / 2 &&
+        thisTransform.y + m_size.y / 2 > targetTransform.y + collsion->m_size.y / 2)
     {
-        hitDirection.push_back(HitCollsionDirection::Y);
+        hitDirection.at(HitCollsionDirection::Y) = true;
     }
     //----- 対象 -Y 面判定
-    if (thisTransform.y - m_size.y / 2 < targetTransform.y - collsion.m_size.y / 2 &&
-        thisTransform.y + m_size.y / 2 > targetTransform.y - collsion.m_size.y / 2)
+    if (thisTransform.y - m_size.y / 2 < targetTransform.y - collsion->m_size.y / 2 &&
+        thisTransform.y + m_size.y / 2 > targetTransform.y - collsion->m_size.y / 2)
     {
-        hitDirection.push_back(HitCollsionDirection::Y);
+        hitDirection.at(HitCollsionDirection::Y) = true;
     }
     //----- 対象 +Z 面判定
-    if (thisTransform.z - m_size.z / 2 < targetTransform.z + collsion.m_size.z / 2 &&
-        thisTransform.z + m_size.z / 2 > targetTransform.z + collsion.m_size.z / 2)
+    if (thisTransform.z - m_size.z / 2 < targetTransform.z + collsion->m_size.z / 2 &&
+        thisTransform.z + m_size.z / 2 > targetTransform.z + collsion->m_size.z / 2)
     {
-        hitDirection.push_back(HitCollsionDirection::Z);
+        hitDirection.at(HitCollsionDirection::Z) = true;
     }
     //----- 対象 -Z 面判定
-    if (thisTransform.z - m_size.z / 2 < targetTransform.z - collsion.m_size.z / 2 &&
-        thisTransform.z + m_size.z / 2 > targetTransform.z - collsion.m_size.z / 2)
+    if (thisTransform.z - m_size.z / 2 < targetTransform.z - collsion->m_size.z / 2 &&
+        thisTransform.z + m_size.z / 2 > targetTransform.z - collsion->m_size.z / 2)
     {
-        hitDirection.push_back(HitCollsionDirection::Z);
+        hitDirection.at(HitCollsionDirection::Z) = true;
     }
 
     //----- 判定返却
-    if (hitDirection.empty()) {
+    if (hitDirection.at(HitCollsionDirection::X) && hitDirection.at(HitCollsionDirection::Y) && hitDirection.at(HitCollsionDirection::Z)) {
         //----- 衝突している。衝突情報を追加
         auto data = m_gameObject->GetCollsionData();
         auto coll = CollsionHitData();
-        coll.hitCollsion = this;
+        coll.hitCollsion = collsion;
         data.list.push_back(coll);
         m_gameObject->SetCollsionData(data);
     }

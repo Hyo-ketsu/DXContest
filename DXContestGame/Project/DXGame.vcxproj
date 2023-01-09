@@ -47,10 +47,9 @@
     <ClCompile Include="..\Source\DXGame\ConstantBuffer.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectX.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectXTex\Texture.cpp" />
-    <ClCompile Include="..\Source\DXGame\Enemy.cpp" />
+    <ClCompile Include="..\Source\DXGame\Obstacles.cpp" />
     <ClCompile Include="..\Source\DXGame\FilePath.cpp" />
     <ClCompile Include="..\Source\DXGame\FileStorage.cpp" />
-    <ClCompile Include="..\Source\DXGame\Game3D.cpp" />
     <ClCompile Include="..\Source\DXGame\GameApplication.cpp" />
     <ClCompile Include="..\Source\DXGame\GameCamera.cpp" />
     <ClCompile Include="..\Source\DXGame\GameDefine.cpp" />
@@ -65,6 +64,7 @@
     <ClCompile Include="..\Source\DXGame\ModelComponent.cpp" />
     <ClCompile Include="..\Source\DXGame\Model_Contents.cpp" />
     <ClCompile Include="..\Source\DXGame\Player.cpp" />
+    <ClCompile Include="..\Source\DXGame\Polyline.cpp" />
     <ClCompile Include="..\Source\DXGame\SamplerState.cpp" />
     <ClCompile Include="..\Source\DXGame\Scene.cpp" />
     <ClCompile Include="..\Source\DXGame\SceneLoader.cpp" />
@@ -104,10 +104,9 @@
     <ClInclude Include="..\Source\DXGame\DirectX.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\DirectXTex.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\Texture.h" />
-    <ClInclude Include="..\Source\DXGame\Enemy.h" />
+    <ClInclude Include="..\Source\DXGame\Obstacles.h" />
     <ClInclude Include="..\Source\DXGame\FilePath.h" />
     <ClInclude Include="..\Source\DXGame\FileStorage.h" />
-    <ClInclude Include="..\Source\DXGame\Game3D.h" />
     <ClInclude Include="..\Source\DXGame\GameApplication.h" />
     <ClInclude Include="..\Source\DXGame\GameCamera.h" />
     <ClInclude Include="..\Source\DXGame\GameDefine.h" />
@@ -120,6 +119,7 @@
     <ClInclude Include="..\Source\DXGame\Model.h" />
     <ClInclude Include="..\Source\DXGame\ModelComponent.h" />
     <ClInclude Include="..\Source\DXGame\Player.h" />
+    <ClInclude Include="..\Source\DXGame\Polyline.h" />
     <ClInclude Include="..\Source\DXGame\SamplerState.h" />
     <ClInclude Include="..\Source\DXGame\Scene.h" />
     <ClInclude Include="..\Source\DXGame\SceneLoader.h" />

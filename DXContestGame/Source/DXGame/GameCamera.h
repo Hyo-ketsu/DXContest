@@ -11,9 +11,6 @@ public:
     using CameraBase::CameraBase;
     void Start(void) override;
     void Update(void) override;
-
-private:
-    Player* m_player;   // ’Ç]‘ÎÛ‚ÌƒvƒŒƒCƒ„[
 };
 
 

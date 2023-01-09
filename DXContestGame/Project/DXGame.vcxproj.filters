@@ -54,9 +54,6 @@
     <ClCompile Include="..\Source\DXGame\FileStorage.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DXGame\Game3D.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\DXGame\GameApplication.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -138,9 +135,6 @@
     <ClCompile Include="..\Source\DXGame\Score.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DXGame\Enemy.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\DXGame\Bullet.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
@@ -159,8 +153,14 @@
     <ClCompile Include="..\Source\DXGame\HP.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DXGame\GameDefine.cpp">
+    <ClCompile Include="..\Source\DXGame\Polyline.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Obstacles.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\GameDefine.cpp">
+      <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -210,9 +210,6 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\FileStorage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\DXGame\Game3D.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\GameApplication.h">
@@ -272,9 +269,6 @@
     <ClInclude Include="..\Source\DXGame\Block.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\DXGame\Enemy.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\DXGame\Player.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
@@ -293,8 +287,14 @@
     <ClInclude Include="..\Source\DXGame\HP.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\DXGame\GameDefine.h">
+    <ClInclude Include="..\Source\DXGame\Polyline.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Obstacles.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\GameDefine.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
