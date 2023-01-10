@@ -148,7 +148,8 @@ void GeometoryPolyline::CalcVertex()
     DirectX::XMVECTOR vVec    = DirectX::XMVectorSubtract(vNext, vCenter);
     DirectX::XMVECTOR vNormal = DirectX::XMLoadFloat3(&m_points[0].normal);
     // 念のため、外積の計算前に正規化する
-    vVec = DirectX::XMVector3Normalize(vNormal);
+    vVec = DirectX::XMVector3Normalize(vVec);
+    vNormal = DirectX::XMVector3Normalize(vNormal);
     DirectX::XMVECTOR vCross = DirectX::XMVector3Cross(vVec, vNormal);
     // 正規化した垂直なベクトルを、ポリラインの太さ分中心の座標から移動させた位置が頂点の座標となる
     vCross = DirectX::XMVector3Normalize(vCross);

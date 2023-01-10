@@ -59,7 +59,7 @@ T* const Singleton<T>::Get(void) {
 template<class T>
 void Singleton<T>::DeleteInstance(void) {
     //----- –¾Ž¦“IŠJ•ú
-    ms_singleton.reset();
+    if (ms_singleton) ms_singleton.reset();
 }
 
 

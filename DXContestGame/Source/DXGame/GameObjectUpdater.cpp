@@ -22,11 +22,18 @@ GameUpdater::GameUpdater(void) {
     m_blendState->Bind();
 }
 // デストラクタ
-GameUpdater::~GameUpdater(void) { 
+GameUpdater::~GameUpdater(void) {
+    //----- 削除オブジェクト削除
+    DeleteGameObject();
+
+    //----- 全削除
     for (auto& it : m_gameObject) {
         if (it == nullptr) continue;
         it->DeleteGameObject();
     }
+
+    //----- 削除オブジェクト削除
+    DeleteGameObject();
 }
 
 

@@ -10,6 +10,6 @@ void Obstacles::Prefab(void) {
     collsion->SetTag(Tag::Ground);
 
     //----- コンポーネントの追加
-    ModelComponent* model = new ModelComponent(this, "Obstacles.fbx", 1);
+    ModelComponent* model = new ModelComponent(this, LOAD_OBSTACLES_FILENAME, LOAD_OBSTACLES_SCALE);
     AddComponent(model);
 }

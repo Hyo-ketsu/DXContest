@@ -35,6 +35,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\Source\DXGame\AssetsLoad.cpp" />
     <ClCompile Include="..\Source\DXGame\BlendState.cpp" />
     <ClCompile Include="..\Source\DXGame\Block.cpp" />
     <ClCompile Include="..\Source\DXGame\Bullet.cpp" />
@@ -66,6 +67,7 @@
     <ClCompile Include="..\Source\DXGame\Model_Contents.cpp" />
     <ClCompile Include="..\Source\DXGame\Player.cpp" />
     <ClCompile Include="..\Source\DXGame\Polyline.cpp" />
+    <ClCompile Include="..\Source\DXGame\Result.cpp" />
     <ClCompile Include="..\Source\DXGame\SamplerState.cpp" />
     <ClCompile Include="..\Source\DXGame\Scene.cpp" />
     <ClCompile Include="..\Source\DXGame\SceneLoader.cpp" />
@@ -87,11 +89,13 @@
     </ClCompile>
     <ClCompile Include="..\Source\DXGame\SystemDefines.cpp" />
     <ClCompile Include="..\Source\DXGame\Timer.cpp" />
+    <ClCompile Include="..\Source\DXGame\Title.cpp" />
     <ClCompile Include="..\Source\DXGame\Transform.cpp" />
     <ClCompile Include="..\Source\DXGame\Utility.cpp" />
     <ClCompile Include="..\Source\DXGame\WinUtil.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Source\DXGame\AssetsLoad.h" />
     <ClInclude Include="..\Source\DXGame\BlendState.h" />
     <ClInclude Include="..\Source\DXGame\Block.h" />
     <ClInclude Include="..\Source\DXGame\Bullet.h" />
@@ -122,6 +126,7 @@
     <ClInclude Include="..\Source\DXGame\ModelComponent.h" />
     <ClInclude Include="..\Source\DXGame\Player.h" />
     <ClInclude Include="..\Source\DXGame\Polyline.h" />
+    <ClInclude Include="..\Source\DXGame\Result.h" />
     <ClInclude Include="..\Source\DXGame\SamplerState.h" />
     <ClInclude Include="..\Source\DXGame\Scene.h" />
     <ClInclude Include="..\Source\DXGame\SceneLoader.h" />
@@ -134,6 +139,7 @@
     <ClInclude Include="..\Source\DXGame\stdafx.h" />
     <ClInclude Include="..\Source\DXGame\SystemDefines.h" />
     <ClInclude Include="..\Source\DXGame\Timer.h" />
+    <ClInclude Include="..\Source\DXGame\Title.h" />
     <ClInclude Include="..\Source\DXGame\Transform.h" />
     <ClInclude Include="..\Source\DXGame\Utility.h" />
     <ClInclude Include="..\Source\DXGame\WinUtil.h" />

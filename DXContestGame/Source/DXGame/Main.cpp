@@ -11,6 +11,7 @@
 #include <DXGame/SceneLoader.h>
 #include <DXGame/Stage1.h>
 #include <DXGame/GameApplication.h>
+#include <DXGame/AssetsLoad.h>
 #include <time.h>
 
 
@@ -96,10 +97,12 @@ void Init(void) {
     Sprite::Init();
     Timer::InitTime();
     SceneLoader::Get()->DeleteScene();
+    FirstLoad();
 }
 void Uninit(void) {
     Timer::UninitTime();
     Sprite::Uninit();
+    SceneLoader::DeleteInstance();
 	UninitGeometory();
 	UninitInput();
 	UninitTexture();

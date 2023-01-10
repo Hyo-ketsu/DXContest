@@ -13,7 +13,6 @@ const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.75f;     // 前方への移動速度
 const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.0005f;  // 前方への移動速度加速値
 const float PLAYER_MOVE_SPEED      = 0.5f;   // プレイヤーの左右への移動速度
 const float PLAYER_MOVE_MAX        = 15.0f;  // 左右移動上限
-const std::string PLAYER_FILENAME = "Unitychan/unitychan.fbx";  // 読み込みファイル名
 
 
 void PlayerControl::Start(void) {
@@ -104,7 +103,7 @@ void Player::Prefab(void) {
     AddCollsion(false, DirectX::XMFLOAT3(3, 5, 3));
 
     //----- モデルコンポーネントの追加
-    auto* model = new ModelComponent(this, PLAYER_FILENAME, 0.05f);
+    auto* model = new ModelComponent(this, LOAD_PLAYER_FILENAME, 0.05f);
 
     //----- コンポーネントの追加
     AddComponent(model);

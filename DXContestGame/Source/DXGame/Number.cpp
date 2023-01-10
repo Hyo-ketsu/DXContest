@@ -5,7 +5,7 @@
 
 #if 1
 const unsigned int NUMBER_DIGIT     = 7;        // 数字表示の桁数
-const float NUMBER_DEFAULT_DISTANCE = 0.075f;    // 表示間隔デフォルト
+const float NUMBER_DEFAULT_DISTANCE = 0.075f;   // 表示間隔デフォルト
 const unsigned int NUMBER_SPRITE_SPRITE_X = 10; // 横分割数
 const unsigned int NUMBER_SPRITE_SPRITE_Y = 1;  // 縦分割数
 const std::string NUMBER_TEXTURE_FILENAME_0 = "Number0.png";
@@ -53,7 +53,7 @@ void NumberShow::Draw(void) {
 
     //----- 表示用数値逆転
     // 下桁から収納していたのを上桁に変更します
-    for (int i = 0; i < NUMBER_DIGIT; i++) {
+    for (int i = 0; i < NUMBER_DIGIT / 2; i++) {
         unsigned int work = showNumber.at(i);
         showNumber.at(i) = showNumber.at(NUMBER_DIGIT - 1 - i); // -1 は0インデックスに合わせるため
         showNumber.at(NUMBER_DIGIT - 1 - i) = work;

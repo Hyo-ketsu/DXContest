@@ -9,9 +9,12 @@
 // コンストラクタ
 ModelComponent::ModelComponent(GameObject* gameObject, const std::string& fileName, const float scale, const bool flip)
     : Component(gameObject) 
-    , m_model(std::unique_ptr<Model>(FileStorage::Get()->LoadModel(fileName, scale, flip)))
+    , m_model(FileStorage::Get()->LoadModel(fileName, scale, flip))
     , m_wvp(std::make_unique<ConstantBuffer>()) {
     m_wvp->Create(sizeof(DirectX::XMFLOAT4X4) * 3);
+}
+// デストラクタ
+ModelComponent::~ModelComponent(void) {
 }
 
 
