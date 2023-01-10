@@ -3,6 +3,7 @@
 
 #include <DXGame/ClassName.h>
 #include <DXGame/GameObject.h>
+#include <DXGame/BlendState.h>
 
 
 class GameUpdater {
@@ -42,6 +43,7 @@ private:
 
     std::vector<std::unique_ptr<GameObject>> m_gameObject;  // 保持しているゲームオブジェクト
     std::vector<unsigned int>                m_deleteIndex; // ゲームオブジェクトの削除インデックス
+    std::unique_ptr<BlendState>              m_blendState;  // ブレンドステート
 };
 
 

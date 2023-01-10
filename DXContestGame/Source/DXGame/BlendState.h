@@ -23,7 +23,7 @@ public:
 	void Bind(void);
 
 private:
-	std::unique_ptr<ID3D11BlendState> m_blendState;  // ブレンドステートの保持
+	ID3D11BlendState* m_blendState;  // ブレンドステートの保持
 };
 
 #endif // __BLEND_STATE_H__

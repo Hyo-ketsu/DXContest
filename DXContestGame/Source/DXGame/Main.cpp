@@ -11,6 +11,7 @@
 #include <DXGame/SceneLoader.h>
 #include <DXGame/Stage1.h>
 #include <DXGame/GameApplication.h>
+#include <time.h>
 
 
 //--- ’è”’è‹`
@@ -84,6 +85,13 @@ void Init(void) {
 	if (FAILED(InitGeometory())) {
 		Error("geometory initialize failed.");
 	}
+
+    //----- —”‰Šú‰»
+    srand((unsigned int)timeGetTime());
+    for (int i = 0; i < 100; i++) {
+        //----- ‹ó‰ñ‚µ
+        rand();
+    }
 
     Sprite::Init();
     Timer::InitTime();

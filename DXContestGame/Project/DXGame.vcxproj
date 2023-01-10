@@ -47,6 +47,7 @@
     <ClCompile Include="..\Source\DXGame\ConstantBuffer.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectX.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectXTex\Texture.cpp" />
+    <ClCompile Include="..\Source\DXGame\Number.cpp" />
     <ClCompile Include="..\Source\DXGame\Obstacles.cpp" />
     <ClCompile Include="..\Source\DXGame\FilePath.cpp" />
     <ClCompile Include="..\Source\DXGame\FileStorage.cpp" />
@@ -104,6 +105,7 @@
     <ClInclude Include="..\Source\DXGame\DirectX.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\DirectXTex.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\Texture.h" />
+    <ClInclude Include="..\Source\DXGame\Number.h" />
     <ClInclude Include="..\Source\DXGame\Obstacles.h" />
     <ClInclude Include="..\Source\DXGame\FilePath.h" />
     <ClInclude Include="..\Source\DXGame\FileStorage.h" />
@@ -414,7 +416,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>_GAME;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -446,7 +448,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>_GAME;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -477,7 +479,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
     </Link>
     <ClCompile>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>_DEVELOP;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -504,7 +506,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
     </Link>
     <ClCompile>
       <SDLCheck>true</SDLCheck>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <PreprocessorDefinitions>_DEVELOP;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>

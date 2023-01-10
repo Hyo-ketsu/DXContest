@@ -5,14 +5,17 @@
 #include <DXGame/Player.h>
 
 
-const int CREATE_BLOCK_Z_COUNT = 100;   // 奥に生成する数
-const int CREATE_BLOCK_X_COUNT = 5;     // 横に生成する数
-const int CREATE_BLOCK_FRONT   = 5;     // プレイヤーの後ろに生成する数
-const int CREATE_OBSTACLES_COUNT = 3;   // 障害物の生成数
-const int CREATE_OBSTACLES_BACK_BLOCKCOUNT = 40;   // 奥のブロック何個目から生成するか
-const float CREATE_BLOCK_Y_POS = 7;     // プレイヤーからどの位置に生成するか
-const DirectX::XMFLOAT3 CREATE_BLOCK_SIZE     = { 2,2,2 };  // 生成ブロックのサイズ
-const DirectX::XMFLOAT3 CREATE_OBSTACLES_SIZE = { 2,2,2 };  // 生成障害物のサイズ
+const int CREATE_BLOCK_Z_COUNT = 80;   // 奥に生成する数
+const int CREATE_BLOCK_X_COUNT = 7;    // 横に生成する数
+const int CREATE_BLOCK_FRONT   = 5;    // プレイヤーの後ろに生成する数
+const int CREATE_OBSTACLES_COUNT = 20; // 障害物の生成数
+const int CREATE_OBSTACLES_FLAME = 60; // 障害物生成最長フレーム数
+const int CREATE_OBSTACLES_BACK_BLOCKCOUNT = 70;    // 奥のブロック何個目から生成するか
+const float CREATE_BLOCK_Y_POS = 7;                 // プレイヤーからどの位置に生成するか
+const DirectX::XMFLOAT3 CREATE_BLOCK_SIZE      = { 2,2,2 };  // 生成ブロックのサイズ
+const DirectX::XMFLOAT3 CREATE_BLOCK_SPACE     = { 5,0,5 };  // 生成ブロックの生成間隔
+const DirectX::XMFLOAT3 CREATE_OBSTACLES_SIZE  = { 2,2,2 };  // 生成障害物のサイズ
+const DirectX::XMFLOAT3 CREATE_OBSTACLES_SPACE = { 4,0,0 };  // 生成障害物の生成間隔
 
 
 void StageCreaterControl::Start(void) {
@@ -21,6 +24,7 @@ void StageCreaterControl::Start(void) {
     m_moveSpeed = 0;
     m_moveCount = 0;
     m_lastIndex = 0;
+    m_obstaclesFlame = 0;
     
     //----- 開始座標設定
     m_firstPlayerTrans = SceneLoader::Get()->GetScene()->GetUpdater()->FindGameObject(NAME_PLAYER)->GetTransform();
@@ -32,8 +36,8 @@ void StageCreaterControl::Start(void) {
             //----- 座標設定
             Transform transform;
             transform.pos = m_firstPlayerTrans.pos;
-            transform.pos.x += CREATE_BLOCK_SIZE.x * (j - (CREATE_BLOCK_X_COUNT / 1.5f));  // 開始座標を中心に生成
-            transform.pos.z += CREATE_BLOCK_SIZE.z * i; // 開始座標から生成
+            transform.pos.x += CREATE_BLOCK_SPACE.x * (j - (CREATE_BLOCK_X_COUNT / 2));  // 開始座標を中心に生成
+            transform.pos.z += CREATE_BLOCK_SPACE.z * i; // 開始座標から生成
             transform.size   = CREATE_BLOCK_SIZE;
 
             //----- 生成
@@ -45,16 +49,19 @@ void StageCreaterControl::Start(void) {
     CreateObstacles();
 }
 void StageCreaterControl::Update(void) {
+    //----- プレイヤーが生存していなければ処理をしない
+    if (SceneLoader::Get()->GetScene()->GetUpdater()->FindGameObject(NAME_PLAYER) == nullptr) return;
+
     //----- 移動速度の加算
     m_moveSpeed += PlayerSpeedManager::Get()->GetSpeed();
 
     //----- ブロックの移動
-    while (m_moveSpeed > CREATE_BLOCK_SIZE.z) {
+    while (m_moveSpeed > CREATE_BLOCK_SPACE.z) {
         for (int i = 0; i < CREATE_BLOCK_X_COUNT; i++) {
             //----- ブロックの移動
             m_lastIndex = m_moveCount * CREATE_BLOCK_X_COUNT + i;
             auto transfrom = m_block[m_lastIndex]->GetTransform();
-            transfrom.pos.z += CREATE_BLOCK_Z_COUNT * CREATE_BLOCK_SIZE.z;
+            transfrom.pos.z += CREATE_BLOCK_Z_COUNT * CREATE_BLOCK_SPACE.z;
             m_block[m_lastIndex]->SetTransform(transfrom);
         }
 
@@ -63,8 +70,11 @@ void StageCreaterControl::Update(void) {
         if (m_moveCount >= CREATE_BLOCK_Z_COUNT) m_moveCount = 0;
 
         //----- 移動量減少
-        m_moveSpeed -= CREATE_BLOCK_SIZE.z;
+        m_moveSpeed -= CREATE_BLOCK_SPACE.z;
     }
+
+    //----- 障害物用カウンターアップ（正確にはダウン）
+    m_obstaclesFlame--;
 
     //----- 障害物設定
     CreateObstacles();
@@ -88,21 +98,22 @@ void StageCreaterControl::CreateObstacles(void) {
     }
 
     //----- 障害物の生成
-    if (m_obstacles.size() < CREATE_OBSTACLES_COUNT) {
-        //----- サイズ分不足している。生成
-        int size = m_obstacles.size();
-        m_obstacles.resize(CREATE_OBSTACLES_COUNT);
-        for (int i = size; i < CREATE_OBSTACLES_COUNT; i++) {
+    if (m_obstaclesFlame < 0) { // 生成できるフレームになっているか
+        if (m_obstacles.size() < CREATE_OBSTACLES_COUNT) {  // 生成する余裕があるか
+            //----- 生成が可能。生成
             //----- 座標の設定
             Transform transform = m_block[m_lastIndex]->GetTransform();
-            transform.pos.x = CREATE_BLOCK_SIZE.x * CREATE_BLOCK_X_COUNT * ((rand() % 100 - 100 / 2) * 0.01f);
+            transform.pos.x  = CREATE_OBSTACLES_SPACE.x * CREATE_BLOCK_X_COUNT * ((rand() % 100 - 100 / 2) * 0.02f);
             transform.pos.y += CREATE_BLOCK_Y_POS;
-            transform.pos.z -= CREATE_BLOCK_SIZE.z * (rand() % CREATE_OBSTACLES_BACK_BLOCKCOUNT);
+            transform.pos.z;
             transform.size = CREATE_OBSTACLES_SIZE;
 
             //----- 生成
-            m_obstacles[i] = m_gameObject->GetScene()->CreatePrefab<Obstacles>(transform);
+            m_obstacles.push_back(m_gameObject->GetScene()->CreatePrefab<Obstacles>(transform));
         }
+
+        //----- カウンターのリセット
+        m_obstaclesFlame = rand() % CREATE_OBSTACLES_FLAME;
     }
 }
 

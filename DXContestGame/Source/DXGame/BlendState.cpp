@@ -17,7 +17,6 @@ BlendState::~BlendState(void) {
 // ブレンドステートの作成
 HRESULT BlendState::Create(const D3D11_RENDER_TARGET_BLEND_DESC desc) {
     //----- 変数宣言
-    ID3D11BlendState* blendState = nullptr; // 初期化用生ポインタ
 	D3D11_BLEND_DESC  blendDesc;            // 初期化情報
     HRESULT           ret;                  // 生成に成功したかを返却する
 
@@ -26,11 +25,7 @@ HRESULT BlendState::Create(const D3D11_RENDER_TARGET_BLEND_DESC desc) {
 	blendDesc.RenderTarget[0] = desc;
 
     //----- ブレンドステート作成
-    ret = GetDevice()->CreateBlendState(&blendDesc, &blendState);
-    m_blendState = std::unique_ptr<std::remove_reference<decltype(*blendState)>::type>(blendState);
-
-    //----- 返却
-    return ret;
+    return GetDevice()->CreateBlendState(&blendDesc, &m_blendState);
 }
 
 
@@ -40,5 +35,5 @@ void BlendState::Bind(void) {
 	const float blendFactor[4] = { 0.0f, 0.0f, 0.0f, 0.0f };
 
     //----- ブレンドステート使用
-	GetContext()->OMSetBlendState(m_blendState.get(), blendFactor, 0xffffffff);
+	GetContext()->OMSetBlendState(m_blendState, blendFactor, 0xffffffff);
 }

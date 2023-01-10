@@ -9,10 +9,10 @@
 #include <DXGame/Collsion.h>
 
 
-const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.25f;     // 前方への移動速度
-const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.00001f;  // 前方への移動速度加速値
-const float PLAYER_MOVE_SPEED      = 0.2f; // プレイヤーの左右への移動速度
-const float PLAYER_MOVE_MAX        = 2.0f;  // 左右移動上限
+const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.75f;     // 前方への移動速度
+const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.0005f;  // 前方への移動速度加速値
+const float PLAYER_MOVE_SPEED      = 0.5f;   // プレイヤーの左右への移動速度
+const float PLAYER_MOVE_MAX        = 15.0f;  // 左右移動上限
 const std::string PLAYER_FILENAME = "Unitychan/unitychan.fbx";  // 読み込みファイル名
 
 

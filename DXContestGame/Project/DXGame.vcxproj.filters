@@ -150,9 +150,6 @@
     <ClCompile Include="..\Source\DXGame\GameCamera.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DXGame\HP.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\DXGame\Polyline.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
@@ -160,6 +157,12 @@
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\DXGame\GameDefine.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\Number.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\HP.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -284,9 +287,6 @@
     <ClInclude Include="..\Source\DXGame\GameCamera.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\DXGame\HP.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\DXGame\Polyline.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
@@ -294,6 +294,12 @@
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\GameDefine.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\Number.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\HP.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
   </ItemGroup>

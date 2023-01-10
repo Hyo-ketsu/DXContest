@@ -22,6 +22,7 @@ private:
     float                    m_moveSpeed;   // プレイヤーがどれだけ移動しているか
     unsigned int             m_moveCount;   // ブロックの移動処理のカウンター
     unsigned int             m_lastIndex;   // 最後に後ろに移動したブロックのインデックス
+    int                      m_obstaclesFlame;      // 障害物の生成間隔
     Transform                m_firstPlayerTrans;    // プレイヤーの初期位置
 };
 

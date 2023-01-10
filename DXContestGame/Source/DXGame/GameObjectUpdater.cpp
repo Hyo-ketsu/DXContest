@@ -4,7 +4,22 @@
 
 // コンストラクタ
 GameUpdater::GameUpdater(void) { 
-    //m_gameObject.reserve(1024);   // 取り敢えず512確保する
+    //----- 先行確保
+    m_gameObject.reserve(1024);   // 取り敢えず1024個確保する
+
+    //----- ブレンドステート
+    m_blendState = std::make_unique<std::remove_reference_t<decltype(*m_blendState.get())>>(BlendState());
+    D3D11_RENDER_TARGET_BLEND_DESC blend = {};
+    blend.BlendEnable           = TRUE;
+    blend.RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+    blend.SrcBlend              = D3D11_BLEND_SRC_ALPHA;
+    blend.SrcBlendAlpha         = D3D11_BLEND_ONE;
+    blend.DestBlend             = D3D11_BLEND_INV_SRC_ALPHA;
+    blend.DestBlendAlpha        = D3D11_BLEND_ONE;
+    blend.BlendOp               = D3D11_BLEND_OP_ADD;
+    blend.BlendOpAlpha          = D3D11_BLEND_OP_ADD;
+    m_blendState->Create(blend);
+    m_blendState->Bind();
 }
 // デストラクタ
 GameUpdater::~GameUpdater(void) { 
@@ -67,6 +82,7 @@ void GameUpdater::Draw(void) {
     //----- 描画処理を行う
     for (auto& it : m_gameObject) {
         it->Draw();
+        m_blendState->Bind();
     }
 }
 

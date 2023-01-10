@@ -3,6 +3,6 @@
 
 
 void Block::Prefab(void) {
-    ModelComponent* model = new ModelComponent(this, "Hoge.obj", 1);
+    ModelComponent* model = new ModelComponent(this, "Block.obj", 0.2f);
     AddComponent(model);
 }
