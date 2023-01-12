@@ -4,8 +4,8 @@
 
 
 #if 1
-const unsigned int NUMBER_DIGIT     = 7;        // 数字表示の桁数
-const float NUMBER_DEFAULT_DISTANCE = 0.075f;   // 表示間隔デフォルト
+const unsigned int NUMBER_DIGIT     = 8;        // 数字表示の桁数
+const float NUMBER_DEFAULT_DISTANCE = 0.075f;    // 表示間隔デフォルト
 const unsigned int NUMBER_SPRITE_SPRITE_X = 10; // 横分割数
 const unsigned int NUMBER_SPRITE_SPRITE_Y = 1;  // 縦分割数
 const std::string NUMBER_TEXTURE_FILENAME_0 = "Number0.png";

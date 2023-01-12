@@ -1,0 +1,9 @@
+diff a/DXContestGame/Source/DXGame/Number.cpp b/DXContestGame/Source/DXGame/Number.cpp	(rejected hunks)
+@@ -4,7 +4,6 @@
+ 
+ 
+ #if 1
+-const float NUMBER_DEFAULT_DISTANCE = 0.075f;   // �\���Ԋu�f�t�H���g
+ const unsigned int NUMBER_DIGIT     = 8;        // �����\���̌���
+ const float NUMBER_DEFAULT_DISTANCE = 0.75f;    // �\���Ԋu�f�t�H���g
+ const unsigned int NUMBER_SPRITE_SPRITE_X = 10; // ��������

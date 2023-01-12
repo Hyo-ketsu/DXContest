@@ -43,18 +43,20 @@ public:
 
     const Mesh* GetMesh(unsigned int index);
     unsigned int GetMeshNum();
+    const std::string LoadFileName(void) const;
 
 private:
     static VertexShader* m_pDefVS;
-    static PixelShader* m_pDefPS;
-    static unsigned int m_shaderRef;
+    static PixelShader*  m_pDefPS;
+    static unsigned int  m_shaderRef;
 private:
-    Mesh* m_pMeshes;
-    unsigned int m_meshNum;
-    Material* m_pMaterials;
-    unsigned int m_materialNum;
+    Mesh*         m_pMeshes;
+    unsigned int  m_meshNum;
+    Material*     m_pMaterials;
+    unsigned int  m_materialNum;
     VertexShader* m_pVS;
-    PixelShader* m_pPS;
+    PixelShader*  m_pPS;
+    std::string   m_fileName;
 };
 
 

@@ -8,7 +8,8 @@ SceneLoader::~SceneLoader(void) {
 }
 // コンストラクタ
 SceneLoader::SceneLoader(void)
-    : m_scene(nullptr) {
+    : m_scene(nullptr) 
+    , m_newScene(nullptr) {
 }
 
 
@@ -26,7 +27,11 @@ void SceneLoader::DeleteScene(void) {
 
 // 更新処理を行う
 void SceneLoader::Update(void) {
-    m_scene->GetUpdater()->Update();
+    //----- 新しいシーンがあればそれを追加する
+    if (m_newScene != nullptr) m_scene = std::move(m_newScene);
+
+    //----- 更新処理を行う
+    if (m_scene != nullptr) m_scene->GetUpdater()->Update();
 }
 // 描画処理を行う
 void SceneLoader::Draw(void) {
@@ -34,7 +39,7 @@ void SceneLoader::Draw(void) {
     BeginDrawDX();
 
     //----- 描画処理
-    m_scene->GetUpdater()->Draw();
+    if (m_scene != nullptr) m_scene->GetUpdater()->Draw();
 
     //----- 後描画処理
     EndDrawDX();

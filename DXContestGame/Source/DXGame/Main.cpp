@@ -9,7 +9,7 @@
 #include <DXGame/WinUtil.h>
 #include <DXGame/Timer.h>
 #include <DXGame/SceneLoader.h>
-#include <DXGame/Stage1.h>
+#include <DXGame/Title.h>
 #include <DXGame/GameApplication.h>
 #include <DXGame/AssetsLoad.h>
 #include <time.h>
@@ -21,7 +21,6 @@ const char* APP_TITLE = "DX2D";
 void Init(void);
 void Uninit(void);
 void Update(void);
-void Draw(void);
 
 
 // エントリポイント
@@ -38,7 +37,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Init();
 
     //----- 初期シーン設定
-    SceneLoader::Get()->MoveScene<Stage1>();
+    SceneLoader::Get()->MoveScene<Title>();
 
     //----- 変数宣言
     Timer timer;
@@ -47,7 +46,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     //----- ゲームループ
     while (1) {
         //----- ゲームの終了
-        if (state == APP_STATE_QUIT)              break; // ウィンドウが閉ざられる等したか
+        if (state == APP_STATE_QUIT)              break; // ウィンドウが閉じられる等したか
         if (GameApplication::Get()->GetGameEnd()) break; // ゲームが終了しているか
 
         //----- ウィンドウメッセージ取得
@@ -97,7 +96,7 @@ void Init(void) {
     Sprite::Init();
     Timer::InitTime();
     SceneLoader::Get()->DeleteScene();
-    FirstLoad();
+    //FirstLoad();
 }
 void Uninit(void) {
     Timer::UninitTime();

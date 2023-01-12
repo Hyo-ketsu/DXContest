@@ -40,7 +40,8 @@ private:
     // フレンド宣言
     friend class Singleton<SceneLoader>;
 
-    std::unique_ptr<SceneBase>   m_scene;    // 現在のシーン
+    std::unique_ptr<SceneBase> m_scene;     // 現在のシーン
+    std::unique_ptr<SceneBase> m_newScene;  // 新しいシーン
 };
 
 
@@ -52,10 +53,8 @@ void SceneLoader::MoveScene(void) {
     static_assert(std::is_base_of_v<SceneBase, MoveScene>, "Template error! Not a class that inherits SceneBase!");    // シーンから継承されているかのアソート
 
     //----- 移動
-    m_scene = std::make_unique<MoveScene>();
-
-    //----- 初期化
-    m_scene->InitScene();
+    m_newScene = std::make_unique<MoveScene>();
+    m_newScene->InitScene();
 }
 
 

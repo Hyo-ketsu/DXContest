@@ -2,6 +2,7 @@
 #define ____FILESTORAGE_H____
 
 #include <mutex>
+#include <atomic>
 #include <DXGame/ClassName.h>
 #include <DXGame/FilePath.h>
 #include <DXGame/Singleton.h>
@@ -48,7 +49,7 @@ private:
     friend class Singleton<FileStorage>;
 
     std::unordered_map<std::string, ID3D11ShaderResourceView *const> m_texture; // テクスチャーを保持しておく連想配列
-    std::unordered_multimap<std::string, std::pair<UseModel, std::unique_ptr<Model>>> m_model;   // モデルを保持しておく連想配列
+    std::unordered_multimap<std::string, std::pair<std::atomic<UseModel>, std::unique_ptr<Model>>> m_model;   // モデルを保持しておく連想配列
     std::recursive_mutex m_modelMutex;    // モデル用ミューテックス
 };
 

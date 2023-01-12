@@ -1,12 +1,14 @@
 #ifndef ____GENERICSINGLETON_H____
 #define ____GENERICSINGLETON_H____
 
+#include <mutex>
 #include <memory>
+#include <type_traits>
 
 
 // シングルトン用抽象クラス
 // @ Memo : ACSingleton をフレンド宣言してください
-// @ Memo : protected や private でコンストラクタを宣言してください
+// @ Memo : protected や private でコンストラクタ、public でデストラクタを宣言してください
 // @ Temp : 返却するこのクラスのサブクラス
 template<class T>
 class Singleton {
@@ -28,8 +30,11 @@ protected:
     virtual ~Singleton<T>(void) {}
 
 
+    std::mutex m_mutex; // サブクラス用ミューテックス
+
 private:
-    static std::unique_ptr<T> ms_singleton; // シングルトンサブクラス
+    static std::mutex ms_updaetrMutex;       // ミューテックス
+    static std::unique_ptr<T> ms_instance;   // シングルトンサブクラス
 
     Singleton(const Singleton &) = delete;
     Singleton& operator=(const Singleton &) = delete;
@@ -39,27 +44,38 @@ private:
 
 
 template <class T>
-std::unique_ptr<T> Singleton<T>::ms_singleton;    // シングルトンサブクラス
+std::unique_ptr<T> Singleton<T>::ms_instance;    // シングルトンサブクラス
+template <class T>
+std::mutex Singleton<T>::ms_updaetrMutex; // ミューテックス
 
 
 template<class T>
 T* const Singleton<T>::Get(void) {
     //----- インスタンスの生成判断
-    if (!(ms_singleton)) {
-        //----- インスタンスが存在しないため生成
-        ms_singleton = std::unique_ptr<T>(new T());
+    if (!(ms_instance)) {
+        //----- ロック
+        std::lock_guard<std::mutex> lock(ms_updaetrMutex);
+
+        //----- インスタンスの生成判断
+        if (!(ms_instance)) {
+            //----- インスタンスが存在しないため生成
+            ms_instance = std::unique_ptr<T>(new T());
+        }
     }
 
     //----- インスタンスの返却
-    return ms_singleton.get();
+    return ms_instance.get();
 }
 
 
 // インスタンスの明示的解放
 template<class T>
 void Singleton<T>::DeleteInstance(void) {
+    //----- ロック
+    std::lock_guard<std::mutex> lock(ms_updaetrMutex);
+
     //----- 明示的開放
-    if (ms_singleton) ms_singleton.reset();
+    ms_instance.reset();
 }
 
 

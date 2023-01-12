@@ -36,6 +36,10 @@ public:
     void SetTransform(const Transform in) { m_transform = in; }
 
 
+    // 旧座標ゲッター
+    const Transform& GetOldTransform(void) const { return m_oldTransform; }
+
+
     // 当たり判定リストゲッター
     const CollsionHitDataVector& GetCollsionData(void) const { return m_collsionData; }
     // 当たり判定リストゲッター
@@ -115,11 +119,12 @@ protected:
     virtual void Prefab(void) {}
 
 private:
-    bool m_isActive;         // 現在有効になっているか
-    bool m_isCreatePrefab;   // プレハブが生成されたか
-    std::string m_name;      // 名前
-    Transform   m_transform; // 座標
-    SceneBase*  m_scene;     // 所属シーン
+    bool m_isActive;            // 現在有効になっているか
+    bool m_isCreatePrefab;      // プレハブが生成されたか
+    std::string m_name;         // 名前
+    Transform   m_transform;    // 座標
+    Transform   m_oldTransform; // 前フレーム座標
+    SceneBase*  m_scene;        // 所属シーン
     std::vector<std::unique_ptr<Component>> m_component;    // 保持コンポーネント
     std::vector<std::unique_ptr<Collsion>>  m_collsion;     // 保持当たり判定
     CollsionHitDataVector                   m_collsionData; // 当たり判定情報の保持

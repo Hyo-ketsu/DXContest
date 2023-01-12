@@ -6,16 +6,17 @@
 
 
 const int CREATE_BLOCK_Z_COUNT = 80;   // 奥に生成する数
-const int CREATE_BLOCK_X_COUNT = 7;    // 横に生成する数
+const int CREATE_BLOCK_X_COUNT = 9;    // 横に生成する数
 const int CREATE_BLOCK_FRONT   = 5;    // プレイヤーの後ろに生成する数
-const int CREATE_OBSTACLES_COUNT = 20; // 障害物の生成数
-const int CREATE_OBSTACLES_FLAME = 60; // 障害物生成最長フレーム数
+const int CREATE_OBSTACLES_COUNT = 40; // 障害物の生成数
+const int CREATE_OBSTACLES_FLAME_MAX = 60; // 障害物生成最長フレーム数
+const int CREATE_OBSTACLES_FLAME_MIN = 5;  // 障害物生成最短フレーム数
 const int CREATE_OBSTACLES_BACK_BLOCKCOUNT = 70;    // 奥のブロック何個目から生成するか
 const float CREATE_BLOCK_Y_POS = 7;                 // プレイヤーからどの位置に生成するか
 const DirectX::XMFLOAT3 CREATE_BLOCK_SIZE      = { 2,2,2 };  // 生成ブロックのサイズ
 const DirectX::XMFLOAT3 CREATE_BLOCK_SPACE     = { 5,0,5 };  // 生成ブロックの生成間隔
 const DirectX::XMFLOAT3 CREATE_OBSTACLES_SIZE  = { 2,2,2 };  // 生成障害物のサイズ
-const DirectX::XMFLOAT3 CREATE_OBSTACLES_SPACE = { 4,0,0 };  // 生成障害物の生成間隔
+const DirectX::XMFLOAT3 CREATE_OBSTACLES_SPACE = { 3,0,0 };  // 生成障害物の生成間隔
 
 
 void StageCreaterControl::Start(void) {
@@ -113,7 +114,9 @@ void StageCreaterControl::CreateObstacles(void) {
         }
 
         //----- カウンターのリセット
-        m_obstaclesFlame = rand() % CREATE_OBSTACLES_FLAME;
+        unsigned int count = CREATE_OBSTACLES_FLAME_MAX / PlayerSpeedManager::Get()->GetSpeed(); // 速度に応じて早くなっていく
+        m_obstaclesFlame = rand() % (count == 0 ? CREATE_OBSTACLES_FLAME_MAX : count);  // 出現フレームをランダムに設定（% 演算子の後のはゼロ除算対策）
+        if (m_obstaclesFlame < CREATE_OBSTACLES_FLAME_MIN) m_obstaclesFlame = CREATE_OBSTACLES_FLAME_MIN;   // 最低値保証
     }
 }
 

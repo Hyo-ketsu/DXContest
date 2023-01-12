@@ -11,6 +11,7 @@ GameObject::GameObject(SceneBase* scene, const Transform& transform)
     , m_isCreatePrefab(false)
     , m_name(DEFAULT_NAME_GAMEOBJECT)
     , m_transform(transform)
+    , m_oldTransform(transform)
     , m_scene(scene) {
 }
 // デストラクタ
@@ -50,6 +51,9 @@ void GameObject::LateUpdate(void) {
             it->LateUpdate();
         }
     }
+
+    //----- 過去座標の更新
+    m_oldTransform = m_transform;
 }
 // コンポーネントの描画処理を行う
 void GameObject::Draw(void) {

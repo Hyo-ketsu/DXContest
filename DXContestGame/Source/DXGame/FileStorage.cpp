@@ -34,42 +34,47 @@ ID3D11ShaderResourceView* FileStorage::LoadTexture(const std::string& fileName) 
 
 // モデルを読み込む
 Model* const FileStorage::LoadModel(const std::string& fileName, const float scale, const bool flip) {
-    //----- ロック
-    m_modelMutex.lock();
-    
     //----- 変数宣言
-    auto data = m_model.find(fileName);
+    decltype(m_model)::iterator it;
+    Model* model = nullptr;
+  
+    do {
+        //----- ロック
+        std::scoped_lock<std::recursive_mutex> lock(m_modelMutex);
     
-    //----- モデルがあるか（あればモデルを取得して返却する）
-    for (; data != m_model.end(); data++) {
-        //----- 使用済みか
-        if (data->second.first == false) {
-            //----- 使われていない。このモデルを使用
-            data->second.first = true;          // 使用済みとする
-            return data->second.second.get();
+        //----- 検索
+        auto data = m_model.find(fileName);
+    
+        //----- モデルがあるか（あればモデルを取得して返却する）
+        for (; data != m_model.end(); data++) {
+            //----- 使用済みか
+            if (data->second.first == false) {
+                //----- 使われていない。このモデルを使用
+                //data->second.first = true;          // 使用済みとする
+                model = data->second.second.get();
+                break;
+            }
         }
+        if (model != nullptr) break;
+
+        //----- モデルがない。読み込んで追加
+        model = new Model();
+        // 先行して"使用済み"として追加（読み込み後に開放する）
+        it = m_model.emplace(std::pair<std::string, std::pair<UseModel, std::unique_ptr<Model>>>(
+            fileName, std::pair<UseModel, std::unique_ptr<Model>>(true, std::unique_ptr<Model>(model))
+            )
+        );
+
+        //----- モデル読み込み
+        model->Load(std::string(FilePath::MODEL_PATH + fileName), scale, flip);
+        // 読み込み完了。"未使用"として開放
+        it->second.first = false;
+    } while (false);
+
+    if (model->LoadFileName() != std::string(FilePath::MODEL_PATH + fileName)) {
+        auto hoge = model->LoadFileName();
+        int i = 0;
     }
-
-    //----- モデルがない。読み込んで追加
-    Model* model = new Model();
-    // 先行して"使用済み"として追加（読み込み後に開放する）
-    auto it = m_model.emplace(std::pair<std::string, std::pair<UseModel, std::unique_ptr<Model>>>(
-        fileName, std::pair<UseModel, std::unique_ptr<Model>>(true, std::unique_ptr<Model>(model))
-        )
-    );
-
-    //----- ロック解除
-    m_modelMutex.unlock();
-
-    //----- モデル読み込み
-    model->Load(std::string(FilePath::MODEL_PATH + fileName), scale, flip);
-
-    //----- ロック
-    std::scoped_lock<std::recursive_mutex> lock(m_modelMutex);
-
-    // 読み込み完了。"未使用"として開放
-    it->second.first = false;
-
     //----- 返却
     return model;
 }
