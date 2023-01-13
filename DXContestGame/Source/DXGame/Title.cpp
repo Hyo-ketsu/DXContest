@@ -11,7 +11,7 @@
 
 void Title::InitScene(void) {
     //----- ƒ^ƒCƒgƒ‹ì¬
-    auto* title       = this->CreatePrefab<GameObject>(Transform({ 0,0.1f,0 }, { 0.4f,0.2f,1.0f }));
+    auto* title       = this->CreatePrefab<GameObject>(Transform({ 0,0.35f,0 }, { 0.8f,0.5f,1.0f }));
     auto* titleSprite = new SpriteShowComponent(title, LOAD_TITLE_FILENAME);
     title->AddComponent(titleSprite);
 
