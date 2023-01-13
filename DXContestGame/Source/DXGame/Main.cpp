@@ -18,7 +18,7 @@
 
 
 //--- ’è”’è‹`
-const char* APP_TITLE = "DX2D";
+const char* APP_TITLE = "RunWitch.";
 
 void Init(void);
 void Uninit(void);

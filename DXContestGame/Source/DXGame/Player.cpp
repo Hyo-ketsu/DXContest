@@ -11,9 +11,10 @@
 #include <DXGame/Result.h>
 
 
-const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.75f;     // 前方への移動速度
-const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.005f;    // 前方への移動速度加速値
-const float PLAYER_MOVE_SPEED      = 1.0f;   // プレイヤーの左右への移動速度
+const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.70f;     // 前方への移動速度
+const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.001f;    // 前方への移動速度加速値
+const float PLAYER_AUTO_MOVE_SPEED_PERCENTAGE = 5;      // 加速時の加速倍率
+const float PLAYER_MOVE_SPEED      = 1.25f;   // プレイヤーの左右への移動速度
 const float PLAYER_MOVE_MAX        = 20.0f;  // 左右移動上限
 
 
@@ -65,7 +66,7 @@ void PlayerControl::Update(void) {
     PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD);
     if (IsKeyPress('W') || IsKeyPress(VK_UP)) {
         //----- Wもしくは↑矢印で追加加速
-        PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD);
+        PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD * PLAYER_AUTO_MOVE_SPEED_PERCENTAGE);
     }
 
     //----- 自身が死亡していたら削除
