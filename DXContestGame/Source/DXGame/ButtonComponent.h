@@ -13,7 +13,7 @@ public:
     ButtonBase(GameObject* gameObject, const std::string& file);
 
 
-    virtual void Update(void);
+    virtual void Update(void) override;
 
 
     // ボタン用純粋仮想関数

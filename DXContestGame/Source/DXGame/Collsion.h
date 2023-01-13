@@ -69,8 +69,10 @@ public:
     // 与えられた当たり判定と衝突判定を行う
     // @ Memo : 衝突情報などは（衝突していれば）関数内で直接追加します
     // @ Ret  : これ以上の判定が必要ないか
-    // @ Arg1 : 対象の当たり判定
-    const bool CollsionHitCheck(Collsion* const collsion);
+    // @ Memo : ↑当たり判定を取れる状況ではない（acitve が false 等）、もしくはもう衝突が取れた場合が true です
+    // @ Arg1 : 自身の座標
+    // @ Arg2 : 対象の当たり判定
+    const bool CollsionHitCheck(const DirectX::XMFLOAT3 thisTransform, Collsion* const collsion);
 
 
 private:

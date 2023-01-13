@@ -17,8 +17,7 @@ BlendState::~BlendState(void) {
 // ブレンドステートの作成
 HRESULT BlendState::Create(const D3D11_RENDER_TARGET_BLEND_DESC desc) {
     //----- 変数宣言
-	D3D11_BLEND_DESC  blendDesc;            // 初期化情報
-    HRESULT           ret;                  // 生成に成功したかを返却する
+	D3D11_BLEND_DESC blendDesc; // 初期化情報
 
     //----- 初期化と代入
 	ZeroMemory(&blendDesc, sizeof(blendDesc));

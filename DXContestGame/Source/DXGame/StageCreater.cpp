@@ -4,6 +4,7 @@
 #include <DXGame/Block.h>
 #include <DXGame/Player.h>
 #include <DXGame/Obstacles.h>
+#include <DXGame/Utility.h>
 
 
 const int CREATE_BLOCK_Z_COUNT = 80;   // 奥に生成する数
@@ -116,9 +117,36 @@ void StageCreaterControl::CreateObstacles(void) {
         }
 
         //----- カウンターのリセット
-        unsigned int count = CREATE_OBSTACLES_FLAME_MAX / PlayerSpeedManager::Get()->GetSpeed(); // 速度に応じて早くなっていく
-        m_obstaclesFlame = rand() % (count == 0 ? CREATE_OBSTACLES_FLAME_MAX : count);  // 出現フレームをランダムに設定（% 演算子の後のはゼロ除算対策）
-        if (m_obstaclesFlame < CREATE_OBSTACLES_FLAME_MIN) m_obstaclesFlame = CREATE_OBSTACLES_FLAME_MIN;   // 最低値保証
+        do {
+            //----- 変数宣言
+            float speed = PlayerSpeedManager::Get()->GetSpeed();    // プレイヤーの速度
+
+            //----- 速度が0.f以外か（ガード節）
+            if (Utility::FloatComparison(speed)) {
+                //----- プレイヤーの速度が0。生成フレーム数に最長値を代入して終了
+                m_obstaclesFlame = CREATE_OBSTACLES_FLAME_MAX;
+                break;
+            }
+
+            //----- 変数宣言
+            unsigned int count = CREATE_OBSTACLES_FLAME_MAX / speed;    // 生成フレームカウント
+
+            //----- カウント数が0以外か
+            if (count == 0) {
+                //----- カウント数が0。出現フレーム数に最低値を格納、終了
+                m_obstaclesFlame = CREATE_OBSTACLES_FLAME_MIN;
+                break;
+            }
+
+            //----- 出現フレームランダム設定
+            m_obstaclesFlame = rand() % count;
+
+            //----- 最低値保障
+            if (m_obstaclesFlame < CREATE_OBSTACLES_FLAME_MIN) {
+                //----- 最低値未満。最低値を代入
+                m_obstaclesFlame = CREATE_OBSTACLES_FLAME_MIN;
+            }
+        } while (false);
     }
 }
 

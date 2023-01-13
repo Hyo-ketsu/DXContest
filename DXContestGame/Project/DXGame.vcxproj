@@ -38,7 +38,6 @@
     <ClCompile Include="..\Source\DXGame\AssetsLoad.cpp" />
     <ClCompile Include="..\Source\DXGame\BlendState.cpp" />
     <ClCompile Include="..\Source\DXGame\Block.cpp" />
-    <ClCompile Include="..\Source\DXGame\Bullet.cpp" />
     <ClCompile Include="..\Source\DXGame\ButtonComponent.cpp" />
     <ClCompile Include="..\Source\DXGame\CameraBase.cpp" />
     <ClCompile Include="..\Source\DXGame\CameraSystem.cpp" />
@@ -49,6 +48,9 @@
     <ClCompile Include="..\Source\DXGame\ConstantBuffer.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectX.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectXTex\Texture.cpp" />
+    <ClCompile Include="..\Source\DXGame\HighScore.cpp" />
+    <ClCompile Include="..\Source\DXGame\MenuButtonSelector.cpp" />
+    <ClCompile Include="..\Source\DXGame\MenuMoveScene.cpp" />
     <ClCompile Include="..\Source\DXGame\Number.cpp" />
     <ClCompile Include="..\Source\DXGame\Obstacles.cpp" />
     <ClCompile Include="..\Source\DXGame\FilePath.cpp" />
@@ -103,7 +105,6 @@
     <ClInclude Include="..\Source\DXGame\AssetsLoad.h" />
     <ClInclude Include="..\Source\DXGame\BlendState.h" />
     <ClInclude Include="..\Source\DXGame\Block.h" />
-    <ClInclude Include="..\Source\DXGame\Bullet.h" />
     <ClInclude Include="..\Source\DXGame\ButtonComponent.h" />
     <ClInclude Include="..\Source\DXGame\CameraBase.h" />
     <ClInclude Include="..\Source\DXGame\CameraSystem.h" />
@@ -115,6 +116,10 @@
     <ClInclude Include="..\Source\DXGame\DirectX.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\DirectXTex.h" />
     <ClInclude Include="..\Source\DXGame\DirectXTex\Texture.h" />
+    <ClInclude Include="..\Source\DXGame\GenericUndef_DEBUG.h" />
+    <ClInclude Include="..\Source\DXGame\HighScore.h" />
+    <ClInclude Include="..\Source\DXGame\MenuButtonSelector.h" />
+    <ClInclude Include="..\Source\DXGame\MenuMoveScene.h" />
     <ClInclude Include="..\Source\DXGame\Number.h" />
     <ClInclude Include="..\Source\DXGame\Obstacles.h" />
     <ClInclude Include="..\Source\DXGame\FilePath.h" />
@@ -434,7 +439,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PreprocessorDefinitions>_GAME;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_GAME;_RELEASE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/$(Configuration)/$(ProjectName)/.pch</PrecompiledHeaderOutputFile>
@@ -466,7 +471,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PreprocessorDefinitions>_GAME;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_GAME;_RELEASE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/$(Configuration)/$(ProjectName)/.pch</PrecompiledHeaderOutputFile>
@@ -497,7 +502,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
     <ClCompile>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PreprocessorDefinitions>_DEVELOP;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEVELOP;_RELEASE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/$(Configuration)/$(ProjectName)/.pch</PrecompiledHeaderOutputFile>
@@ -524,7 +529,7 @@ IF %ERRORLEVEL% LSS 8 EXIT 0</Command>
     <ClCompile>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
-      <PreprocessorDefinitions>_DEVELOP;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEVELOP;_RELEASE;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderOutputFile>$(ProjectDir)../Object/$(Configuration)/$(ProjectName)/.pch</PrecompiledHeaderOutputFile>

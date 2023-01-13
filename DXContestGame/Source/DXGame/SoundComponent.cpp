@@ -28,21 +28,41 @@ void SoundVolumeSetter::SetSEVolume(const float volume) {
 }
 
 
-std::unique_ptr<IXAudio2SourceVoice> SoundComponent::ms_buffer; // サウンドバッファ
+IXAudio2SourceVoice* SoundComponent::ms_buffer = nullptr; // サウンドバッファ
 
 
 // コンストラクタ
-SoundComponent::SoundComponent(GameObject* gameObject, std::string& file, const bool isBGM)
+SoundComponent::SoundComponent(GameObject* gameObject, const std::string& file, const bool isBGM, const bool isDeadStop)
     : Component(gameObject)
-    , m_source(std::unique_ptr<XAUDIO2_BUFFER>(CreateSound(Utility::MergeString(FilePath::SOUND_PATH,file).c_str(), isBGM))) {
+    , m_source(CreateSound(Utility::MergeString(FilePath::SOUND_PATH, file).c_str(), isBGM))
+    , mc_isBGM(isBGM)
+    , mc_isDeadStop(isDeadStop) {
+}
+// デストラクタ
+SoundComponent::~SoundComponent(void) {
+    if (mc_isDeadStop) {
+        StopSound();
+    }
+}
+
+
+void SoundComponent::Update(void) {
+    //----- 現状のボリュームをセットする
+    ms_buffer->SetVolume(mc_isBGM ? SoundVolumeSetter::Get()->GetBGMVolume() : SoundVolumeSetter::Get()->GetSEVolume());
 }
 
 
 // 再生を開始する
 void SoundComponent::StartSound(void) {
-    ms_buffer = std::unique_ptr<IXAudio2SourceVoice>(StartSoundOn(m_source.get()));
+    //----- 再生を開始、格納する
+    ms_buffer = StartSoundOn(m_source);
+
+    //----- 現状のボリュームをセットする
+    ms_buffer->SetVolume(mc_isBGM ? SoundVolumeSetter::Get()->GetBGMVolume() : SoundVolumeSetter::Get()->GetSEVolume());
 }
 // 再生を停止する
 void SoundComponent::StopSound(void) {
-    ms_buffer->Stop();
+    if (ms_buffer != nullptr) {
+        ms_buffer->Stop();
+    }
 }

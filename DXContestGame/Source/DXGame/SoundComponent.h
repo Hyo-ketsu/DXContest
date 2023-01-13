@@ -16,6 +16,12 @@ public:
     ~SoundVolumeSetter(void) {}
 
 
+    // BGM音量ゲッター
+    const float GetBGMVolume(void) const { return m_bgmVolume; }
+    // SE音量ゲッター
+    const float GetSEVolume(void) const { return m_seVolume; }
+
+
     // BGM音量をセットする
     // @ Arg1 : セットする音量(0 ~ 1)
     void SetBGMVolume(const float volume);
@@ -42,11 +48,14 @@ public:
     // @ Arg1 : 所属ゲームオブジェクト
     // @ Arg2 : 再生サウンド名
     // @ Arg3 : BGMであればTrue
-    SoundComponent(GameObject* gameObject, std::string& file, const bool isBGM);
+    // @ Arg4 : このコンポーネントがアタッチされているゲームオブジェクトが消去された際に再生を止めるか（デフォルト：true）
+    SoundComponent(GameObject* gameObject, const std::string& file, const bool isBGM, const bool isDeadStop = true);
+    // デストラクタ
+    ~SoundComponent(void) override;
 
 
     void Start(void) override {}
-    void Update(void) override {}
+    void Update(void) override final;
 
 
     // 再生を開始する
@@ -56,8 +65,10 @@ public:
     void StopSound(void);
 
 private:
-    static std::unique_ptr<IXAudio2SourceVoice> ms_buffer; // サウンドバッファ
-    std::unique_ptr<XAUDIO2_BUFFER>             m_source;  // サウンドソース
+    static IXAudio2SourceVoice* ms_buffer; // サウンドバッファ
+    XAUDIO2_BUFFER*             m_source;  // サウンドソース
+    const bool mc_isBGM;        // BGMか（＝ループ再生をする）
+    const bool mc_isDeadStop;   // 削除時に再生を止めるか
 };
 
 

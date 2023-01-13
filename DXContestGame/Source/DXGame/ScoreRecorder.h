@@ -15,7 +15,11 @@ public:
     // 現スコアゲッター
     const unsigned int GetScore(void) const { return m_score; }
     // 現スコアセッター
-    void SetScore(const unsigned int in) { m_score = in; }
+    void SetScore(const unsigned int in); 
+
+
+    // ハイスコアゲッター
+    const unsigned int GetHighScore(void) const { return m_highScore; }
 
 private:
     // コンストラクタ
@@ -24,7 +28,8 @@ private:
 
     friend class Singleton<ScoreGlobalRecorder>;
 
-    unsigned int m_score;   // 保持スコア
+    unsigned int m_score;       // 保持スコア
+    unsigned int m_highScore;   // 保持ハイスコア
 };
 
 

@@ -1,13 +1,15 @@
 #include <DXGame/SpriteComponent.h>
 #include <DXGame/FileStorage.h>
 #include <DXGame/Sprite.h>
+#include <DXGame/GameDefine.h>
 
 
 // コンストラクタ
 SpriteShowComponent::SpriteShowComponent(GameObject* gameObject, const std::string& file)
     : Component(gameObject)
     , m_fileName(file)
-    , m_sprite(nullptr) {
+    , m_sprite(nullptr) 
+    , m_color(COLOR_DEFAULT) {
 }
 
 

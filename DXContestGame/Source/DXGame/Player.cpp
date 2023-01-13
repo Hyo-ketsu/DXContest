@@ -14,7 +14,7 @@
 const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.75f;     // 前方への移動速度
 const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.005f;    // 前方への移動速度加速値
 const float PLAYER_MOVE_SPEED      = 1.0f;   // プレイヤーの左右への移動速度
-const float PLAYER_MOVE_MAX        = 18.5f;  // 左右移動上限
+const float PLAYER_MOVE_MAX        = 20.0f;  // 左右移動上限
 
 
 void PlayerControl::Start(void) {
@@ -114,7 +114,7 @@ void Player::Prefab(void) {
     SetName(NAME_PLAYER);
 
     //----- 当たり判定の追加
-    AddCollsion(false, DirectX::XMFLOAT3(3, 5, 3));
+    AddCollsion(false, DirectX::XMFLOAT3(4, 4, 4));
 
     //----- モデルコンポーネントの追加
     auto* model = new ModelComponent(this, LOAD_PLAYER_FILENAME, LOAD_PLAYER_SCALE);

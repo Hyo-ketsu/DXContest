@@ -7,15 +7,7 @@
 #define PLATFORM "x86"
 #endif
 // \¬
-#ifdef _DEBUG
 #define CONFIG "Debug"
-#else
-#if 1
-#define CONFIG "Release"
-#else
-#define CONFIG "Debug"
-#endif
-#endif
 // ƒ‰ƒCƒuƒ‰ƒŠî•ñ
 #define DXTEX_LIB_PATH "DirectXTex/" PLATFORM "/" CONFIG "/DirectXTex.lib"
 

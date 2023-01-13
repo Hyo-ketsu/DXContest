@@ -16,3 +16,5 @@
 
 #include <windows.h>
 #pragma comment(lib, "winmm.lib")
+
+#include <DXGame/GenericUndef_DEBUG.h>

@@ -132,9 +132,6 @@
     <ClCompile Include="..\Source\DXGame\Score.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\DXGame\Bullet.cpp">
-      <Filter>ソース ファイル\Game</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\DXGame\Block.cpp">
       <Filter>ソース ファイル\Game</Filter>
     </ClCompile>
@@ -188,6 +185,15 @@
     </ClCompile>
     <ClCompile Include="..\Source\DXGame\SoundComponent.cpp">
       <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\MenuButtonSelector.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\MenuMoveScene.cpp">
+      <Filter>ソース ファイル\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\DXGame\HighScore.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -290,9 +296,6 @@
     <ClInclude Include="..\Source\DXGame\CollsionSystem.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\DXGame\Bullet.h">
-      <Filter>ヘッダー ファイル\Game</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\DXGame\Block.h">
       <Filter>ヘッダー ファイル\Game</Filter>
     </ClInclude>
@@ -352,6 +355,18 @@
     </ClInclude>
     <ClInclude Include="..\Source\DXGame\SoundComponent.h">
       <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\GenericUndef_DEBUG.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\MenuButtonSelector.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\MenuMoveScene.h">
+      <Filter>ヘッダー ファイル\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\DXGame\HighScore.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

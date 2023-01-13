@@ -121,9 +121,14 @@ void GameObject::UpdateCollsion(GameObject* const gameObject) {
     for (auto& it : m_collsion) {
         for (auto& targetIt : gameObject->m_collsion) {
             //----- 当たり判定をとる
-            auto next = it->CollsionHitCheck(targetIt.get());
+            auto next = it->CollsionHitCheck(GetTransform().pos, targetIt.get());
 
-            //----- さらにベクトルを使った当たり判定を行うか（高速移動に対応した当たり判定）
+            //----- 現在位置で取れないならさらにベクトルを使った当たり判定を行うか（高速移動に対応した当たり判定）
+            if (next == false) {
+                
+            }
+
+            //----- ↑のベクトル位置当たり判定で取れないのであれば衝突していないとみなす
         }
     }
 }

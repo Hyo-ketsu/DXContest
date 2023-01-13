@@ -30,7 +30,7 @@ Collsion::~Collsion(void) {
 
 
 // 与えられた当たり判定と衝突判定を行う
-const bool Collsion::CollsionHitCheck(Collsion* const collsion) {
+const bool Collsion::CollsionHitCheck(const DirectX::XMFLOAT3 thisTransform, Collsion* const collsion) {
     //----- 衝突判定を行うか判定
     if (this->GetActive()    == false)  return true;
     if (collsion->GetActive() == false) return true;
@@ -40,15 +40,11 @@ const bool Collsion::CollsionHitCheck(Collsion* const collsion) {
     if (this->GetTag() == collsion->GetTag())            return true;
 
     //----- 変数宣言
-    DirectX::XMFLOAT3 thisTransform;    // 自身の座標
     DirectX::XMFLOAT3 targetTransform;  // 衝突相手の座標
     std::array<bool,3> hitDirection; // 当たった方向を表す
     hitDirection.fill(false);
 
     //----- 初期化
-    thisTransform.x = m_pos.x + m_gameObject->GetTransform().pos.x;
-    thisTransform.y = m_pos.y + m_gameObject->GetTransform().pos.y;
-    thisTransform.z = m_pos.z + m_gameObject->GetTransform().pos.z;
     targetTransform.x = collsion->m_pos.x + collsion->GetGameObject()->GetTransform().pos.x;
     targetTransform.y = collsion->m_pos.y + collsion->GetGameObject()->GetTransform().pos.y;
     targetTransform.z = collsion->m_pos.z + collsion->GetGameObject()->GetTransform().pos.z;

@@ -48,9 +48,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Timer timer;
     AppState state = APP_STATE_MESSAGE;
 
-    //----- デバッグ用サウンドカット
+    //----- 初期音量設定
+#ifdef _DEBUG
     SoundVolumeSetter::Get()->SetBGMVolume(0.f);
     SoundVolumeSetter::Get()->SetSEVolume(0.f);
+#else
+    SoundVolumeSetter::Get()->SetBGMVolume(1.f);
+    SoundVolumeSetter::Get()->SetSEVolume(1.f);
+#endif // !_DEBUG
 
     //----- ゲームループ
     while (1) {
@@ -117,9 +122,10 @@ void Init(void) {
     //FirstLoad();
 }
 void Uninit(void) {
-    Timer::UninitTime();
-    Sprite::Uninit();
     SceneLoader::DeleteInstance();
+    Timer::UninitTime();
+    UninitSound();
+    Sprite::Uninit();
 	UninitGeometory();
 	UninitInput();
 	UninitTexture();
