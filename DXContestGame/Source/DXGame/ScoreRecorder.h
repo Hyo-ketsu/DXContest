@@ -21,6 +21,9 @@ private:
     // コンストラクタ
     ScoreGlobalRecorder(void);
 
+
+    friend class Singleton<ScoreGlobalRecorder>;
+
     unsigned int m_score;   // 保持スコア
 };
 

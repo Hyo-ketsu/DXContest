@@ -13,6 +13,7 @@ namespace FilePath {
     const std::string TEXTURE_PATH = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Texture/");
     const std::string MODEL_PATH   = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Model/");
     const std::string SHADER_PATH  = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Shader/");
+    const std::string SOUND_PATH   = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Sound/");
 }
 
 

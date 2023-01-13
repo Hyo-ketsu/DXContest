@@ -120,7 +120,10 @@ void GameObject::UpdateCollsion(GameObject* const gameObject) {
     //----- 自身と対象のCollsionで当たり判定を取る
     for (auto& it : m_collsion) {
         for (auto& targetIt : gameObject->m_collsion) {
-            it->CollsionHitCheck(targetIt.get());
+            //----- 当たり判定をとる
+            auto next = it->CollsionHitCheck(targetIt.get());
+
+            //----- さらにベクトルを使った当たり判定を行うか（高速移動に対応した当たり判定）
         }
     }
 }

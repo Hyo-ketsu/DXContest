@@ -71,77 +71,63 @@ float4 main(PS_IN pin) : SV_TARGET {
 	DirectX::XMStoreFloat4x4(&m_matrix[0], DirectX::XMMatrixIdentity());
 	DirectX::XMStoreFloat4x4(&m_matrix[1], DirectX::XMMatrixIdentity());
 }
-GeometoryPolyline::~GeometoryPolyline()
-{
+GeometoryPolyline::~GeometoryPolyline() {
 	delete m_pBuf;
 	delete m_pDefPS;
 	delete m_pVS;
 	delete[] m_pVertices;
 	delete m_pMesh;
 }
-void GeometoryPolyline::Draw()
-{
+void GeometoryPolyline::Draw() {
 	CalcVertex();
 
 	m_pVS->Bind();
 	m_pPS->Bind();
 	m_pBuf->Write(m_matrix);
-	m_pBuf->BindVS(0);
+	m_pBuf->BindVS(0);  
+    SetTexturePS(m_pTexture);
 	m_pMesh->Write(m_pVertices);
 	m_pMesh->Draw();
 }
 
-void GeometoryPolyline::SetPoint(int index, Point point)
-{
-	if (0 <= index && index < m_points.size())
-	{
+void GeometoryPolyline::SetPoint(int index, Point point) {
+	if (0 <= index && index < m_points.size()) {
 		m_points[index] = point;
 	}
 }
-void GeometoryPolyline::PushPoint(Point point)
-{
-	for (int i = m_points.size() - 1; i > 0; --i)
-	{
+void GeometoryPolyline::PushPoint(Point point) {
+	for (int i = m_points.size() - 1; i > 0; --i) {
 		m_points[i] = m_points[i - 1];
 	}
 	m_points[0] = point;
 }
-GeometoryPolyline::Point GeometoryPolyline::GetPoint(int index)
-{
+GeometoryPolyline::Point GeometoryPolyline::GetPoint(int index) {
 	Point out = {};
-	if (0 <= index && index < m_points.size())
-	{
+	if (0 <= index && index < m_points.size()) {
 		out = m_points[index];
 	}
 	return out;
 }
-int GeometoryPolyline::GetPointNum()
-{
+int GeometoryPolyline::GetPointNum() {
 	return m_points.size();
 }
-void GeometoryPolyline::SetTexture(ID3D11ShaderResourceView* pTex)
-{
+void GeometoryPolyline::SetTexture(ID3D11ShaderResourceView* pTex) {
 	m_pTexture = pTex;
 }
-void GeometoryPolyline::SetView(DirectX::XMFLOAT4X4 view)
-{
+void GeometoryPolyline::SetView(DirectX::XMFLOAT4X4 view) {
 	m_matrix[0] = view;
 }
-void GeometoryPolyline::SetProjection(DirectX::XMFLOAT4X4 proj)
-{
+void GeometoryPolyline::SetProjection(DirectX::XMFLOAT4X4 proj) {
 	m_matrix[1] = proj;
 }
-void GeometoryPolyline::SetPixelShader(PixelShader* pPS)
-{
+void GeometoryPolyline::SetPixelShader(PixelShader* pPS) {
 	m_pPS = pPS;
 }
-void GeometoryPolyline::SetDefaultPixelShader()
-{
+void GeometoryPolyline::SetDefaultPixelShader() {
 	m_pPS = m_pDefPS;
 }
 
-void GeometoryPolyline::CalcVertex()
-{
+void GeometoryPolyline::CalcVertex() {
     //----- ˆê”ÔÅ‰‚Ì’n“_‚Ì’¸“_   
     DirectX::XMVECTOR vCenter = DirectX::XMLoadFloat3(&m_points[0].pos);
     DirectX::XMVECTOR vNext   = DirectX::XMLoadFloat3(&m_points[1].pos);

@@ -51,8 +51,10 @@ void GameUpdater::Update(void) {
     DeleteGameObject();
 
     //----- 更新処理を行う
+    int i = 0;
     for (auto& it : m_gameObject) {
         it->Update();
+        i++;
     }
 
     //----- 削除確認
@@ -71,7 +73,10 @@ void GameUpdater::Update(void) {
         if (it->GetCollsionEnable()) continue;
         it->ResetCollsionData();
         for (auto& targetIt : m_gameObject) {
+            //----- コリジョンがなければ何もしない
             if (targetIt->GetCollsionEnable()) continue;
+            
+            //----- 当たり判定をとる
             it->UpdateCollsion(&*targetIt);
         }
     }

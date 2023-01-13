@@ -3,20 +3,21 @@
 #include <DXGame/GameDefine.h>  
 #include <DXGame/Block.h>
 #include <DXGame/Player.h>
+#include <DXGame/Obstacles.h>
 
 
 const int CREATE_BLOCK_Z_COUNT = 80;   // 奥に生成する数
 const int CREATE_BLOCK_X_COUNT = 9;    // 横に生成する数
 const int CREATE_BLOCK_FRONT   = 5;    // プレイヤーの後ろに生成する数
-const int CREATE_OBSTACLES_COUNT = 40; // 障害物の生成数
-const int CREATE_OBSTACLES_FLAME_MAX = 60; // 障害物生成最長フレーム数
-const int CREATE_OBSTACLES_FLAME_MIN = 5;  // 障害物生成最短フレーム数
+const int CREATE_OBSTACLES_COUNT = 50; // 障害物の生成数
+const int CREATE_OBSTACLES_FLAME_MAX = 45; // 障害物生成最長フレーム数
+const int CREATE_OBSTACLES_FLAME_MIN = 4;  // 障害物生成最短フレーム数
 const int CREATE_OBSTACLES_BACK_BLOCKCOUNT = 70;    // 奥のブロック何個目から生成するか
 const float CREATE_BLOCK_Y_POS = 7;                 // プレイヤーからどの位置に生成するか
 const DirectX::XMFLOAT3 CREATE_BLOCK_SIZE      = { 2,2,2 };  // 生成ブロックのサイズ
 const DirectX::XMFLOAT3 CREATE_BLOCK_SPACE     = { 5,0,5 };  // 生成ブロックの生成間隔
 const DirectX::XMFLOAT3 CREATE_OBSTACLES_SIZE  = { 2,2,2 };  // 生成障害物のサイズ
-const DirectX::XMFLOAT3 CREATE_OBSTACLES_SPACE = { 3,0,0 };  // 生成障害物の生成間隔
+const DirectX::XMFLOAT3 CREATE_OBSTACLES_SPACE = { 2.5f,0,0 };  // 生成障害物の生成間隔
 
 
 void StageCreaterControl::Start(void) {
@@ -50,7 +51,7 @@ void StageCreaterControl::Start(void) {
     CreateObstacles();
 }
 void StageCreaterControl::Update(void) {
-    //----- プレイヤーが生存していなければ処理をしない
+    //----- プレイヤーが削除されていたら処理をしない
     if (SceneLoader::Get()->GetScene()->GetUpdater()->FindGameObject(NAME_PLAYER) == nullptr) return;
 
     //----- 移動速度の加算
@@ -89,6 +90,7 @@ void StageCreaterControl::CreateObstacles(void) {
         for (auto it = m_obstacles.begin(); it != m_obstacles.end();) {
             if (m_block[m_moveCount * CREATE_BLOCK_X_COUNT]->GetTransform().pos.z >= (*it)->GetTransform().pos.z) {
                 //----- 最後尾のブロックより（障害物の位置が）後ろ（-Z）。削除
+                (*it)->DeleteGameObject();
                 it = m_obstacles.erase(it);
             }
             else {

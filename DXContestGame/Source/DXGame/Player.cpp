@@ -12,9 +12,9 @@
 
 
 const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.75f;     // 前方への移動速度
-const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.003f;    // 前方への移動速度加速値
+const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.005f;    // 前方への移動速度加速値
 const float PLAYER_MOVE_SPEED      = 1.0f;   // プレイヤーの左右への移動速度
-const float PLAYER_MOVE_MAX        = 17.5f;  // 左右移動上限
+const float PLAYER_MOVE_MAX        = 18.5f;  // 左右移動上限
 
 
 void PlayerControl::Start(void) {
@@ -63,11 +63,15 @@ void PlayerControl::Update(void) {
 
     //----- 加速
     PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD);
+    if (IsKeyPress('W') || IsKeyPress(VK_UP)) {
+        //----- Wもしくは↑矢印で追加加速
+        PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD);
+    }
 
     //----- 自身が死亡していたら削除
     if (m_gameObject->GetComponent<HP>()->IsDead()) {
         //----- Result移動用ボタン生成
-        auto button = m_gameObject->GetScene()->CreatePrefab<GameObject>(Transform({ 0,0,0 }, { 1,1,1 }));
+        auto button = m_gameObject->GetScene()->CreatePrefab<GameObject>(Transform({ 0,0,0 }, SIZE_BUTTON));
         auto* buttonComp = new SceneMoveButton<Result>(button, LOAD_RESULT_BUTTON_FILENAME);
         button->AddComponent(buttonComp);
 
@@ -88,13 +92,16 @@ void PlayerControl::Draw(void) {
     //----- ポリラインのポイント追加
     GeometoryPolyline::Point point;
     point.pos = m_gameObject->GetTransform().pos;  // プレイヤーの位置
-    point.width = 01.0f; // ポリラインの幅
+    point.pos.y -= 2;
+    point.pos.z += 5;
+    point.width = 1.0f; // ポリラインの幅
 
     //----- カメラに向かう法線を計算
     DirectX::XMVECTOR vCamPos = DirectX::XMLoadFloat3(&CameraSystem::Get()->GetCamera()->GetGameObject()->GetTransform().pos);
-    DirectX::XMVECTOR vPos = DirectX::XMLoadFloat3(&m_gameObject->GetTransform().pos);
+    DirectX::XMVECTOR vPos = DirectX::XMLoadFloat3(&point.pos);
     DirectX::XMStoreFloat3(&point.normal, DirectX::XMVectorSubtract(vCamPos, vPos));
     m_polyline->PushPoint(point);
+
     //----- ポリラインの表示
     m_polyline->SetView(CameraSystem::Get()->GetCamera()->GetViewMatrix());
     m_polyline->SetProjection(CameraSystem::Get()->GetCamera()->GetProjectionMatrix());

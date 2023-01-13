@@ -14,7 +14,7 @@ ButtonBase::ButtonBase(GameObject* gameObject, const std::string& file)
 
 
 void ButtonBase::Update(void) {
-    if (IsKeyPress(KEY_BUTTON)) {
+    if (IsKeyTrigger(KEY_BUTTON)) {
         this->ButtonPush();
     }
 }

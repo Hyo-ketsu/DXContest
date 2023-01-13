@@ -4,7 +4,6 @@
 // コンストラクタ
 ScoreGlobalRecorder::ScoreGlobalRecorder(void)
     : m_score(0) {
-
 }
 
 

@@ -2,6 +2,7 @@
 #include <DXGame/Number.h>
 #include <DXGame/GameDefine.h>
 #include <DXGame/SceneLoader.h>
+#include <DXGame/ScoreRecorder.h>
 
 
 void ScoreControl::Start(void) {
@@ -16,7 +17,11 @@ void ScoreControl::Update(void) {
     if (player == nullptr) return;
 
     //----- 初期位置からのプレイヤーの移動距離
-    m_number->SetNumber(fabsf(m_firstPos.z - player->GetTransform().pos.z));
+    auto score = fabsf(m_firstPos.z - player->GetTransform().pos.z);
+    m_number->SetNumber(score);
+
+    //----- スコアの記録
+    ScoreGlobalRecorder::Get()->SetScore(static_cast<unsigned int>(score));
 }
 
 

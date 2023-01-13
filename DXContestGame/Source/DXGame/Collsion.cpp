@@ -30,14 +30,14 @@ Collsion::~Collsion(void) {
 
 
 // 与えられた当たり判定と衝突判定を行う
-void Collsion::CollsionHitCheck(Collsion* const collsion) {
+const bool Collsion::CollsionHitCheck(Collsion* const collsion) {
     //----- 衝突判定を行うか判定
-    if (this->GetActive()    == false)  return;
-    if (collsion->GetActive() == false) return;
-    if (this->GetGameObject()->GetActive()    == false)  return;
-    if (collsion->GetGameObject()->GetActive() == false) return;
-    if (this == collsion)                                return;
-    if (this->GetTag() == collsion->GetTag())            return;
+    if (this->GetActive()    == false)  return true;
+    if (collsion->GetActive() == false) return true;
+    if (this->GetGameObject()->GetActive()    == false)  return true;
+    if (collsion->GetGameObject()->GetActive() == false) return true;
+    if (this == collsion)                                return true;
+    if (this->GetTag() == collsion->GetTag())            return true;
 
     //----- 変数宣言
     DirectX::XMFLOAT3 thisTransform;    // 自身の座標
@@ -99,10 +99,12 @@ void Collsion::CollsionHitCheck(Collsion* const collsion) {
         coll.hitCollsion = collsion;
         data.list.push_back(coll);
         m_gameObject->SetCollsionData(data);
+
+        return true;
     }
     else {
         //----- 衝突していない。そのまま終了
-        return;
+        return false;
     }
 
     ////----- 引き戻し用変数宣言

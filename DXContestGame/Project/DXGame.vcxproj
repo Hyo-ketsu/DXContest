@@ -76,6 +76,8 @@
     <ClCompile Include="..\Source\DXGame\ScoreRecorder.cpp" />
     <ClCompile Include="..\Source\DXGame\Shader.cpp" />
     <ClCompile Include="..\Source\DXGame\Singleton.cpp" />
+    <ClCompile Include="..\Source\DXGame\Sound.cpp" />
+    <ClCompile Include="..\Source\DXGame\SoundComponent.cpp" />
     <ClCompile Include="..\Source\DXGame\Sprite.cpp" />
     <ClCompile Include="..\Source\DXGame\SpriteComponent.cpp" />
     <ClCompile Include="..\Source\DXGame\Stage1.cpp" />
@@ -139,6 +141,8 @@
     <ClInclude Include="..\Source\DXGame\ScoreRecorder.h" />
     <ClInclude Include="..\Source\DXGame\Shader.h" />
     <ClInclude Include="..\Source\DXGame\Singleton.h" />
+    <ClInclude Include="..\Source\DXGame\Sound.h" />
+    <ClInclude Include="..\Source\DXGame\SoundComponent.h" />
     <ClInclude Include="..\Source\DXGame\Sprite.h" />
     <ClInclude Include="..\Source\DXGame\SpriteComponent.h" />
     <ClInclude Include="..\Source\DXGame\Stage1.h" />

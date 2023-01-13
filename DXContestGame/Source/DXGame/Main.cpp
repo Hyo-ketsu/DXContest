@@ -12,6 +12,8 @@
 #include <DXGame/Title.h>
 #include <DXGame/GameApplication.h>
 #include <DXGame/AssetsLoad.h>
+#include <DXGame/Sound.h>
+#include <DXGame/SoundComponent.h>
 #include <time.h>
 
 
@@ -20,11 +22,14 @@ const char* APP_TITLE = "DX2D";
 
 void Init(void);
 void Uninit(void);
-void Update(void);
 
 
 // エントリポイント
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+#ifdef _DEBUG
+    //----- メモリリークチェック
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+#endif // _DEBUG
 
     //----- ウィンドウの初期化
     GameApplication::Get()->SetWindowSizeX(SCREEN_X);
@@ -43,6 +48,10 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     Timer timer;
     AppState state = APP_STATE_MESSAGE;
 
+    //----- デバッグ用サウンドカット
+    SoundVolumeSetter::Get()->SetBGMVolume(0.f);
+    SoundVolumeSetter::Get()->SetSEVolume(0.f);
+
     //----- ゲームループ
     while (1) {
         //----- ゲームの終了
@@ -53,12 +62,18 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         state = UpdateWindow();
 
         //----- 更新
-        Update();
+        Timer::UpdateTime();
 
         //----- ゲームループ
         // 1フレーム（1/60秒）経っている、かつウィンドウが更新できる（閉じられたり等されていない）か
         if (timer.IsFpsCheck() && state == APP_STATE_WAIT) {
+            //----- キー入力更新
+            UpdateInput();
+
+            //----- 更新処理
             SceneLoader::Get()->Update();
+
+            //----- 描画処理
             SceneLoader::Get()->Draw();
         }
     }
@@ -85,6 +100,9 @@ void Init(void) {
 	if (FAILED(InitGeometory())) {
 		Error("geometory initialize failed.");
 	}
+    if (FAILED(InitSound())) {
+        Error("sound initialize failed.");
+    }
 
     //----- 乱数初期化
     srand((unsigned int)timeGetTime());
@@ -106,8 +124,4 @@ void Uninit(void) {
 	UninitInput();
 	UninitTexture();
 	UninitDX();
-}
-void Update(void) {
-	UpdateInput();
-    Timer::UpdateTime();
 }

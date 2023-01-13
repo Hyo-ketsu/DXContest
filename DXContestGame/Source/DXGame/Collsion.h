@@ -68,8 +68,9 @@ public:
 
     // 与えられた当たり判定と衝突判定を行う
     // @ Memo : 衝突情報などは（衝突していれば）関数内で直接追加します
+    // @ Ret  : これ以上の判定が必要ないか
     // @ Arg1 : 対象の当たり判定
-    void CollsionHitCheck(Collsion* const collsion);
+    const bool CollsionHitCheck(Collsion* const collsion);
 
 
 private:
