@@ -19,6 +19,10 @@ namespace Utility {
 
     // 度数（゜）をラジアンに変換する式
     const float GetRad(const float rad);
+
+
+    // XMFLOAT3をXMVECTORに変換する関数
+    DirectX::XMVECTOR XMFLOAT3ToXMVECTOR(const DirectX::XMFLOAT3& xmfloat3);
 }
 
 

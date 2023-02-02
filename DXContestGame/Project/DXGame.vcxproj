@@ -49,6 +49,7 @@
     <ClCompile Include="..\Source\DXGame\DirectX.cpp" />
     <ClCompile Include="..\Source\DXGame\DirectXTex\Texture.cpp" />
     <ClCompile Include="..\Source\DXGame\HighScore.cpp" />
+    <ClCompile Include="..\Source\DXGame\Mathematics.cpp" />
     <ClCompile Include="..\Source\DXGame\MenuButtonSelector.cpp" />
     <ClCompile Include="..\Source\DXGame\MenuMoveScene.cpp" />
     <ClCompile Include="..\Source\DXGame\Number.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="..\Source\DXGame\DirectXTex\Texture.h" />
     <ClInclude Include="..\Source\DXGame\GenericUndef_DEBUG.h" />
     <ClInclude Include="..\Source\DXGame\HighScore.h" />
+    <ClInclude Include="..\Source\DXGame\Mathematics.h" />
     <ClInclude Include="..\Source\DXGame\MenuButtonSelector.h" />
     <ClInclude Include="..\Source\DXGame\MenuMoveScene.h" />
     <ClInclude Include="..\Source\DXGame\Number.h" />

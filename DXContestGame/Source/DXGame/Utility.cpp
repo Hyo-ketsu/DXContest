@@ -17,3 +17,9 @@ const bool Utility::FloatComparison(const float float1, const float float2) {
 const float Utility::GetRad(const float rad) {
     return rad * 3.14f / 180;
 }
+
+
+// XMFLOAT3‚ğXMVECTOR‚É•ÏŠ·‚·‚éŠÖ”
+DirectX::XMVECTOR Utility::XMFLOAT3ToXMVECTOR(const DirectX::XMFLOAT3& xmfloat3) {
+    return DirectX::XMLoadFloat3(&xmfloat3);
+}
