@@ -24,8 +24,12 @@ void ScoreGlobalRecorder::SetScore(const unsigned int in) {
     if (m_highScore < m_score) {
         //----- 保持しているハイスコア更新
         m_highScore = m_score;
-
-        //----- ランキングの更新
-        ScoreRanking::Get()->AddScore(m_highScore);
     }
+}
+
+
+// ハイスコアをランキングに登録する
+void ScoreGlobalRecorder::AddHighScoreRanking(void) const {
+    //----- ランキングの更新
+    ScoreRanking::Get()->AddScore(m_highScore);
 }

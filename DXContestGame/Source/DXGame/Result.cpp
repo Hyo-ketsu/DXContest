@@ -16,4 +16,7 @@ void Result::InitScene(void) {
     auto* score = this->CreatePrefab<GameObject>(Transform(DirectX::XMFLOAT3(-0.25, 0, 0), DirectX::XMFLOAT3(0.1f, 0.1f, -1)));
     auto* scoreCompo = score->AddComponent<NumberShow>();
     scoreCompo->SetNumber(ScoreGlobalRecorder::Get()->GetScore());
+
+    //----- ハイスコアランキング登録
+    ScoreGlobalRecorder::Get()->AddHighScoreRanking();
 }

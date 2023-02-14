@@ -21,6 +21,10 @@ public:
     // ハイスコアゲッター
     const unsigned int GetHighScore(void) const { return m_highScore; }
 
+
+    // ハイスコアをランキングに登録する
+    void AddHighScoreRanking(void) const;
+
 private:
     // コンストラクタ
     ScoreGlobalRecorder(void);
