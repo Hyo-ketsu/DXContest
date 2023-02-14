@@ -1,4 +1,6 @@
 #include <DXGame/ScoreRecorder.h>
+#include <DXGame/ScoreIO.h>
+#include <DXGame/FilePath.h>
 
 
 // コンストラクタ
@@ -20,6 +22,10 @@ void ScoreGlobalRecorder::SetScore(const unsigned int in) {
 
     //----- ハイスコア更新
     if (m_highScore < m_score) {
+        //----- 保持しているハイスコア更新
         m_highScore = m_score;
+
+        //----- ランキングの更新
+        ScoreRanking::Get()->AddScore(m_highScore);
     }
 }

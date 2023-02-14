@@ -7,6 +7,7 @@
 #include <type_traits>
 #include <crtdbg.h>
 #include <exception>
+#include <array>
 
 #include <DirectXMath.h>
 #include <d3d11.h>

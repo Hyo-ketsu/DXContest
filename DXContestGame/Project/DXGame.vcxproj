@@ -76,6 +76,8 @@
     <ClCompile Include="..\Source\DXGame\SceneLoader.cpp" />
     <ClCompile Include="..\Source\DXGame\SceneMoveButton.cpp" />
     <ClCompile Include="..\Source\DXGame\Score.cpp" />
+    <ClCompile Include="..\Source\DXGame\ScoreIO.cpp" />
+    <ClCompile Include="..\Source\DXGame\ScoreRanking.cpp" />
     <ClCompile Include="..\Source\DXGame\ScoreRecorder.cpp" />
     <ClCompile Include="..\Source\DXGame\Shader.cpp" />
     <ClCompile Include="..\Source\DXGame\Singleton.cpp" />
@@ -145,6 +147,8 @@
     <ClInclude Include="..\Source\DXGame\SceneLoader.h" />
     <ClInclude Include="..\Source\DXGame\SceneMoveButton.h" />
     <ClInclude Include="..\Source\DXGame\Score.h" />
+    <ClInclude Include="..\Source\DXGame\ScoreIO.h" />
+    <ClInclude Include="..\Source\DXGame\ScoreRanking.h" />
     <ClInclude Include="..\Source\DXGame\ScoreRecorder.h" />
     <ClInclude Include="..\Source\DXGame\Shader.h" />
     <ClInclude Include="..\Source\DXGame\Singleton.h" />

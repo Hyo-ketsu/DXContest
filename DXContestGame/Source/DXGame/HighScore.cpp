@@ -4,6 +4,10 @@
 #include <DXGame/Title.h>
 #include <DXGame/Number.h>
 #include <DXGame/ScoreRecorder.h>
+#include <DXGame/ScoreRanking.h>
+
+
+const float SCORE_SIZE = 0.1f;  // スコア表示オブジェクトのサイズ
 
 
 void HighScore::InitScene(void) {
@@ -13,7 +17,9 @@ void HighScore::InitScene(void) {
     button->AddComponent(buttonComp);
 
     //----- スコア表示
-    auto* score = this->CreatePrefab<GameObject>(Transform(DirectX::XMFLOAT3(-0.25, 0, 0), DirectX::XMFLOAT3(0.1f, 0.1f, -1)));
-    auto* scoreCompo = score->AddComponent<NumberShow>();
-    scoreCompo->SetNumber(ScoreGlobalRecorder::Get()->GetHighScore());
+    for (int i = 0; i < SCORE_RANKING; i++) {
+        auto* score = this->CreatePrefab<GameObject>(Transform(DirectX::XMFLOAT3(-0.25, SCORE_SIZE * (SCORE_RANKING - 1 - i), 0), DirectX::XMFLOAT3(SCORE_SIZE, SCORE_SIZE, -1)));
+        auto* scoreCompo = score->AddComponent<NumberShow>();
+        scoreCompo->SetNumber(ScoreRanking::Get()->GetScore(i));
+    }
 }
