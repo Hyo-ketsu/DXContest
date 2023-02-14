@@ -115,7 +115,7 @@ void Player::Prefab(void) {
     SetName(NAME_PLAYER);
 
     //----- 当たり判定の追加
-    AddCollsion(false, DirectX::XMFLOAT3(4, 4, 4));
+    AddCollsion(false, DirectX::XMFLOAT3(2, 2, 2));
 
     //----- モデルコンポーネントの追加
     auto* model = new ModelComponent(this, LOAD_PLAYER_FILENAME, LOAD_PLAYER_SCALE);

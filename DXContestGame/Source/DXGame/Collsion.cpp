@@ -32,12 +32,12 @@ Collsion::~Collsion(void) {
 // 与えられた当たり判定と衝突判定を行う
 const bool Collsion::CollsionHitCheck(const DirectX::XMFLOAT3 thisTransform, Collsion* const collsion) {
     //----- 衝突判定を行うか判定
-    if (this->GetActive()    == false)  return true;
-    if (collsion->GetActive() == false) return true;
-    if (this->GetGameObject()->GetActive()    == false)  return true;
-    if (collsion->GetGameObject()->GetActive() == false) return true;
-    if (this == collsion)                                return true;
-    if (this->GetTag() == collsion->GetTag())            return true;
+    if (this->GetActive()     == false) return false;
+    if (collsion->GetActive() == false) return false;
+    if (this->GetGameObject()->GetActive()     == false) return false;
+    if (collsion->GetGameObject()->GetActive() == false) return false;
+    if (this == collsion)                                return false;
+    if (this->GetTag() == collsion->GetTag())            return false;
 
     //----- 変数宣言
     DirectX::XMFLOAT3 targetTransform;  // 衝突相手の座標
@@ -96,11 +96,11 @@ const bool Collsion::CollsionHitCheck(const DirectX::XMFLOAT3 thisTransform, Col
         data.list.push_back(coll);
         m_gameObject->SetCollsionData(data);
 
-        return true;
+        return false;
     }
     else {
         //----- 衝突していない。そのまま終了
-        return false;
+        return true;
     }
 
     ////----- 引き戻し用変数宣言

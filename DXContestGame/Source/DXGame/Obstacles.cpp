@@ -6,7 +6,7 @@
 
 void Obstacles::Prefab(void) {
     //----- 当たり判定の追加
-    auto collsion = AddCollsion(false, DirectX::XMFLOAT3(2.5f, 2.5f, 2.5f));
+    auto collsion = AddCollsion(false, DirectX::XMFLOAT3(2, 2, 2));
     collsion->SetTag(Tag::Ground);
 
     //----- コンポーネントの追加

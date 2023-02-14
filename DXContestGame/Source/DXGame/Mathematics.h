@@ -39,11 +39,11 @@ namespace Mathematics {
 
 // 自作数学関数
 namespace Mathematics { 
-    // 点から見た線の最も近い場所を計算します
+    // 点から見た線の最も近い場所を計算する
     // @ Ret  : 座標
     // @ Arg1 : 点の座標
-    // @ Arg2 : 線の視点
-    DirectX::XMFLOAT3 PointToLineNear() { return DirectX::XMFLOAT3(); }
+    // @ Arg2 : 線の情報
+    DirectX::XMFLOAT3 PointToLineNear(const DirectX::XMFLOAT3& point, const Mathematics::LineInfoClass& line);
 }
 
 

@@ -3,6 +3,7 @@
 #include <DXGame/SystemDefines.h>
 #include <DXGame/SceneLoader.h>
 #include <DXGame/Scene.h>
+#include <DXGame/Mathematics.h>
 
 
 // コンストラクタ
@@ -33,6 +34,9 @@ void GameObject::Update(void) {
     //----- ゲームオブジェクト自身が有効でなければ処理自体をスキップする
     if (m_isActive == false) return;
 
+    //----- 過去座標の更新
+    m_oldTransform = m_transform;
+
     //----- 更新処理をすべてのコンポーネントに行う
     for (auto& it : m_component) {
         if (it->GetInit() && it->GetActive()) { // アクティブかつ初期化が行われていれば更新処理を行う
@@ -51,9 +55,6 @@ void GameObject::LateUpdate(void) {
             it->LateUpdate();
         }
     }
-
-    //----- 過去座標の更新
-    m_oldTransform = m_transform;
 }
 // コンポーネントの描画処理を行う
 void GameObject::Draw(void) {
@@ -123,12 +124,11 @@ void GameObject::UpdateCollsion(GameObject* const gameObject) {
             //----- 当たり判定をとる
             auto next = it->CollsionHitCheck(GetTransform().pos, targetIt.get());
 
-            //----- 現在位置で取れないならさらにベクトルを使った当たり判定を行うか（高速移動に対応した当たり判定）
-            if (next == false) {
-                
+            //----- 現在位置で取れないならさらにベクトルを使った当たり判定を行う（高速移動に対応した当たり判定）
+            if (next == true) {
+                auto pos = Mathematics::PointToLineNear(targetIt->GetGameObject()->GetTransform().pos, { m_transform.pos,m_oldTransform.pos });
+                next = it->CollsionHitCheck(pos, targetIt.get());
             }
-
-            //----- ↑のベクトル位置当たり判定で取れないのであれば衝突していないとみなす
         }
     }
 }
