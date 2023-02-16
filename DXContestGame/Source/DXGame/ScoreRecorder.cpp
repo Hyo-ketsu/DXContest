@@ -31,5 +31,5 @@ void ScoreGlobalRecorder::SetScore(const unsigned int in) {
 // ハイスコアをランキングに登録する
 void ScoreGlobalRecorder::AddHighScoreRanking(void) const {
     //----- ランキングの更新
-    ScoreRanking::Get()->AddScore(m_highScore);
+    ScoreRanking::Get()->AddScore(m_score);
 }
