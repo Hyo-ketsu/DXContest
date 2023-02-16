@@ -16,12 +16,7 @@ const ScoreArray ScoreIO::ReadScore(void) {
     //----- 読み込みストリーム宣言
     std::ifstream file(m_filePath);
     if (!(file)) {
-        //----- ファイルが存在しない。作成
-        std::ofstream create(m_filePath);
-        create.close();
-
-        //----- 読み込み
-        file.open(m_filePath);
+        return;
     }
 
     //----- 数値読み込み
@@ -68,10 +63,10 @@ void ScoreIO::WriteScore(const ScoreArray& scoreData) {
     //----- 書き込み
     for (auto it : scoreData) {
         //----- スコア出力
-        file << it;
+        file << it << ',';
 
         //----- 改行
-        file << ',' << std::endl;
+        file << std::endl;
     }
 }
 

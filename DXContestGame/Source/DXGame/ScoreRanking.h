@@ -30,7 +30,6 @@ public:
     // @ Ret  : 数値（その順位にスコアが存在しない場合は0を返します）
     // @ Arg1 : 取得したい順位
     unsigned int GetScore(const unsigned int rank) const;
-    // ハイスコアランキングを
 
 private:
     // コンストラクタ

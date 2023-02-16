@@ -4,7 +4,7 @@
 
 namespace FilePath {
     const std::string ASSETS_PATH = "Assets/";
-    const std::string DATA_PATH   = "Data/";
+    const std::string DATA_PATH   = "";
 #ifdef _DEVELOP
     const std::string SOLUTION_FILE_PATH = "";
 #endif // _DEVELOP
@@ -15,7 +15,7 @@ namespace FilePath {
     const std::string MODEL_PATH   = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Model/");
     const std::string SHADER_PATH  = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Shader/");
     const std::string SOUND_PATH   = SOLUTION_FILE_PATH + FilePath::ASSETS_PATH.c_str() + std::string("Sound/");
-    const std::string SCOREDATA_PATH = SOLUTION_FILE_PATH + FilePath::DATA_PATH.c_str() + std::string("ScoreData/");
+    const std::string SCOREDATA_PATH = SOLUTION_FILE_PATH + FilePath::DATA_PATH.c_str() + std::string("");
 }
 
 
