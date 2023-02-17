@@ -27,6 +27,12 @@ public:
     void SetWindowSizeY(const unsigned int in) { m_windowSizeY = in; }
 
 
+    // マウスカーソル座標ゲッター
+    const DirectX::XMINT2 GetMouseTransform(void) const { return m_mouseTrasform; }
+    // マウスカーソル座標セッター
+    void SetMouseTransform(const DirectX::XMINT2& in) { m_mouseTrasform = in; }
+
+
 private:
     // コンストラクタ
     GameApplication(void);
@@ -36,8 +42,9 @@ private:
     friend class Singleton<GameApplication>;
 
     bool m_isGameEnd;   // ゲームが終了したか
-    unsigned int m_windowSizeX;   // ウィンドウの横サイズ
-    unsigned int m_windowSizeY;   // ウィンドウの縦サイズ
+    unsigned int m_windowSizeX;      // ウィンドウの横サイズ
+    unsigned int m_windowSizeY;      // ウィンドウの縦サイズ
+    DirectX::XMINT2 m_mouseTrasform; // マウスカーソルの現在位置
 };
 
 

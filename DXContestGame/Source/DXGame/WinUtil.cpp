@@ -1,4 +1,6 @@
-#include "WinUtil.h"
+#include <DXGame/WinUtil.h>
+#include <DXGame/GameApplication.h>
+
 
 //--- プロトタイプ宣言
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
@@ -89,6 +91,8 @@ void Error(const char* mes) {
 // ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {
+        case WM_MOUSEMOVE:  // マウス移動
+            GameApplication::Get()->SetMouseTransform({ LOWORD(lParam),HIWORD(lParam) });
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
