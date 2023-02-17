@@ -16,7 +16,8 @@ const ScoreArray ScoreIO::ReadScore(void) {
     //----- 読み込みストリーム宣言
     std::ifstream file(m_filePath);
     if (!(file)) {
-        return;
+        ret.fill(0);
+        return ret;
     }
 
     //----- 数値読み込み
