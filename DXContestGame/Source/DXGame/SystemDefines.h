@@ -4,8 +4,8 @@
 
 const std::string DEFAULT_NAME_GAMEOBJECT = "GameObject";   // ゲームオブジェクトのdefault名
 const std::string FILENAME_MODEL_VS = "ModelVS.cso";
-const unsigned int SCREEN_X = 1280; // ウィンドウサイズ横
-const unsigned int SCREEN_Y = 720;  // ウィンドウサイズ縦
+const unsigned int SCREEN_X = 1600; // ウィンドウサイズ横
+const unsigned int SCREEN_Y = 900;  // ウィンドウサイズ縦
 
 
 // タグ

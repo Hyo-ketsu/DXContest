@@ -9,13 +9,14 @@
 #include <DXGame/Collsion.h>
 #include <DXGame/SceneMoveButton.h>
 #include <DXGame/Result.h>
+#include <DXGame/GameApplication.h>
 
 
 const float PLAYER_AUTO_MOVE_SPEED_DEFAULT = 0.70f;     // 前方への移動速度
 const float PLAYER_AUTO_MOVE_SPEED_ADD     = 0.001f;    // 前方への移動速度加速値
 const float PLAYER_AUTO_MOVE_SPEED_PERCENTAGE = 5;      // 加速時の加速倍率
-const float PLAYER_MOVE_SPEED      = 1.25f;   // プレイヤーの左右への移動速度
-const float PLAYER_MOVE_MAX        = 20.0f;  // 左右移動上限
+const float PLAYER_MOVE_SPEED = 1.25f;  // プレイヤーの左右への移動速度
+const float PLAYER_MOVE_MAX   = 20.0f;  // 左右移動上限
 
 
 void PlayerControl::Start(void) {
@@ -28,17 +29,16 @@ void PlayerControl::Start(void) {
 }
 void PlayerControl::Update(void) {
     //----- 左右移動
-    // 左移動
-    if (IsKeyPress('A') || IsKeyPress(VK_LEFT)) {
-        auto pos = m_gameObject->GetTransform();
-        pos.pos.x -= PLAYER_MOVE_SPEED;
-        m_gameObject->SetTransform(pos);
-    }
-    // 右移動
-    if (IsKeyPress('D') || IsKeyPress(VK_RIGHT)) {
-        auto pos = m_gameObject->GetTransform();
-        pos.pos.x += PLAYER_MOVE_SPEED;
-        m_gameObject->SetTransform(pos);
+    {
+        //----- マウス座標の計算(-1.0 ～ 1.0に変換)
+        float mouseTrans = (float)GameApplication::Get()->GetMouseTransform().x / GameApplication::Get()->GetWindowSizeX();    // マウス位置(0.0f ~ 1.0f)
+        mouseTrans = (mouseTrans - 0.5f) * 2.0f;  // ↑を（-1.0f ～ 1.0fに変換）
+
+        //----- マウス座標へのプレイヤーの移動
+        mouseTrans *= PLAYER_MOVE_MAX;
+        auto trans = m_gameObject->GetTransform();
+        trans.pos.x = mouseTrans;
+        m_gameObject->SetTransform(trans);
     }
 
     //----- 左右移動上限補正

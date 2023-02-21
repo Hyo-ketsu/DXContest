@@ -91,8 +91,9 @@ void Error(const char* mes) {
 // ウィンドウプロシージャ
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
 	switch (message) {
-        case WM_MOUSEMOVE:  // マウス移動
-            GameApplication::Get()->SetMouseTransform({ LOWORD(lParam),HIWORD(lParam) });
+    case WM_MOUSEMOVE:  // マウス移動
+        GameApplication::Get()->SetMouseTransform({ LOWORD(lParam),HIWORD(lParam) });
+        break;
 	case WM_DESTROY:
 		PostQuitMessage(0);
 		break;
