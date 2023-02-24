@@ -72,7 +72,7 @@ void PlayerControl::Update(void) {
 #ifdef _DEBUG
     if (IsKeyPress('P')) {
         //----- W‚à‚µ‚­‚Íª–îˆó‚Å’Ç‰Á‰Á‘¬
-        PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD * PLAYER_AUTO_MOVE_SPEED_PERCENTAGE * 5);
+        PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD * PLAYER_AUTO_MOVE_SPEED_PERCENTAGE * 10);
     }
 #endif // _DEBUG
 

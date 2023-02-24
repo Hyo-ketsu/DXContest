@@ -30,7 +30,7 @@ public:
     // マウスカーソル座標ゲッター
     const DirectX::XMINT2 GetMouseTransform(void) const { return m_mouseTrasform; }
     // マウスカーソル座標セッター
-    void SetMouseTransform(const DirectX::XMINT2& in) { m_mouseTrasform = in; }
+    void SetMouseTransform(const DirectX::XMINT2& in); 
 
 
 private:
