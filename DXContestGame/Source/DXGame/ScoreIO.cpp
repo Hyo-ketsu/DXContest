@@ -30,6 +30,9 @@ const ScoreArray ScoreIO::ReadScore(void) {
                 if (token.empty() == false) {
                     //----- トークンが空でない。数値変換
                     score.push_back(std::stoi(token));
+
+                    //----- トークン初期化
+                    token.clear();
                 }
             }
             else {

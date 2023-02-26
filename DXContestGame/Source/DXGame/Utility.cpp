@@ -23,3 +23,24 @@ const float Utility::GetRad(const float rad) {
 DirectX::XMVECTOR Utility::XMFLOAT3ToXMVECTOR(const DirectX::XMFLOAT3& xmfloat3) {
     return DirectX::XMLoadFloat3(&xmfloat3);
 }
+
+
+// FLOAT3‚ÌŒ¸Z‚ğs‚¤
+const DirectX::XMFLOAT3 Utility::XMFLOAT3Subtract(const DirectX::XMFLOAT3& xmfloat1, const DirectX::XMFLOAT3& xmfloat2) {
+    //----- •Ï”éŒ¾
+    DirectX::XMFLOAT3 ret;
+    
+    //----- Še—v‘fŒvZ
+    ret.x = xmfloat1.x - xmfloat2.x;
+    ret.y = xmfloat1.y - xmfloat2.y;
+    ret.z = xmfloat1.z - xmfloat2.z;
+
+    //----- •Ô‹p
+    return ret;
+}
+
+
+// FLOAT3‚Ì’·‚³‚ğŒvZ‚µ‚Ü‚·
+const float Utility::XMFLOAT3Length(const DirectX::XMFLOAT3& xmfloat) {
+    return fabsf(xmfloat.x) + fabsf(xmfloat.y) + fabsf(xmfloat.z);
+}

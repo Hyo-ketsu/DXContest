@@ -75,6 +75,21 @@ void PlayerControl::Update(void) {
         PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD * PLAYER_AUTO_MOVE_SPEED_PERCENTAGE * 10);
     }
 #endif // _DEBUG
+    //----- デバッグ用加速
+#ifdef _DEBUG
+    if (IsKeyPress('O')) {
+        //----- Wもしくは↑矢印で追加加速
+        PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD * PLAYER_AUTO_MOVE_SPEED_PERCENTAGE * 100);
+    }
+#endif // _DEBUG
+    //----- デバッグ用加速
+#ifdef _DEBUG
+    if (IsKeyPress('I')) {
+        //----- Wもしくは↑矢印で追加加速
+        PlayerSpeedManager::Get()->SetSpeed(PlayerSpeedManager::Get()->GetSpeed() + PLAYER_AUTO_MOVE_SPEED_ADD * PLAYER_AUTO_MOVE_SPEED_PERCENTAGE * 1000);
+    }
+#endif // _DEBUG
+
 
     //----- 自身が死亡していたら削除
     if (m_gameObject->GetComponent<HP>()->IsDead()) {

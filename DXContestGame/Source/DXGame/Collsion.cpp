@@ -41,7 +41,7 @@ const bool Collsion::CollsionHitCheck(const DirectX::XMFLOAT3 thisTransform, Col
 
     //----- •Ï”éŒ¾
     DirectX::XMFLOAT3 targetTransform;  // Õ“Ë‘Šè‚ÌÀ•W
-    std::array<bool,3> hitDirection; // “–‚½‚Á‚½•ûŒü‚ğ•\‚·
+    std::array<bool,3> hitDirection;    // “–‚½‚Á‚½•ûŒü‚ğ•\‚·
     hitDirection.fill(false);
 
     //----- ‰Šú‰»

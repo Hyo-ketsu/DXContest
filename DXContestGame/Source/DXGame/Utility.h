@@ -23,6 +23,20 @@ namespace Utility {
 
     // XMFLOAT3をXMVECTORに変換する関数
     DirectX::XMVECTOR XMFLOAT3ToXMVECTOR(const DirectX::XMFLOAT3& xmfloat3);
+
+
+    // FLOAT3の減算を行う
+    // @ Ret  : 差
+    // @ Arg1 : 減算される値
+    // @ Arg1 : 減算する値
+    const DirectX::XMFLOAT3 XMFLOAT3Subtract(const DirectX::XMFLOAT3& xmfloat1, const DirectX::XMFLOAT3& xmfloat2);
+
+
+    // FLOAT3の長さを計算します
+    // @ Memo : 各要素の絶対値の合計です
+    // @ Ret  : 長さ
+    // @ Arg1 : 長さを計算するデータ
+    const float XMFLOAT3Length(const DirectX::XMFLOAT3& xmfloat);
 }
 
 

@@ -19,6 +19,7 @@ public:
 private:
     std::vector<GameObject*> m_block;       // ブロックへのアクセスを保持
     std::vector<Obstacles*>  m_obstacles;   // 障害物へのアクセスを保持
+    std::vector<Obstacles*>  m_deleteObstacles; // 削除障害物
     float                    m_moveSpeed;   // プレイヤーがどれだけ移動しているか
     unsigned int             m_moveCount;   // ブロックの移動処理のカウンター
     unsigned int             m_lastIndex;   // 最後に後ろに移動したブロックのインデックス

@@ -86,12 +86,18 @@ void StageCreaterControl::Update(void) {
 
 // 障害物を生成する
 void StageCreaterControl::CreateObstacles(void) {
+    //----- 削除障害物の削除
+    for (auto& it : m_deleteObstacles) {
+        it->DeleteGameObject();
+    }
+    m_deleteObstacles.clear();
+
     //----- プレイヤーの後ろに移った障害物の削除
     if (m_obstacles.empty() == false) {
         for (auto it = m_obstacles.begin(); it != m_obstacles.end();) {
             if (m_block[m_moveCount * CREATE_BLOCK_X_COUNT]->GetTransform().pos.z >= (*it)->GetTransform().pos.z) {
-                //----- 最後尾のブロックより（障害物の位置が）後ろ（-Z）。削除
-                (*it)->DeleteGameObject();
+                //----- 最後尾のブロックより（障害物の位置が）後ろ（-Z）。次フレーム削除
+                m_deleteObstacles.push_back(*it);
                 it = m_obstacles.erase(it);
             }
             else {
