@@ -46,8 +46,8 @@ const ScoreArray ScoreIO::ReadScore(void) {
     ret.fill(0);    // その順位に数値がなければ 0 にするため
     for (int i = 0;; i++) {
         //----- 動的配列、返却配列どちらも範囲内か（ガード節）
-        if (score.size() >= i) break;
-        if (ret.size()   >= i) break;
+        if (score.size() <= i) break;
+        if (ret.size()   <= i) break;
 
         //----- 値の受け渡し
         ret[i] = score[i];

@@ -270,6 +270,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop_Release|Win32'">
     <OutDir>$(ProjectDir)../Binary/$(Configuration)/$(ProjectName)/</OutDir>
@@ -277,6 +278,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Game_Debug|Win32'">
     <OutDir>$(ProjectDir)../Binary/$(Configuration)/$(ProjectName)/</OutDir>
@@ -284,6 +286,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(ExecutablePath)</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Game_Release|Win32'">
     <OutDir>$(ProjectDir)../Binary/$(Configuration)/$(ProjectName)/</OutDir>
@@ -291,6 +294,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(VC_ExecutablePath_x86);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(SystemRoot)\SysWow64;$(FxCopDir);$(PATH);</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(NETFXKitsDir)Lib\um\x86</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop_Debug|x64'">
     <OutDir>$(ProjectDir)../Binary/$(Configuration)/$(ProjectName)/</OutDir>
@@ -298,6 +302,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(VC_ExecutablePath_x64);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(FxCopDir);$(PATH);</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Develop_Release|x64'">
     <OutDir>$(ProjectDir)../Binary/$(Configuration)/$(ProjectName)/</OutDir>
@@ -305,6 +310,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(VC_ExecutablePath_x64);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(FxCopDir);$(PATH);</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Game_Debug|x64'">
     <OutDir>$(ProjectDir)../Binary/$(Configuration)/$(ProjectName)/</OutDir>
@@ -312,6 +318,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(ExecutablePath)</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Game_Release|x64'">
     <OutDir>$(ProjectDir)../Binary/$(Configuration)/$(ProjectName)/</OutDir>
@@ -319,6 +326,7 @@
     <IncludePath>$(ProjectDir)../Source/;$(ProjectDir)../Library/;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <ExecutablePath>$(ProjectDir)../Binary/;$(VC_ExecutablePath_x64);$(WindowsSDK_ExecutablePath);$(VS_ExecutablePath);$(MSBuild_ExecutablePath);$(FxCopDir);$(PATH);</ExecutablePath>
     <LibraryPath>$(ProjectDir)../Library/;$(VC_LibraryPath_x64);$(WindowsSDK_LibraryPath_x64);$(NETFXKitsDir)Lib\um\x64</LibraryPath>
+    <TargetName>RunWitch</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Game_Debug|Win32'">
     <ClCompile>
