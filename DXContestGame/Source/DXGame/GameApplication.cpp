@@ -15,10 +15,11 @@ GameApplication::GameApplication(void)
 
 // マウスカーソル座標セッター
 void GameApplication::SetMouseTransform(const DirectX::XMINT2& in) {
-    //----- マウス座標を格納する
-    m_mouseTrasform = in; 
+    //----- ウィンドウサイズを超えたマウス座標を無視する
+    bool isX = in.x <= m_windowSizeX;
+    bool isY = in.y <= m_windowSizeY;
 
-    //----- ウィンドウサイズを超えたマウス座標を補正する
-    if (m_mouseTrasform.x > m_windowSizeX) m_mouseTrasform.x = m_windowSizeX;
-    if (m_mouseTrasform.y > m_windowSizeY) m_mouseTrasform.y = m_windowSizeY;
+    //----- マウス座標を格納する
+    m_mouseTrasform.x = isX ? in.x : m_mouseTrasform.x;
+    m_mouseTrasform.y = isY ? in.y : m_mouseTrasform.y;
 }
